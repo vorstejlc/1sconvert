@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Length Converter — mm, cm, m, km, ft, in, mi & More | 1 Step Converter</title>
-<meta name="description" content="Instantly convert between millimeters, centimeters, meters, kilometers, inches, feet, yards, miles, nautical miles, and astronomical units. Free length converter with 15 units.">
+<title>Energy & Work Converter — Joules, kWh, Calories, BTU, eV & More | 1 Step Converter</title>
+<meta name="description" content="Convert energy and work units instantly: joules, kilojoules, kilowatt-hours, calories, kilocalories, BTU, electronvolts, foot-pounds and more. Free online energy converter.">
 <script>
 (function() {
   const THEMES = [
@@ -41,7 +41,6 @@
     .nav-links a.active { background: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.1); }
     .result-card.highlight .r-value { color: ${rgb(t.accent3)}; }
     .copy-pip { background: ${rgb(t.accent)}; }
-    .section-title { color: ${rgb(t.accent)}; }
   `;
   document.head.appendChild(s);
 })();
@@ -49,18 +48,17 @@
 <link rel="stylesheet" href="shared.css">
 </head>
 <body>
-
 <nav class="site-nav">
   <a href="index.html" class="nav-logo"><span class="logo-mark">1S</span>1 Step Converter</a>
-    <div class="nav-links">
-    <a href="length.html"  class="active">Length</a>
+  <div class="nav-links">
+    <a href="length.html">Length</a>
     <a href="weight.html">Weight</a>
     <a href="temperature.html">Temp</a>
     <a href="speed.html">Speed</a>
     <a href="area.html">Area</a>
     <a href="volume.html">Volume</a>
     <a href="pressure.html">Pressure</a>
-    <a href="energy.html">Energy</a>
+    <a href="energy.html" class="active">Energy</a>
     <a href="power.html">Power</a>
     <a href="force.html">Force</a>
     <a href="electricity.html">Electricity</a>
@@ -70,123 +68,80 @@
     <a href="cooking.html">Cooking</a>
   </div>
 </nav>
-
 <main class="page-wrap">
   <div class="page-header animate-in">
-    <span class="eyebrow">📏 Length</span>
-    <h1>Length Converter</h1>
-    <p class="sub">15 units · metric, imperial &amp; astronomical</p>
+    <span class="eyebrow">⚡ Energy &amp; Work</span>
+    <h1>Energy Converter</h1>
+    <p class="sub">11 units · SI, imperial &amp; scientific</p>
   </div>
-
   <div class="card animate-in delay-1">
     <div class="tabs" id="tabs">
       <button class="tab active" data-cat="all">All</button>
-      <button class="tab" data-cat="metric">Metric</button>
+      <button class="tab" data-cat="si">SI / Metric</button>
       <button class="tab" data-cat="imperial">Imperial</button>
-      <button class="tab" data-cat="astro">Astronomical</button>
+      <button class="tab" data-cat="sci">Scientific</button>
     </div>
-
     <div class="input-row">
-      <div>
-        <label class="field-label" for="val-input">Value</label>
-        <input type="number" id="val-input" value="1" step="any" placeholder="0">
-      </div>
-      <div>
-        <label class="field-label" for="unit-sel">From</label>
-        <select id="unit-sel"></select>
-      </div>
+      <div><label class="field-label" for="val-input">Value</label><input type="number" id="val-input" value="1" step="any" placeholder="0"></div>
+      <div><label class="field-label" for="unit-sel">From</label><select id="unit-sel"></select></div>
     </div>
-
     <div class="divider">results</div>
     <div class="results-grid" id="results"></div>
-
-    <div class="formula-bar">
-      <span class="f-label">formula</span>
-      <span id="formula">—</span>
-    </div>
+    <div class="formula-bar"><span class="f-label">formula</span><span id="formula">—</span></div>
   </div>
 </main>
-
 <footer class="site-footer">
-  <div style="display:flex;align-items:center;gap:0.85rem">
-    <img src="logo.png" alt="JV Logo" style="width:48px;height:48px;object-fit:contain;border-radius:50%;opacity:0.9;flex-shrink:0;">
-    <p>© 2025 1 Step Converter</p>
-  </div>
+  <p>© 2025 1 Step Converter</p>
   <a href="index.html">← All Converters</a>
 </footer>
-
 <script>
+// All stored in Joules
 const UNITS = [
-  { key:'pm',  sym:'pm',  name:'Picometer',          toM:1e-12,   cat:'metric' },
-  { key:'nm',  sym:'nm',  name:'Nanometer',           toM:1e-9,    cat:'metric' },
-  { key:'um',  sym:'μm',  name:'Micrometer',          toM:1e-6,    cat:'metric' },
-  { key:'mm',  sym:'mm',  name:'Millimeter',          toM:0.001,   cat:'metric' },
-  { key:'cm',  sym:'cm',  name:'Centimeter',          toM:0.01,    cat:'metric' },
-  { key:'m',   sym:'m',   name:'Meter',               toM:1,       cat:'metric' },
-  { key:'km',  sym:'km',  name:'Kilometer',           toM:1000,    cat:'metric' },
-  { key:'in',  sym:'in',  name:'Inch',                toM:0.0254,  cat:'imperial' },
-  { key:'ft',  sym:'ft',  name:'Foot',                toM:0.3048,  cat:'imperial' },
-  { key:'yd',  sym:'yd',  name:'Yard',                toM:0.9144,  cat:'imperial' },
-  { key:'mi',  sym:'mi',  name:'Mile',                toM:1609.344,cat:'imperial' },
-  { key:'nmi', sym:'nmi', name:'Nautical Mile',       toM:1852,    cat:'imperial' },
-  { key:'au',  sym:'AU',  name:'Astronomical Unit',   toM:1.496e11,cat:'astro' },
-  { key:'ly',  sym:'ly',  name:'Light Year',          toM:9.461e15,cat:'astro' },
-  { key:'pc',  sym:'pc',  name:'Parsec',              toM:3.086e16,cat:'astro' },
+  { key:'j',    sym:'J',     name:'Joule',              toJ:1,            cat:'si' },
+  { key:'kj',   sym:'kJ',    name:'Kilojoule',          toJ:1000,         cat:'si' },
+  { key:'mj',   sym:'MJ',    name:'Megajoule',          toJ:1e6,          cat:'si' },
+  { key:'gj',   sym:'GJ',    name:'Gigajoule',          toJ:1e9,          cat:'si' },
+  { key:'wh',   sym:'Wh',    name:'Watt-hour',          toJ:3600,         cat:'si' },
+  { key:'kwh',  sym:'kWh',   name:'Kilowatt-hour',      toJ:3600000,      cat:'si' },
+  { key:'cal',  sym:'cal',   name:'Calorie (small)',    toJ:4.184,        cat:'si' },
+  { key:'kcal', sym:'kcal',  name:'Kilocalorie (food)', toJ:4184,         cat:'si' },
+  { key:'btu',  sym:'BTU',   name:'British Thermal Unit',toJ:1055.06,     cat:'imperial' },
+  { key:'ftlb', sym:'ft·lb', name:'Foot-pound',         toJ:1.355818,     cat:'imperial' },
+  { key:'ev',   sym:'eV',    name:'Electronvolt',       toJ:1.602176634e-19, cat:'sci' },
 ];
-
 let cat = 'all';
 const sel = document.getElementById('unit-sel');
 const inp = document.getElementById('val-input');
 const grid = document.getElementById('results');
 const formula = document.getElementById('formula');
-
-UNITS.forEach(u => {
-  const o = document.createElement('option');
-  o.value = u.key; o.textContent = `${u.sym} — ${u.name}`;
-  sel.appendChild(o);
-});
-sel.value = 'm';
-
+UNITS.forEach(u => { const o = document.createElement('option'); o.value=u.key; o.textContent=`${u.sym} — ${u.name}`; sel.appendChild(o); });
+sel.value = 'j';
 function fmt(n) {
-  if (n === 0) return '0';
-  const a = Math.abs(n);
-  if (a >= 1e15 || a < 1e-9) return n.toExponential(4);
-  if (a >= 1000) return n.toLocaleString('en-US', {maximumFractionDigits:4});
+  if (n===0) return '0'; const a=Math.abs(n);
+  if (a>=1e15||a<1e-22) return n.toExponential(4);
+  if (a>=1000) return n.toLocaleString('en-US',{maximumFractionDigits:4});
   return parseFloat(n.toPrecision(7)).toString();
 }
-
-let copyTimer;
+let ct;
 function render() {
-  const v = parseFloat(inp.value) || 0;
-  const from = UNITS.find(u => u.key === sel.value);
-  const meters = v * from.toM;
-  const show = cat === 'all' ? UNITS : UNITS.filter(u => u.cat === cat);
-  grid.innerHTML = '';
-  show.forEach(u => {
-    if (u.key === from.key) return;
-    const cv = meters / u.toM;
-    const card = document.createElement('div');
-    card.className = 'result-card';
-    card.innerHTML = `<div class="r-unit">${u.sym}</div><div class="r-value">${fmt(cv)}</div><div class="r-name">${u.name}</div><div class="copy-pip">copied!</div>`;
-    card.onclick = () => {
-      navigator.clipboard?.writeText(fmt(cv)).catch(()=>{});
-      card.classList.add('copied');
-      clearTimeout(copyTimer);
-      copyTimer = setTimeout(() => card.classList.remove('copied'), 1100);
-    };
+  const v=parseFloat(inp.value)||0;
+  const from=UNITS.find(u=>u.key===sel.value);
+  const j=v*from.toJ;
+  const show=cat==='all'?UNITS:UNITS.filter(u=>u.cat===cat);
+  grid.innerHTML='';
+  show.forEach(u=>{
+    if(u.key===from.key)return;
+    const cv=j/u.toJ;
+    const card=document.createElement('div');
+    card.className='result-card';
+    card.innerHTML=`<div class="r-unit">${u.sym}</div><div class="r-value">${fmt(cv)}</div><div class="r-name">${u.name}</div><div class="copy-pip">copied!</div>`;
+    card.onclick=()=>{ navigator.clipboard?.writeText(fmt(cv)).catch(()=>{}); card.classList.add('copied'); clearTimeout(ct); ct=setTimeout(()=>card.classList.remove('copied'),1100); };
     grid.appendChild(card);
   });
-  formula.textContent = `1 ${from.sym} = ${fmt(from.toM)} m`;
+  formula.textContent=`1 ${from.sym} = ${fmt(from.toJ)} J`;
 }
-
-inp.addEventListener('input', render);
-sel.addEventListener('change', render);
-document.getElementById('tabs').addEventListener('click', e => {
-  const t = e.target.closest('.tab'); if (!t) return;
-  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-  t.classList.add('active'); cat = t.dataset.cat; render();
-});
-
+inp.addEventListener('input',render); sel.addEventListener('change',render);
+document.getElementById('tabs').addEventListener('click',e=>{ const t=e.target.closest('.tab');if(!t)return; document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); t.classList.add('active');cat=t.dataset.cat;render(); });
 render();
 </script>
 </body>

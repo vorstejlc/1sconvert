@@ -5,22 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weight & Mass Converter — kg, lb, oz, g, Stone, Tonnes | 1 Step Converter</title>
 <meta name="description" content="Convert weight and mass units instantly: kilograms, pounds, ounces, grams, stone, metric tonnes, carats, milligrams and more. Free online weight converter.">
+<script>
+(function() {
+  const THEMES = [
+    { name:'violet',  accent:[108,99,255],  accent2:[167,139,250], accent3:[99,226,255],  bg1:[108,99,255,.08],  bg2:[99,226,255,.06],  bg3:[255,107,157,.05] },
+    { name:'emerald', accent:[52,211,153],  accent2:[34,197,94],   accent3:[163,230,53],  bg1:[52,211,153,.08],  bg2:[163,230,53,.06],  bg3:[34,197,94,.05]   },
+    { name:'rose',    accent:[251,113,133], accent2:[244,63,94],   accent3:[253,186,116], bg1:[251,113,133,.08], bg2:[253,186,116,.06], bg3:[244,63,94,.05]   },
+    { name:'cyan',    accent:[34,211,238],  accent2:[6,182,212],   accent3:[129,140,248], bg1:[34,211,238,.08],  bg2:[129,140,248,.06], bg3:[6,182,212,.05]   },
+    { name:'amber',   accent:[251,191,36],  accent2:[245,158,11],  accent3:[252,211,77],  bg1:[251,191,36,.08],  bg2:[252,211,77,.06],  bg3:[245,158,11,.05]  },
+    { name:'fuchsia', accent:[232,121,249], accent2:[168,85,247],  accent3:[196,181,253], bg1:[232,121,249,.08], bg2:[196,181,253,.06], bg3:[168,85,247,.05]  },
+    { name:'sky',     accent:[56,189,248],  accent2:[14,165,233],  accent3:[103,232,249], bg1:[56,189,248,.08],  bg2:[103,232,249,.06], bg3:[14,165,233,.05]  },
+    { name:'coral',   accent:[249,115,22],  accent2:[234,88,12],   accent3:[251,146,60],  bg1:[249,115,22,.08],  bg2:[251,146,60,.06],  bg3:[234,88,12,.05]   },
+    { name:'lime',    accent:[132,204,22],  accent2:[101,163,13],  accent3:[74,222,128],  bg1:[132,204,22,.08],  bg2:[74,222,128,.06],  bg3:[101,163,13,.05]  },
+    { name:'indigo',  accent:[99,102,241],  accent2:[79,70,229],   accent3:[167,139,250], bg1:[99,102,241,.08],  bg2:[167,139,250,.06], bg3:[79,70,229,.05]   },
+  ];
+  const t = THEMES[Math.floor(Math.random() * THEMES.length)];
+  const r = document.documentElement.style;
+  const rgb = a => `rgb(${a[0]},${a[1]},${a[2]})`;
+  const rgba = a => `rgba(${a[0]},${a[1]},${a[2]},${a[3]})`;
+  r.setProperty('--accent',  rgb(t.accent));
+  r.setProperty('--accent2', rgb(t.accent2));
+  r.setProperty('--accent3', rgb(t.accent3));
+  r.setProperty('--glow',    `rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.2)`);
+  const s = document.createElement('style');
+  s.textContent = `
+    body::before { background:
+      radial-gradient(ellipse 60% 50% at 20% 30%, ${rgba(t.bg1)} 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, ${rgba(t.bg2)} 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 60% 10%, ${rgba(t.bg3)} 0%, transparent 60%); }
+    body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; }
+    .nav-logo .logo-mark { background: linear-gradient(135deg, ${rgb(t.accent)}, ${rgb(t.accent2)}); }
+    .tab.active { background: ${rgb(t.accent)}; border-color: ${rgb(t.accent)}; }
+    .tab:hover, input:focus, select:focus { border-color: ${rgb(t.accent)} !important; }
+    .page-header .eyebrow, .formula-bar .f-label, .nav-links a.active { color: ${rgb(t.accent)}; }
+    .nav-links a.active { background: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.1); }
+    .result-card.highlight .r-value { color: ${rgb(t.accent3)}; }
+    .copy-pip { background: ${rgb(t.accent)}; }
+    .section-title { color: ${rgb(t.accent)}; }
+  `;
+  document.head.appendChild(s);
+})();
+</script>
 <link rel="stylesheet" href="shared.css">
 </head>
 <body>
 
 <nav class="site-nav">
   <a href="index.html" class="nav-logo"><span class="logo-mark">1S</span>1 Step Converter</a>
-  <div class="nav-links">
+    <div class="nav-links">
     <a href="length.html">Length</a>
-    <a href="weight.html" class="active">Weight</a>
+    <a href="weight.html"  class="active">Weight</a>
     <a href="temperature.html">Temp</a>
     <a href="speed.html">Speed</a>
     <a href="area.html">Area</a>
     <a href="volume.html">Volume</a>
-    <a href="cooking.html">Cooking</a>
-    <a href="data.html">Data</a>
     <a href="pressure.html">Pressure</a>
+    <a href="energy.html">Energy</a>
+    <a href="power.html">Power</a>
+    <a href="force.html">Force</a>
+    <a href="electricity.html">Electricity</a>
+    <a href="time.html">Time</a>
+    <a href="density.html">Density</a>
+    <a href="data.html">Data</a>
+    <a href="cooking.html">Cooking</a>
   </div>
 </nav>
 
@@ -61,7 +108,10 @@
 </main>
 
 <footer class="site-footer">
-  <p>© 2025 1 Step Converter</p>
+  <div style="display:flex;align-items:center;gap:0.85rem">
+    <img src="logo.png" alt="JV Logo" style="width:48px;height:48px;object-fit:contain;border-radius:50%;opacity:0.9;flex-shrink:0;">
+    <p>© 2025 1 Step Converter</p>
+  </div>
   <a href="index.html">← All Converters</a>
 </footer>
 

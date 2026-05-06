@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>1 Step Converter — Free Online Unit Converter for Every Measurement</title>
-<meta name="description" content="Convert length, weight, temperature, speed, area, volume, cooking measurements, and data storage instantly — all in one step. Fast, free, and beautifully simple.">
+<meta name="description" content="Convert length, weight, temperature, speed, area, volume, energy, power, electricity, force, time, density, pressure, data and cooking measurements instantly — all in one step.">
 <script>
 (function() {
   const THEMES = [
@@ -35,16 +35,14 @@
       radial-gradient(ellipse 40% 60% at 60% 10%, ${rgba(t.bg3)} 0%, transparent 60%); }
     body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; }
     .nav-logo .logo-mark { background: linear-gradient(135deg, ${rgb(t.accent)}, ${rgb(t.accent2)}); }
-    .tab.active { background: ${rgb(t.accent)}; border-color: ${rgb(t.accent)}; }
-    .tab:hover, input:focus, select:focus { border-color: ${rgb(t.accent)} !important; }
-    .page-header .eyebrow, .formula-bar .f-label, .nav-links a.active { color: ${rgb(t.accent)}; }
-    .nav-links a.active { background: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.1); }
-    .result-card.highlight, .result-card.highlight .r-value { border-color: ${rgb(t.accent)}; color: ${rgb(t.accent3)}; }
-    .copy-pip { background: ${rgb(t.accent)}; }
-    .section-title { color: ${rgb(t.accent)}; }
+    .hero-eyebrow { color: ${rgb(t.accent)}; background: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.08); border-color: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.2); }
+    .nav-links a.active { color: ${rgb(t.accent)}; background: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.1); }
+    .hero h1 em { background: linear-gradient(135deg, ${rgb(t.accent)} 0%, ${rgb(t.accent2)} 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .group-label { color: ${rgb(t.accent)}; border-bottom-color: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.2); }
+    .section-label { color: ${rgb(t.accent)}; }
     @keyframes breathe-glow {
       0%, 100% { filter: drop-shadow(0 0 4px ${rgb(t.accent)}); }
-      50%       { filter: drop-shadow(0 0 16px ${rgb(t.accent)}) drop-shadow(0 0 28px ${rgb(t.accent)}); }
+      50%       { filter: drop-shadow(0 0 12px ${rgb(t.accent)}); }
     }
   `;
   document.head.appendChild(s);
@@ -53,370 +51,249 @@
 <link rel="stylesheet" href="shared.css">
 <style>
   .hero {
-    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 5vw, 3rem);
-    text-align: center;
-    position: relative;
+    padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,3rem) clamp(2rem,5vw,3rem);
+    text-align: center; position: relative;
   }
-
   .hero::before {
-    content: '';
-    position: absolute;
-    top: -80px; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 400px;
-    background: radial-gradient(ellipse, rgba(79,142,255,0.08) 0%, transparent 70%);
-    pointer-events: none;
+    content:''; position:absolute; top:-80px; left:50%; transform:translateX(-50%);
+    width:600px; height:400px;
+    background:radial-gradient(ellipse,rgba(79,142,255,0.08) 0%,transparent 70%);
+    pointer-events:none;
   }
-
   .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: rgba(79,142,255,0.08);
-    border: 1px solid rgba(79,142,255,0.2);
-    border-radius: 100px;
-    padding: 0.35rem 0.9rem;
-    margin-bottom: 1.5rem;
+    display:inline-flex; align-items:center; gap:0.5rem;
+    font-family:'JetBrains Mono',monospace; font-size:0.65rem;
+    letter-spacing:0.18em; text-transform:uppercase;
+    border-radius:100px; padding:0.35rem 0.9rem; margin-bottom:1.5rem;
+    border: 1px solid;
   }
-
   .hero h1 {
-    font-size: clamp(2.8rem, 7vw, 5rem);
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    line-height: 1;
-    color: var(--text);
-    margin-bottom: 1rem;
-    overflow: visible;
-    padding-bottom: 0.12em; /* prevents descenders like p being clipped */
+    font-size:clamp(2.8rem,7vw,5rem); font-weight:800;
+    letter-spacing:-0.05em; line-height:1; color:var(--text);
+    margin-bottom:1rem; padding-bottom:0.12em; overflow:visible;
   }
-
   .hero h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block; /* needed for filter to work on clipped text */
-    padding-right: 0.1em;
-    animation: breathe-glow 5s ease-in-out infinite;
+    font-style:normal; display:inline-block; padding-right:0.1em;
+    animation: breathe-glow 3s ease-in-out infinite;
   }
-
-  @keyframes breathe-glow {
-    0%, 100% { filter: drop-shadow(0 0 4px var(--accent)); }
-    50%       { filter: drop-shadow(0 0 12px var(--accent)) } /* drop-shadow(0 0 12px var(--accent)); }*/
-  }
-
   .hero p {
-    font-size: clamp(0.95rem, 2vw, 1.1rem);
-    color: var(--muted2);
-    max-width: 480px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
-    font-weight: 400;
+    font-size:clamp(0.95rem,2vw,1.1rem); color:var(--muted2);
+    max-width:500px; margin:0 auto 2.5rem; line-height:1.7; font-weight:400;
   }
+  .hero-stats { display:flex; align-items:center; justify-content:center; gap:2rem; flex-wrap:wrap; }
+  .stat { text-align:center; }
+  .stat .num { font-size:1.6rem; font-weight:800; letter-spacing:-0.03em; color:var(--text); font-family:'JetBrains Mono',monospace; }
+  .stat .lbl { font-size:0.7rem; color:var(--muted); font-family:'JetBrains Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; margin-top:0.1rem; }
+  .stat-sep { color:var(--border2); font-size:1.5rem; }
 
-  .hero-stats {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-bottom: 0;
+  .converters-section { padding:0 clamp(1rem,4vw,3rem) clamp(3rem,6vw,5rem); max-width:1100px; margin:0 auto; }
+  .section-label { font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:1.5rem; display:block; }
+
+  .converter-group { margin-bottom:2.5rem; }
+  .group-label {
+    font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.16em;
+    text-transform:uppercase; margin-bottom:0.9rem; padding-bottom:0.5rem;
+    border-bottom:1px solid; display:block;
   }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat .num {
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .stat .lbl {
-    font-size: 0.7rem;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-top: 0.1rem;
-  }
-
-  .stat-sep { color: var(--border2); font-size: 1.5rem; }
-
-  /* Grid */
-  .converters-section {
-    padding: 0 clamp(1rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1.25rem;
-    display: block;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
-  }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:0.8rem; }
 
   .converter-tile {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 1.5rem;
-    text-decoration: none;
-    color: var(--text);
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.18s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    animation: fadeUp 0.5s ease both;
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:1.2rem; text-decoration:none; color:var(--text); position:relative;
+    overflow:hidden; transition:border-color 0.2s, transform 0.18s, box-shadow 0.2s;
+    display:flex; flex-direction:column; gap:0.45rem;
+    animation:fadeUp 0.5s ease both;
+  }
+  .converter-tile:hover { border-color:var(--tile-color,var(--accent)); transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,0.4); }
+  .converter-tile::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--tile-color,var(--accent)); opacity:0; transition:opacity 0.2s; }
+  .converter-tile:hover::before { opacity:1; }
+
+  .tile-icon { font-size:1.5rem; line-height:1; margin-bottom:0.1rem; }
+  .tile-name { font-size:0.92rem; font-weight:700; letter-spacing:-0.02em; }
+  .tile-desc { font-size:0.72rem; color:var(--muted2); line-height:1.5; flex:1; }
+  .tile-units { display:flex; flex-wrap:wrap; gap:0.22rem; margin-top:0.1rem; }
+  .tile-unit-chip { font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.04em; background:var(--surface3); border:1px solid var(--border); border-radius:4px; padding:0.1rem 0.32rem; color:var(--muted2); }
+  .tile-arrow { font-size:0.7rem; color:var(--muted); transition:color 0.2s,transform 0.2s; align-self:flex-end; margin-top:0.2rem; }
+  .converter-tile:hover .tile-arrow { color:var(--tile-color,var(--accent)); transform:translateX(3px); }
+  .converter-tile:nth-child(1){animation-delay:.04s}.converter-tile:nth-child(2){animation-delay:.08s}
+  .converter-tile:nth-child(3){animation-delay:.12s}.converter-tile:nth-child(4){animation-delay:.16s}
+  .converter-tile:nth-child(5){animation-delay:.20s}.converter-tile:nth-child(6){animation-delay:.24s}
+
+  /* ── FOOTER LOGO ── */
+  .footer-logo {
+    width: 48px;   /* ← change this to resize the logo */
+    height: 48px;  /* ← keep same as width */
+    object-fit: contain;
+    border-radius: 50%;
+    opacity: 0.9;
+    flex-shrink: 0;
   }
 
-  .converter-tile:hover {
-    border-color: var(--tile-color, var(--accent));
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-  }
-
-  .converter-tile::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 2px;
-    background: var(--tile-color, var(--accent));
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .converter-tile:hover::before { opacity: 1; }
-
-  .tile-icon {
-    width: 42px; height: 42px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.9rem;
-  }
-
-  .tile-name {
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .tile-desc {
-    font-size: 0.78rem;
-    color: var(--muted2);
-    line-height: 1.5;
-    flex: 1;
-  }
-
-  .tile-units {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-    margin-top: 0.25rem;
-  }
-
-  .tile-unit-chip {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.06em;
-    background: var(--surface3);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.15rem 0.4rem;
-    color: var(--muted2);
-  }
-
-  .tile-arrow {
-    font-size: 0.75rem;
-    color: var(--muted);
-    transition: color 0.2s, transform 0.2s;
-    align-self: flex-end;
-    margin-top: auto;
-  }
-
-  .converter-tile:hover .tile-arrow {
-    color: var(--tile-color, var(--accent));
-    transform: translateX(3px);
-  }
-
-  /* delay stagger */
-  .converter-tile:nth-child(1) { animation-delay: 0.05s; }
-  .converter-tile:nth-child(2) { animation-delay: 0.10s; }
-  .converter-tile:nth-child(3) { animation-delay: 0.15s; }
-  .converter-tile:nth-child(4) { animation-delay: 0.20s; }
-  .converter-tile:nth-child(5) { animation-delay: 0.25s; }
-  .converter-tile:nth-child(6) { animation-delay: 0.30s; }
-  .converter-tile:nth-child(7) { animation-delay: 0.35s; }
-  .converter-tile:nth-child(8) { animation-delay: 0.40s; }
-
-  @media (max-width: 520px) {
-    .hero-stats { gap: 1.25rem; }
-    .stat-sep { display: none; }
-  }
+  @media(max-width:520px){ .hero-stats{gap:1.25rem;} .stat-sep{display:none;} }
 </style>
 </head>
 <body>
 
 <nav class="site-nav">
-  <a href="index.html" class="nav-logo">
-    <span class="logo-mark">1S</span>
-    1 Step Converter
-  </a>
+  <a href="index.html" class="nav-logo"><span class="logo-mark">1S</span>1 Step Converter</a>
   <div class="nav-links">
-    <a href="length.html">Length</a>
-    <a href="weight.html">Weight</a>
-    <a href="temperature.html">Temp</a>
-    <a href="speed.html">Speed</a>
-    <a href="area.html">Area</a>
-    <a href="volume.html">Volume</a>
-    <a href="cooking.html">Cooking</a>
-    <a href="data.html">Data</a>
-    <a href="pressure.html">Pressure</a>
+    <a href="length.html">Length</a><a href="weight.html">Weight</a><a href="temperature.html">Temp</a>
+    <a href="speed.html">Speed</a><a href="area.html">Area</a><a href="volume.html">Volume</a>
+    <a href="pressure.html">Pressure</a><a href="energy.html">Energy</a><a href="power.html">Power</a>
+    <a href="force.html">Force</a><a href="electricity.html">Electricity</a><a href="time.html">Time</a>
+    <a href="density.html">Density</a><a href="data.html">Data</a><a href="cooking.html">Cooking</a>
   </div>
 </nav>
 
 <section class="hero animate-in">
   <div class="hero-eyebrow">⚡ Instant · Free</div>
   <h1>Convert anything<br>in <em>one step</em></h1>
-  <p>Nine powerful unit converters for every measurement you'll ever need. Clean, fast, and always right.</p>
+  <p>15 powerful unit converters covering every measurement you'll ever need. Clean, fast, and always right.</p>
   <div class="hero-stats">
-    <div class="stat"><div class="num">9</div><div class="lbl">Converters</div></div>
+    <div class="stat"><div class="num">15</div><div class="lbl">Converters</div></div>
     <div class="stat-sep">·</div>
-    <div class="stat"><div class="num">100+</div><div class="lbl">Units</div></div>
+    <div class="stat"><div class="num">150+</div><div class="lbl">Units</div></div>
     <div class="stat-sep">·</div>
-    <!-- <div class="stat"><div class="num">0</div><div class="lbl">Ads</div></div> -->
-    <!-- <div class="stat-sep">·</div> -->
     <div class="stat"><div class="num">∞</div><div class="lbl">Conversions</div></div>
   </div>
 </section>
 
 <section class="converters-section">
   <span class="section-label">Choose a converter</span>
-  <div class="grid">
 
-    <a href="length.html" class="converter-tile" style="--tile-color:#4f8eff">
-      <div class="tile-icon">📏</div>
-      <div class="tile-name">Length</div>
-      <div class="tile-desc">Meters, miles, feet, light years and everything in between.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">mm</span><span class="tile-unit-chip">cm</span><span class="tile-unit-chip">m</span><span class="tile-unit-chip">km</span><span class="tile-unit-chip">ft</span><span class="tile-unit-chip">mi</span><span class="tile-unit-chip">+9</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="weight.html" class="converter-tile" style="--tile-color:#a78bfa">
-      <div class="tile-icon">⚖️</div>
-      <div class="tile-name">Weight & Mass</div>
-      <div class="tile-desc">Kilograms, pounds, ounces, stones, carats and more.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">kg</span><span class="tile-unit-chip">lb</span><span class="tile-unit-chip">oz</span><span class="tile-unit-chip">g</span><span class="tile-unit-chip">st</span><span class="tile-unit-chip">+7</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="temperature.html" class="converter-tile" style="--tile-color:#f87171">
-      <div class="tile-icon">🌡️</div>
-      <div class="tile-name">Temperature</div>
-      <div class="tile-desc">Celsius, Fahrenheit, Kelvin and Rankine conversions.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">°C</span><span class="tile-unit-chip">°F</span><span class="tile-unit-chip">K</span><span class="tile-unit-chip">°R</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="speed.html" class="converter-tile" style="--tile-color:#34d399">
-      <div class="tile-icon">🚀</div>
-      <div class="tile-name">Speed</div>
-      <div class="tile-desc">km/h, mph, knots, m/s and speed of light conversions.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">km/h</span><span class="tile-unit-chip">mph</span><span class="tile-unit-chip">m/s</span><span class="tile-unit-chip">kn</span><span class="tile-unit-chip">+3</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="area.html" class="converter-tile" style="--tile-color:#fbbf24">
-      <div class="tile-icon">🗺️</div>
-      <div class="tile-name">Area</div>
-      <div class="tile-desc">Square meters, acres, hectares, square miles and more.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">m²</span><span class="tile-unit-chip">km²</span><span class="tile-unit-chip">ha</span><span class="tile-unit-chip">ac</span><span class="tile-unit-chip">ft²</span><span class="tile-unit-chip">+6</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="volume.html" class="converter-tile" style="--tile-color:#38bdf8">
-      <div class="tile-icon">🫙</div>
-      <div class="tile-name">Volume</div>
-      <div class="tile-desc">Litres, gallons, fluid ounces, cubic meters and more.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">L</span><span class="tile-unit-chip">mL</span><span class="tile-unit-chip">gal</span><span class="tile-unit-chip">fl oz</span><span class="tile-unit-chip">+7</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="cooking.html" class="converter-tile" style="--tile-color:#fb923c">
-      <div class="tile-icon">🍳</div>
-      <div class="tile-name">Cooking</div>
-      <div class="tile-desc">Cups, tablespoons, teaspoons, ml, oz and oven temperatures.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">cup</span><span class="tile-unit-chip">tbsp</span><span class="tile-unit-chip">tsp</span><span class="tile-unit-chip">mL</span><span class="tile-unit-chip">+5</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="data.html" class="converter-tile" style="--tile-color:#e879f9">
-      <div class="tile-icon">💾</div>
-      <div class="tile-name">Data Storage</div>
-      <div class="tile-desc">Bits, bytes, kilobytes all the way up to petabytes and beyond.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">bit</span><span class="tile-unit-chip">B</span><span class="tile-unit-chip">KB</span><span class="tile-unit-chip">MB</span><span class="tile-unit-chip">GB</span><span class="tile-unit-chip">+5</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
-    <a href="pressure.html" class="converter-tile" style="--tile-color:#818cf8">
-      <div class="tile-icon">🔵</div>
-      <div class="tile-name">Pressure</div>
-      <div class="tile-desc">Pascals, bar, PSI, atmospheres, torr, mmHg and more.</div>
-      <div class="tile-units">
-        <span class="tile-unit-chip">Pa</span><span class="tile-unit-chip">bar</span><span class="tile-unit-chip">psi</span><span class="tile-unit-chip">atm</span><span class="tile-unit-chip">+8</span>
-      </div>
-      <div class="tile-arrow">→</div>
-    </a>
-
+  <div class="converter-group">
+    <span class="group-label">📐 Physical Dimensions</span>
+    <div class="grid">
+      <a href="length.html" class="converter-tile" style="--tile-color:#4f8eff">
+        <div class="tile-icon">📏</div><div class="tile-name">Length</div>
+        <div class="tile-desc">Meters, miles, feet, light years and everything in between.</div>
+        <div class="tile-units"><span class="tile-unit-chip">mm</span><span class="tile-unit-chip">cm</span><span class="tile-unit-chip">m</span><span class="tile-unit-chip">km</span><span class="tile-unit-chip">ft</span><span class="tile-unit-chip">mi</span><span class="tile-unit-chip">+9</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="area.html" class="converter-tile" style="--tile-color:#fbbf24">
+        <div class="tile-icon">🗺️</div><div class="tile-name">Area</div>
+        <div class="tile-desc">Square meters, acres, hectares, square miles and more.</div>
+        <div class="tile-units"><span class="tile-unit-chip">m²</span><span class="tile-unit-chip">km²</span><span class="tile-unit-chip">ha</span><span class="tile-unit-chip">ac</span><span class="tile-unit-chip">ft²</span><span class="tile-unit-chip">+6</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="volume.html" class="converter-tile" style="--tile-color:#38bdf8">
+        <div class="tile-icon">🫙</div><div class="tile-name">Volume</div>
+        <div class="tile-desc">Litres, gallons, fluid ounces, cubic meters and more.</div>
+        <div class="tile-units"><span class="tile-unit-chip">L</span><span class="tile-unit-chip">mL</span><span class="tile-unit-chip">gal</span><span class="tile-unit-chip">fl oz</span><span class="tile-unit-chip">+9</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="weight.html" class="converter-tile" style="--tile-color:#a78bfa">
+        <div class="tile-icon">⚖️</div><div class="tile-name">Weight &amp; Mass</div>
+        <div class="tile-desc">Kilograms, pounds, ounces, stones, carats and more.</div>
+        <div class="tile-units"><span class="tile-unit-chip">kg</span><span class="tile-unit-chip">lb</span><span class="tile-unit-chip">oz</span><span class="tile-unit-chip">g</span><span class="tile-unit-chip">st</span><span class="tile-unit-chip">+7</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="density.html" class="converter-tile" style="--tile-color:#c084fc">
+        <div class="tile-icon">🧱</div><div class="tile-name">Density</div>
+        <div class="tile-desc">kg/m³, g/cm³, lb/ft³, lb/in³ and more.</div>
+        <div class="tile-units"><span class="tile-unit-chip">kg/m³</span><span class="tile-unit-chip">g/cm³</span><span class="tile-unit-chip">lb/ft³</span><span class="tile-unit-chip">+5</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="temperature.html" class="converter-tile" style="--tile-color:#f87171">
+        <div class="tile-icon">🌡️</div><div class="tile-name">Temperature</div>
+        <div class="tile-desc">Celsius, Fahrenheit, Kelvin and Rankine conversions.</div>
+        <div class="tile-units"><span class="tile-unit-chip">°C</span><span class="tile-unit-chip">°F</span><span class="tile-unit-chip">K</span><span class="tile-unit-chip">°R</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+    </div>
   </div>
+
+  <div class="converter-group">
+    <span class="group-label">🚀 Motion, Force &amp; Pressure</span>
+    <div class="grid">
+      <a href="speed.html" class="converter-tile" style="--tile-color:#34d399">
+        <div class="tile-icon">🚀</div><div class="tile-name">Speed</div>
+        <div class="tile-desc">km/h, mph, knots, m/s and speed of light.</div>
+        <div class="tile-units"><span class="tile-unit-chip">km/h</span><span class="tile-unit-chip">mph</span><span class="tile-unit-chip">m/s</span><span class="tile-unit-chip">kn</span><span class="tile-unit-chip">+4</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="force.html" class="converter-tile" style="--tile-color:#f59e0b">
+        <div class="tile-icon">💪</div><div class="tile-name">Force</div>
+        <div class="tile-desc">Newtons, kilonewtons, pound-force, kilogram-force, dyne.</div>
+        <div class="tile-units"><span class="tile-unit-chip">N</span><span class="tile-unit-chip">kN</span><span class="tile-unit-chip">lbf</span><span class="tile-unit-chip">kgf</span><span class="tile-unit-chip">+4</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="pressure.html" class="converter-tile" style="--tile-color:#818cf8">
+        <div class="tile-icon">🔵</div><div class="tile-name">Pressure</div>
+        <div class="tile-desc">Pascals, bar, PSI, atmospheres, torr, mmHg and more.</div>
+        <div class="tile-units"><span class="tile-unit-chip">Pa</span><span class="tile-unit-chip">bar</span><span class="tile-unit-chip">psi</span><span class="tile-unit-chip">atm</span><span class="tile-unit-chip">+8</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="converter-group">
+    <span class="group-label">⚡ Energy &amp; Electricity</span>
+    <div class="grid">
+      <a href="energy.html" class="converter-tile" style="--tile-color:#facc15">
+        <div class="tile-icon">⚡</div><div class="tile-name">Energy &amp; Work</div>
+        <div class="tile-desc">Joules, kWh, calories, BTU, electronvolts and more.</div>
+        <div class="tile-units"><span class="tile-unit-chip">J</span><span class="tile-unit-chip">kJ</span><span class="tile-unit-chip">kWh</span><span class="tile-unit-chip">kcal</span><span class="tile-unit-chip">+7</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="power.html" class="converter-tile" style="--tile-color:#fb923c">
+        <div class="tile-icon">🔋</div><div class="tile-name">Power</div>
+        <div class="tile-desc">Watts, kilowatts, megawatts, horsepower, BTU/hr.</div>
+        <div class="tile-units"><span class="tile-unit-chip">W</span><span class="tile-unit-chip">kW</span><span class="tile-unit-chip">MW</span><span class="tile-unit-chip">hp</span><span class="tile-unit-chip">+5</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="electricity.html" class="converter-tile" style="--tile-color:#60a5fa">
+        <div class="tile-icon">🔌</div><div class="tile-name">Electricity</div>
+        <div class="tile-desc">Volts, amps, ohms, coulombs, farads and more.</div>
+        <div class="tile-units"><span class="tile-unit-chip">V</span><span class="tile-unit-chip">A</span><span class="tile-unit-chip">Ω</span><span class="tile-unit-chip">C</span><span class="tile-unit-chip">F</span><span class="tile-unit-chip">+15</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="converter-group">
+    <span class="group-label">🕐 Time &amp; Digital</span>
+    <div class="grid">
+      <a href="time.html" class="converter-tile" style="--tile-color:#4ade80">
+        <div class="tile-icon">⏱️</div><div class="tile-name">Time</div>
+        <div class="tile-desc">Nanoseconds to centuries — every time unit covered.</div>
+        <div class="tile-units"><span class="tile-unit-chip">ns</span><span class="tile-unit-chip">ms</span><span class="tile-unit-chip">s</span><span class="tile-unit-chip">min</span><span class="tile-unit-chip">hr</span><span class="tile-unit-chip">+7</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+      <a href="data.html" class="converter-tile" style="--tile-color:#e879f9">
+        <div class="tile-icon">💾</div><div class="tile-name">Data Storage</div>
+        <div class="tile-desc">Bits, bytes, kilobytes all the way up to exabytes.</div>
+        <div class="tile-units"><span class="tile-unit-chip">bit</span><span class="tile-unit-chip">B</span><span class="tile-unit-chip">KB</span><span class="tile-unit-chip">MB</span><span class="tile-unit-chip">GB</span><span class="tile-unit-chip">+9</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="converter-group">
+    <span class="group-label">🍳 Everyday Use</span>
+    <div class="grid">
+      <a href="cooking.html" class="converter-tile" style="--tile-color:#fb923c">
+        <div class="tile-icon">🍳</div><div class="tile-name">Cooking</div>
+        <div class="tile-desc">Cups, tablespoons, teaspoons, ml, oz and oven temperatures.</div>
+        <div class="tile-units"><span class="tile-unit-chip">cup</span><span class="tile-unit-chip">tbsp</span><span class="tile-unit-chip">tsp</span><span class="tile-unit-chip">mL</span><span class="tile-unit-chip">+5</span></div>
+        <div class="tile-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
 </section>
 
 <footer class="site-footer">
-  <p>© 2025 1 Step Converter — Fast, free unit conversions.</p>
-  <div style="display:flex;gap:1.25rem">
+  <div style="display:flex;align-items:center;gap:0.85rem">
+    <img src="logo.png" alt="JV Logo" class="footer-logo">
+    <p>© 2025 1 Step Converter — Fast, free unit conversions.</p>
+  </div>
+  <div style="display:flex;gap:1.25rem;flex-wrap:wrap">
     <a href="index.html">Home</a>
     <a href="length.html">Length</a>
-    <a href="weight.html">Weight</a>
-    <a href="temperature.html">Temperature</a>
+    <a href="energy.html">Energy</a>
+    <a href="electricity.html">Electricity</a>
+    <a href="time.html">Time</a>
   </div>
 </footer>
 
