@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter — Celsius, Fahrenheit, Kelvin & Rankine | 1 Step Converter</title>
+<meta name="description" content="Convert temperatures between Celsius, Fahrenheit, Kelvin and Rankine instantly. Accurate formula-based conversions with clear step-by-step results. Free online temperature converter.">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .temp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .temp-card {
+    border-radius: 14px;
+    padding: 1.25rem;
+    position: relative;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+
+  .temp-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+
+  .temp-card.celsius   { background: linear-gradient(135deg, rgba(56,189,248,0.08), var(--surface2)); border-color: rgba(56,189,248,0.2); }
+  .temp-card.fahrenheit{ background: linear-gradient(135deg, rgba(248,113,113,0.08), var(--surface2)); border-color: rgba(248,113,113,0.2); }
+  .temp-card.kelvin    { background: linear-gradient(135deg, rgba(167,139,250,0.08), var(--surface2)); border-color: rgba(167,139,250,0.2); }
+  .temp-card.rankine   { background: linear-gradient(135deg, rgba(251,191,36,0.08), var(--surface2)); border-color: rgba(251,191,36,0.2); }
+
+  .tc-sym  { font-size: 1.8rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.1rem; }
+  .tc-name { font-size: 0.7rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .tc-val  { font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; font-weight: 500; color: var(--text); }
+  .tc-formula { font-size: 0.65rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-top: 0.5rem; }
+
+  .celsius .tc-sym    { color: #38bdf8; }
+  .fahrenheit .tc-sym { color: #f87171; }
+  .kelvin .tc-sym     { color: #a78bfa; }
+  .rankine .tc-sym    { color: #fbbf24; }
+
+  .active-indicator {
+    position: absolute; top: 0.5rem; right: 0.6rem;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent3);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .temp-card.is-source .active-indicator { opacity: 1; }
+
+  .thermometer-vis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.25rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .t-gauge {
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .t-gauge:hover { border-color: var(--border2); background: var(--surface3); }
+  .t-gauge.sel   { border-color: var(--accent); background: rgba(79,142,255,0.08); }
+
+  .t-gauge .sym { font-size: 1.1rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .t-gauge .lbl { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-family: 'JetBrains Mono', monospace; margin-top: 0.1rem; }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo"><span class="logo-mark">1S</span>1 Step Converter</a>
+  <div class="nav-links">
+    <a href="length.html">Length</a>
+    <a href="weight.html">Weight</a>
+    <a href="temperature.html" class="active">Temp</a>
+    <a href="speed.html">Speed</a>
+    <a href="area.html">Area</a>
+    <a href="volume.html">Volume</a>
+    <a href="cooking.html">Cooking</a>
+    <a href="data.html">Data</a>
+    <a href="pressure.html">Pressure</a>
+  </div>
+</nav>
+
+<main class="page-wrap">
+  <div class="page-header animate-in">
+    <span class="eyebrow">🌡️ Temperature</span>
+    <h1>Temperature Converter</h1>
+    <p class="sub">Celsius · Fahrenheit · Kelvin · Rankine</p>
+  </div>
+
+  <div class="card animate-in delay-1">
+    <!-- Unit selector pills -->
+    <div class="thermometer-vis" id="unit-pills">
+      <div class="t-gauge sel" data-unit="c"><div class="sym" style="color:#38bdf8">°C</div><div class="lbl">Celsius</div></div>
+      <div class="t-gauge" data-unit="f"><div class="sym" style="color:#f87171">°F</div><div class="lbl">Fahrenheit</div></div>
+      <div class="t-gauge" data-unit="k"><div class="sym" style="color:#a78bfa">K</div><div class="lbl">Kelvin</div></div>
+      <div class="t-gauge" data-unit="r"><div class="sym" style="color:#fbbf24">°R</div><div class="lbl">Rankine</div></div>
+    </div>
+
+    <div style="margin-bottom:1.5rem">
+      <label class="field-label" for="val-input">Enter temperature</label>
+      <input type="number" id="val-input" value="100" step="any" placeholder="0" style="font-size:2rem">
+    </div>
+
+    <div class="divider">converted to</div>
+
+    <div class="temp-grid" id="results"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 1 Step Converter</p>
+  <a href="index.html">← All Converters</a>
+</footer>
+
+<script>
+// All conversions go via Celsius as base
+function toCelsius(v, u) {
+  if (u === 'c') return v;
+  if (u === 'f') return (v - 32) * 5/9;
+  if (u === 'k') return v - 273.15;
+  if (u === 'r') return (v - 491.67) * 5/9;
+}
+
+function fromCelsius(c, u) {
+  if (u === 'c') return c;
+  if (u === 'f') return c * 9/5 + 32;
+  if (u === 'k') return c + 273.15;
+  if (u === 'r') return (c + 273.15) * 9/5;
+}
+
+const UNITS = [
+  { key:'c', sym:'°C', name:'Celsius',    cls:'celsius' },
+  { key:'f', sym:'°F', name:'Fahrenheit', cls:'fahrenheit' },
+  { key:'k', sym:'K',  name:'Kelvin',     cls:'kelvin' },
+  { key:'r', sym:'°R', name:'Rankine',    cls:'rankine' },
+];
+
+const FORMULAS = {
+  c: { f:'°F = (°C × 9/5) + 32', k:'K = °C + 273.15', r:'°R = (°C + 273.15) × 9/5' },
+  f: { c:'°C = (°F − 32) × 5/9', k:'K = (°F − 32) × 5/9 + 273.15', r:'°R = °F + 459.67' },
+  k: { c:'°C = K − 273.15', f:'°F = (K − 273.15) × 9/5 + 32', r:'°R = K × 9/5' },
+  r: { c:'°C = (°R − 491.67) × 5/9', f:'°F = °R − 459.67', k:'K = °R × 5/9' },
+};
+
+let fromUnit = 'c';
+const inp = document.getElementById('val-input');
+const grid = document.getElementById('results');
+
+document.getElementById('unit-pills').addEventListener('click', e => {
+  const pill = e.target.closest('.t-gauge'); if (!pill) return;
+  document.querySelectorAll('.t-gauge').forEach(x => x.classList.remove('sel'));
+  pill.classList.add('sel');
+  fromUnit = pill.dataset.unit;
+  render();
+});
+
+function fmt(n) {
+  if (isNaN(n)) return '—';
+  return parseFloat(n.toFixed(4)).toString();
+}
+
+function render() {
+  const v = parseFloat(inp.value);
+  const celsius = isNaN(v) ? 0 : toCelsius(v, fromUnit);
+  grid.innerHTML = '';
+  UNITS.forEach(u => {
+    const converted = fromCelsius(celsius, u.key);
+    const isSource = u.key === fromUnit;
+    const card = document.createElement('div');
+    card.className = `temp-card ${u.cls}${isSource ? ' is-source' : ''}`;
+    const f = !isSource && FORMULAS[fromUnit] ? FORMULAS[fromUnit][u.key] || '' : '';
+    card.innerHTML = `
+      <div class="active-indicator"></div>
+      <div class="tc-sym">${u.sym}</div>
+      <div class="tc-name">${u.name}${isSource ? ' · source' : ''}</div>
+      <div class="tc-val">${fmt(converted)}</div>
+      ${f ? `<div class="tc-formula">${f}</div>` : ''}
+    `;
+    grid.appendChild(card);
+  });
+}
+
+inp.addEventListener('input', render);
+render();
+</script>
+</body>
+</html>

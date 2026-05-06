@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weight & Mass Converter — kg, lb, oz, g, Stone, Tonnes | 1 Step Converter</title>
+<meta name="description" content="Convert weight and mass units instantly: kilograms, pounds, ounces, grams, stone, metric tonnes, carats, milligrams and more. Free online weight converter.">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo"><span class="logo-mark">1S</span>1 Step Converter</a>
+  <div class="nav-links">
+    <a href="length.html">Length</a>
+    <a href="weight.html" class="active">Weight</a>
+    <a href="temperature.html">Temp</a>
+    <a href="speed.html">Speed</a>
+    <a href="area.html">Area</a>
+    <a href="volume.html">Volume</a>
+    <a href="cooking.html">Cooking</a>
+    <a href="data.html">Data</a>
+    <a href="pressure.html">Pressure</a>
+  </div>
+</nav>
+
+<main class="page-wrap">
+  <div class="page-header animate-in">
+    <span class="eyebrow">⚖️ Weight &amp; Mass</span>
+    <h1>Weight Converter</h1>
+    <p class="sub">12 units · metric, imperial &amp; troy</p>
+  </div>
+
+  <div class="card animate-in delay-1">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-cat="all">All</button>
+      <button class="tab" data-cat="metric">Metric</button>
+      <button class="tab" data-cat="imperial">Imperial</button>
+      <button class="tab" data-cat="troy">Troy</button>
+    </div>
+
+    <div class="input-row">
+      <div>
+        <label class="field-label" for="val-input">Value</label>
+        <input type="number" id="val-input" value="1" step="any" placeholder="0">
+      </div>
+      <div>
+        <label class="field-label" for="unit-sel">From</label>
+        <select id="unit-sel"></select>
+      </div>
+    </div>
+
+    <div class="divider">results</div>
+    <div class="results-grid" id="results"></div>
+
+    <div class="formula-bar">
+      <span class="f-label">formula</span>
+      <span id="formula">—</span>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 1 Step Converter</p>
+  <a href="index.html">← All Converters</a>
+</footer>
+
+<script>
+const UNITS = [
+  { key:'mcg', sym:'mcg', name:'Microgram',     toKg:1e-9,        cat:'metric' },
+  { key:'mg',  sym:'mg',  name:'Milligram',      toKg:1e-6,        cat:'metric' },
+  { key:'g',   sym:'g',   name:'Gram',           toKg:0.001,       cat:'metric' },
+  { key:'kg',  sym:'kg',  name:'Kilogram',       toKg:1,           cat:'metric' },
+  { key:'t',   sym:'t',   name:'Metric Tonne',   toKg:1000,        cat:'metric' },
+  { key:'oz',  sym:'oz',  name:'Ounce',          toKg:0.02834952,  cat:'imperial' },
+  { key:'lb',  sym:'lb',  name:'Pound',          toKg:0.45359237,  cat:'imperial' },
+  { key:'st',  sym:'st',  name:'Stone',          toKg:6.35029318,  cat:'imperial' },
+  { key:'ton', sym:'ton', name:'Short Ton (US)', toKg:907.18474,   cat:'imperial' },
+  { key:'lton',sym:'lt',  name:'Long Ton (UK)',  toKg:1016.04691,  cat:'imperial' },
+  { key:'toz', sym:'t oz',name:'Troy Ounce',     toKg:0.0311034768,cat:'troy' },
+  { key:'ct',  sym:'ct',  name:'Carat',          toKg:0.0002,      cat:'troy' },
+];
+
+let cat = 'all';
+const sel = document.getElementById('unit-sel');
+const inp = document.getElementById('val-input');
+const grid = document.getElementById('results');
+const formula = document.getElementById('formula');
+
+UNITS.forEach(u => {
+  const o = document.createElement('option');
+  o.value = u.key; o.textContent = `${u.sym} — ${u.name}`;
+  sel.appendChild(o);
+});
+sel.value = 'kg';
+
+function fmt(n) {
+  if (n === 0) return '0';
+  const a = Math.abs(n);
+  if (a >= 1e12 || a < 1e-9) return n.toExponential(4);
+  if (a >= 1000) return n.toLocaleString('en-US', {maximumFractionDigits:4});
+  return parseFloat(n.toPrecision(7)).toString();
+}
+
+let ct;
+function render() {
+  const v = parseFloat(inp.value) || 0;
+  const from = UNITS.find(u => u.key === sel.value);
+  const kg = v * from.toKg;
+  const show = cat === 'all' ? UNITS : UNITS.filter(u => u.cat === cat);
+  grid.innerHTML = '';
+  show.forEach(u => {
+    if (u.key === from.key) return;
+    const cv = kg / u.toKg;
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = `<div class="r-unit">${u.sym}</div><div class="r-value">${fmt(cv)}</div><div class="r-name">${u.name}</div><div class="copy-pip">copied!</div>`;
+    card.onclick = () => {
+      navigator.clipboard?.writeText(fmt(cv)).catch(()=>{});
+      card.classList.add('copied'); clearTimeout(ct);
+      ct = setTimeout(() => card.classList.remove('copied'), 1100);
+    };
+    grid.appendChild(card);
+  });
+  formula.textContent = `1 ${from.sym} = ${fmt(from.toKg)} kg`;
+}
+
+inp.addEventListener('input', render);
+sel.addEventListener('change', render);
+document.getElementById('tabs').addEventListener('click', e => {
+  const t = e.target.closest('.tab'); if (!t) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active'); cat = t.dataset.cat; render();
+});
+render();
+</script>
+</body>
+</html>

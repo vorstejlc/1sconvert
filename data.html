@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Storage Converter — Bits, Bytes, KB, MB, GB, TB, PB | 1 Step Converter</title>
+<meta name="description" content="Convert data storage units instantly: bits, bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes and exabytes. Supports both SI (decimal) and binary (IEC) prefixes.">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .notice {
+    background: rgba(79,142,255,0.06);
+    border: 1px solid rgba(79,142,255,0.15);
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    font-size: 0.75rem;
+    color: var(--muted2);
+    margin-bottom: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+  }
+
+  .notice strong { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo"><span class="logo-mark">1S</span>1 Step Converter</a>
+  <div class="nav-links">
+    <a href="length.html">Length</a>
+    <a href="weight.html">Weight</a>
+    <a href="temperature.html">Temp</a>
+    <a href="speed.html">Speed</a>
+    <a href="area.html">Area</a>
+    <a href="volume.html">Volume</a>
+    <a href="cooking.html">Cooking</a>
+    <a href="data.html" class="active">Data</a>
+    <a href="pressure.html">Pressure</a>
+  </div>
+</nav>
+
+<main class="page-wrap">
+  <div class="page-header animate-in">
+    <span class="eyebrow">💾 Data Storage</span>
+    <h1>Data Storage Converter</h1>
+    <p class="sub">14 units · SI decimal &amp; IEC binary</p>
+  </div>
+
+  <div class="card animate-in delay-1">
+
+    <div class="notice">
+      <strong>SI vs Binary:</strong> SI (decimal) uses powers of 10 — 1 KB = 1,000 bytes.
+      Binary (IEC) uses powers of 2 — 1 KiB = 1,024 bytes. Toggle between systems using the tabs below.
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-cat="all">All</button>
+      <button class="tab" data-cat="si">SI Decimal</button>
+      <button class="tab" data-cat="bin">Binary (IEC)</button>
+    </div>
+
+    <div class="input-row">
+      <div>
+        <label class="field-label" for="val-input">Value</label>
+        <input type="number" id="val-input" value="1" step="any" placeholder="0">
+      </div>
+      <div>
+        <label class="field-label" for="unit-sel">From</label>
+        <select id="unit-sel"></select>
+      </div>
+    </div>
+
+    <div class="divider">results</div>
+    <div class="results-grid" id="results"></div>
+
+    <div class="formula-bar">
+      <span class="f-label">formula</span>
+      <span id="formula">—</span>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 1 Step Converter</p>
+  <a href="index.html">← All Converters</a>
+</footer>
+
+<script>
+// All stored in bits
+const UNITS = [
+  { key:'bit', sym:'bit', name:'Bit',       toBit:1,              cat:'si' },
+  { key:'B',   sym:'B',   name:'Byte',      toBit:8,              cat:'si' },
+  { key:'KB',  sym:'KB',  name:'Kilobyte',  toBit:8e3,            cat:'si' },
+  { key:'MB',  sym:'MB',  name:'Megabyte',  toBit:8e6,            cat:'si' },
+  { key:'GB',  sym:'GB',  name:'Gigabyte',  toBit:8e9,            cat:'si' },
+  { key:'TB',  sym:'TB',  name:'Terabyte',  toBit:8e12,           cat:'si' },
+  { key:'PB',  sym:'PB',  name:'Petabyte',  toBit:8e15,           cat:'si' },
+  { key:'EB',  sym:'EB',  name:'Exabyte',   toBit:8e18,           cat:'si' },
+  { key:'KiB', sym:'KiB', name:'Kibibyte',  toBit:8*1024,         cat:'bin' },
+  { key:'MiB', sym:'MiB', name:'Mebibyte',  toBit:8*1024**2,      cat:'bin' },
+  { key:'GiB', sym:'GiB', name:'Gibibyte',  toBit:8*1024**3,      cat:'bin' },
+  { key:'TiB', sym:'TiB', name:'Tebibyte',  toBit:8*1024**4,      cat:'bin' },
+  { key:'PiB', sym:'PiB', name:'Pebibyte',  toBit:8*1024**5,      cat:'bin' },
+  { key:'EiB', sym:'EiB', name:'Exbibyte',  toBit:8*1024**6,      cat:'bin' },
+];
+
+let cat = 'all';
+const sel = document.getElementById('unit-sel');
+const inp = document.getElementById('val-input');
+const grid = document.getElementById('results');
+const formula = document.getElementById('formula');
+
+UNITS.forEach(u => {
+  const o = document.createElement('option');
+  o.value = u.key; o.textContent = `${u.sym} — ${u.name}`;
+  sel.appendChild(o);
+});
+sel.value = 'GB';
+
+function fmt(n) {
+  if (n === 0) return '0';
+  const a = Math.abs(n);
+  if (a >= 1e18 || a < 1e-6) return n.toExponential(4);
+  if (a >= 1e9) return n.toLocaleString('en-US', {maximumFractionDigits:2});
+  return parseFloat(n.toPrecision(7)).toString();
+}
+
+let ct;
+function render() {
+  const v = parseFloat(inp.value) || 0;
+  const from = UNITS.find(u => u.key === sel.value);
+  const bits = v * from.toBit;
+  const show = cat === 'all' ? UNITS : UNITS.filter(u => u.cat === cat);
+  grid.innerHTML = '';
+  show.forEach(u => {
+    if (u.key === from.key) return;
+    const cv = bits / u.toBit;
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = `<div class="r-unit">${u.sym}</div><div class="r-value">${fmt(cv)}</div><div class="r-name">${u.name}</div><div class="copy-pip">copied!</div>`;
+    card.onclick = () => {
+      navigator.clipboard?.writeText(fmt(cv)).catch(()=>{});
+      card.classList.add('copied'); clearTimeout(ct);
+      ct = setTimeout(() => card.classList.remove('copied'), 1100);
+    };
+    grid.appendChild(card);
+  });
+  formula.textContent = `1 ${from.sym} = ${fmt(from.toBit)} bits`;
+}
+
+inp.addEventListener('input', render);
+sel.addEventListener('change', render);
+document.getElementById('tabs').addEventListener('click', e => {
+  const t = e.target.closest('.tab'); if (!t) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active'); cat = t.dataset.cat; render();
+});
+render();
+</script>
+</body>
+</html>
