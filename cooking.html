@@ -14,6 +14,9 @@
 <title>Cooking Measurement Converter — Cups to ml, Tbsp, Tsp & Oven Temps | 1 Step Converter</title>
 <meta name="description" content="Convert cooking measurements instantly. Cups to millilitres, tablespoons to teaspoons, fluid ounces to ml, plus an oven temperature guide. Supports US and UK measurements.">
 <link rel="canonical" href="https://www.1sconvert.com/cooking.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>
 (function() {
   const THEMES = [
@@ -133,6 +136,7 @@
     <a href="density.html">Density</a>
     <a href="data.html">Data</a>
     <a href="cooking.html"  class="active">Cooking</a>
+    <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
 
@@ -223,7 +227,7 @@
 <footer class="site-footer">
   <div style="display:flex;align-items:center;gap:0.85rem">
     <img src="logo.png" alt="JV Logo" style="width:48px;height:48px;object-fit:contain;border-radius:50%;opacity:0.9;flex-shrink:0;">
-    <p>© 2025 1 Step Converter</p>
+    <p>© 2026 1 Step Converter</p>
   </div>
   <a href="index.html">← All Converters</a>
 </footer>
@@ -231,14 +235,14 @@
 <script>
 // All stored in mL
 const UNITS = [
-  { key:'tsp',   sym:'tsp',    name:'Teaspoon (US)',       toMl:4.92892   },
-  { key:'tbsp',  sym:'tbsp',   name:'Tablespoon (US)',     toMl:14.7868   },
-  { key:'floz',  sym:'fl oz',  name:'US Fluid Ounce',      toMl:29.5735   },
-  { key:'uscup', sym:'cup',    name:'US Cup',              toMl:236.588   },
+  { key:'tsp',   sym:'tsp',    name:'Teaspoon (US)',       toMl:3785.411784/768},
+  { key:'tbsp',  sym:'tbsp',   name:'Tablespoon (US)',     toMl:3785.411784/256},
+  { key:'floz',  sym:'fl oz',  name:'US Fluid Ounce',      toMl:3785.411784/128},
+  { key:'uscup', sym:'cup',    name:'US Cup',              toMl:3785.411784/16 },
   { key:'ukcup', sym:'uk cup', name:'UK/AU Cup',           toMl:250       },
   { key:'ml',    sym:'mL',     name:'Millilitre',          toMl:1         },
   { key:'l',     sym:'L',      name:'Litre',               toMl:1000      },
-  { key:'ukfloz',sym:'uk fl oz',name:'UK Fluid Ounce',     toMl:28.4131   },
+  { key:'ukfloz',sym:'uk fl oz',name:'UK Fluid Ounce',     toMl:4546.09/160   },
 ];
 
 const sel = document.getElementById('unit-sel');

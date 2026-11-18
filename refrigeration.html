@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-48GKDWY4LL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-48GKDWY4LL');
+</script>
+<title>Refrigeration Calculator — Refrigerant PT Chart, Superheat, Subcooling & TR to kW | 1 Step Converter</title>
+<meta name="description" content="Free refrigerant PT chart and calculator for R-410A, R-134a, R-404A, R-32, R-448A, R-454B, R-290, ammonia and CO2. Superheat and subcooling, tons of refrigeration to kW and BTU/h, COP to EER, chilled water and air heat load.">
+<link rel="canonical" href="https://www.1sconvert.com/refrigeration.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>
+(function() {
+  const THEMES = [
+    { name:'violet',  accent:[108,99,255],  accent2:[167,139,250], accent3:[99,226,255],  bg1:[108,99,255,.08],  bg2:[99,226,255,.06],  bg3:[255,107,157,.05] },
+    { name:'emerald', accent:[52,211,153],  accent2:[34,197,94],   accent3:[163,230,53],  bg1:[52,211,153,.08],  bg2:[163,230,53,.06],  bg3:[34,197,94,.05]   },
+    { name:'rose',    accent:[251,113,133], accent2:[244,63,94],   accent3:[253,186,116], bg1:[251,113,133,.08], bg2:[253,186,116,.06], bg3:[244,63,94,.05]   },
+    { name:'cyan',    accent:[34,211,238],  accent2:[6,182,212],   accent3:[129,140,248], bg1:[34,211,238,.08],  bg2:[129,140,248,.06], bg3:[6,182,212,.05]   },
+    { name:'amber',   accent:[251,191,36],  accent2:[245,158,11],  accent3:[252,211,77],  bg1:[251,191,36,.08],  bg2:[252,211,77,.06],  bg3:[245,158,11,.05]  },
+    { name:'fuchsia', accent:[232,121,249], accent2:[168,85,247],  accent3:[196,181,253], bg1:[232,121,249,.08], bg2:[196,181,253,.06], bg3:[168,85,247,.05]  },
+    { name:'sky',     accent:[56,189,248],  accent2:[14,165,233],  accent3:[103,232,249], bg1:[56,189,248,.08],  bg2:[103,232,249,.06], bg3:[14,165,233,.05]  },
+    { name:'coral',   accent:[249,115,22],  accent2:[234,88,12],   accent3:[251,146,60],  bg1:[249,115,22,.08],  bg2:[251,146,60,.06],  bg3:[234,88,12,.05]   },
+    { name:'lime',    accent:[132,204,22],  accent2:[101,163,13],  accent3:[74,222,128],  bg1:[132,204,22,.08],  bg2:[74,222,128,.06],  bg3:[101,163,13,.05]  },
+    { name:'indigo',  accent:[99,102,241],  accent2:[79,70,229],   accent3:[167,139,250], bg1:[99,102,241,.08],  bg2:[167,139,250,.06], bg3:[79,70,229,.05]   },
+  ];
+  const t = THEMES[Math.floor(Math.random() * THEMES.length)];
+  const r = document.documentElement.style;
+  const rgb = a => `rgb(${a[0]},${a[1]},${a[2]})`;
+  const rgba = a => `rgba(${a[0]},${a[1]},${a[2]},${a[3]})`;
+  r.setProperty('--accent',  rgb(t.accent));
+  r.setProperty('--accent2', rgb(t.accent2));
+  r.setProperty('--accent3', rgb(t.accent3));
+  r.setProperty('--glow',    `rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.2)`);
+  const s = document.createElement('style');
+  s.textContent = `
+    body::before { background:
+      radial-gradient(ellipse 60% 50% at 20% 30%, ${rgba(t.bg1)} 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, ${rgba(t.bg2)} 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 60% 10%, ${rgba(t.bg3)} 0%, transparent 60%); }
+    body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; }
+    .nav-logo .logo-mark { background: linear-gradient(135deg, ${rgb(t.accent)}, ${rgb(t.accent2)}); }
+    .tab.active { background: ${rgb(t.accent)}; border-color: ${rgb(t.accent)}; }
+    .tab:hover, input:focus, select:focus { border-color: ${rgb(t.accent)} !important; }
+    .page-header .eyebrow, .formula-bar .f-label, .nav-links a.active { color: ${rgb(t.accent)}; }
+    .nav-links a.active { background: rgba(${t.accent[0]},${t.accent[1]},${t.accent[2]},0.1); }
+    .result-card.highlight, .result-card.highlight .r-value { border-color: ${rgb(t.accent)}; color: ${rgb(t.accent3)}; }
+    .copy-pip { background: ${rgb(t.accent)}; }
+    .section-title { color: ${rgb(t.accent)}; }
+  `;
+  document.head.appendChild(s);
+})();
+</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .jump { margin-bottom: 1.25rem; }
+  .jump .tab { text-decoration: none; }
+  .tool { margin-top: 1.25rem; scroll-margin-top: 76px; }
+  .tool h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.35rem; }
+  .tool .lead { font-size: 0.85rem; color: var(--muted2); margin-bottom: 1.25rem; line-height: 1.5; }
+  .ctrls { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0.6rem; margin-bottom: 1.25rem; }
+  .ctrls select, .sm { font-size: 0.85rem; padding: 0.6rem 2rem 0.6rem 0.75rem; min-width: 0; background-position: right 0.7rem center; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+  .pair input[type="number"] { font-size: 1.15rem; padding: 0.7rem 0.9rem; }
+  .sub-h { font-size: 0.9rem; font-weight: 600; margin: 1.25rem 0 0.75rem; color: var(--text); }
+  .sub-h:first-of-type { margin-top: 0; }
+  .hint { margin-top: 0.75rem; font-size: 0.8rem; line-height: 1.45; padding: 0.6rem 0.85rem; border-radius: 8px; border: 1px solid var(--border2); color: var(--muted2); }
+  .hint.ok { border-color: rgba(52,211,153,0.4); }
+  .hint.warn { border-color: rgba(251,191,36,0.5); color: #fcd34d; }
+  .hint:empty { display: none; }
+  .pt-wrap { margin-top: 1rem; }
+  .pt-wrap summary { cursor: pointer; font-size: 0.85rem; color: var(--muted2); padding: 0.4rem 0; }
+  .pt-wrap summary:hover { color: var(--text); }
+  .tbl-scroll { overflow-x: auto; max-height: 420px; overflow-y: auto; margin-top: 0.5rem; border: 1px solid var(--border); border-radius: 10px; }
+  table.data { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  table.data th { position: sticky; top: 0; background: var(--surface2); font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; color: var(--muted); text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border2); white-space: nowrap; }
+  table.data td { padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; color: var(--text); white-space: nowrap; }
+  table.data td.txt { font-family: 'Outfit', sans-serif; white-space: normal; color: var(--muted2); }
+  table.data tr:hover td { background: var(--surface2); }
+  .info { margin-top: 2rem; }
+  .info h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .info h3 { font-size: 0.95rem; font-weight: 600; margin: 1.1rem 0 0.35rem; }
+  .info p, .info li { font-size: 0.88rem; color: var(--muted2); line-height: 1.6; }
+  .info ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+  .info code { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); background: var(--surface2); padding: 0.1rem 0.35rem; border-radius: 4px; }
+  .note { font-size: 0.75rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; }
+  @media (max-width: 640px) {
+    .ctrls { grid-template-columns: 1fr 1fr; }
+    .ctrls .ref-cell { grid-column: 1 / -1; }
+  }
+  @media (max-width: 420px) { .pair { grid-template-columns: 1fr; } }
+</style>
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Refrigeration Calculator — 1 Step Converter",
+  "url": "https://www.1sconvert.com/refrigeration.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+  },
+  "description": "Refrigerant PT chart, superheat and subcooling calculator, refrigeration capacity (TR, kW, BTU/h) and COP/EER converter."
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "What is a ton of refrigeration (TR)?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "One ton of refrigeration is 12,000 BTU/h, or about 3.517 kW. It is the heat needed to melt one short ton (2,000 lb) of ice in 24 hours. So a 10 TR chiller removes roughly 35.2 kW of heat."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I calculate superheat?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Superheat = suction line temperature − evaporating (saturation) temperature. Read the suction pressure near the evaporator outlet, convert it to its saturation temperature with a PT chart, then subtract that from the pipe temperature measured at the same point. For blends with glide, use the dew point temperature."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I calculate subcooling?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Subcooling = condensing (saturation) temperature − liquid line temperature. Read the liquid line pressure, convert it to saturation temperature, and subtract the liquid line pipe temperature. For blends with glide, use the bubble point temperature."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What is the difference between bubble point and dew point?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Zeotropic blends such as R-407C, R-448A and R-449A do not boil at a single temperature. At a given pressure, liquid starts to boil at the bubble point and the last liquid evaporates at the dew point. The gap between them is the temperature glide. Single-component refrigerants and azeotropes such as R-134a, R-32 and R-507A have no glide."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Gauge pressure vs absolute pressure — which do I use?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Refrigeration gauges read gauge pressure, i.e. relative to the surrounding atmosphere. Absolute pressure = gauge pressure + atmospheric pressure (1.013 bar or 14.7 psi at sea level). PT tables on this page work in either; pick Gauge or Absolute in the Reading selector. At high altitude, atmospheric pressure is lower, so gauge readings read slightly high compared with sea-level tables."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I convert COP to EER?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "EER = COP × 3.412. For example, a COP of 3.5 equals an EER of about 11.9 BTU/W·h. To get kW/TR, divide 3.517 by the COP: COP 3.5 ≈ 1.005 kW/TR."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I calculate chilled water capacity?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Capacity (kW) = flow (L/s) × 4.186 × ΔT (K) for water. In imperial units, BTU/h = 500 × gpm × ΔT (°F). Glycol mixtures have a lower specific heat, so the same flow and ΔT carries less heat."
+    }
+   }
+  ]
+ }
+]
+</script>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo"><span class="logo-mark">1S</span>1 Step Converter</a>
+  <div class="nav-links">
+    <a href="length.html">Length</a><a href="weight.html">Weight</a><a href="temperature.html">Temp</a><a href="speed.html">Speed</a><a href="area.html">Area</a><a href="volume.html">Volume</a><a href="pressure.html">Pressure</a><a href="energy.html">Energy</a><a href="power.html">Power</a><a href="force.html">Force</a><a href="electricity.html">Electricity</a><a href="time.html">Time</a><a href="density.html">Density</a><a href="data.html">Data</a><a href="cooking.html">Cooking</a><a href="refrigeration.html" class="active">Refrigeration</a>
+  </div>
+</nav>
+<main class="page-wrap">
+  <div class="page-header animate-in">
+    <span class="eyebrow">❄️ Refrigeration</span>
+    <h1>Refrigeration Calculator</h1>
+    <p class="sub">PT chart · superheat &amp; subcooling · capacity · COP/EER · heat load · 19 refrigerants</p>
+  </div>
+
+  <nav class="tabs jump animate-in delay-1" aria-label="Jump to tool">
+    <a class="tab" href="#capacity">Capacity</a>
+    <a class="tab" href="#pt">PT Chart</a>
+    <a class="tab" href="#shsc">Superheat / Subcooling</a>
+    <a class="tab" href="#efficiency">COP · EER</a>
+    <a class="tab" href="#load">Heat Load</a>
+    <a class="tab" href="#refrigerants">Refrigerants</a>
+  </nav>
+
+  <!-- 1. CAPACITY -->
+  <section class="card tool animate-in delay-1" id="capacity">
+    <h2>Refrigeration Capacity Converter</h2>
+    <p class="lead">Tons of refrigeration (TR) to kW, BTU/h, MBH and kcal/h.</p>
+    <div class="input-row">
+      <div><label class="field-label" for="cap-val">Value</label><input type="number" id="cap-val" value="1" step="any" placeholder="0"></div>
+      <div><label class="field-label" for="cap-unit">From</label><select id="cap-unit"></select></div>
+    </div>
+    <div class="divider">results</div>
+    <div class="results-grid" id="cap-results"></div>
+    <div class="formula-bar"><span class="f-label">formula</span><span id="cap-formula">—</span></div>
+  </section>
+
+  <!-- 2. PT CHART -->
+  <section class="card tool" id="pt">
+    <h2>Refrigerant PT Calculator</h2>
+    <p class="lead">Saturation pressure from temperature, or saturation temperature from a gauge reading. Blends with glide show both bubble (liquid) and dew (vapour) points.</p>
+    <div class="ctrls" data-ctrls></div>
+    <div class="pair">
+      <div><label class="field-label" for="pt-t">Temperature → pressure</label><input type="number" id="pt-t" value="5" step="any"></div>
+      <div><label class="field-label" for="pt-p">Pressure → temperature</label><input type="number" id="pt-p" value="8" step="any"></div>
+    </div>
+    <div class="divider" id="pt-t-label">saturation pressure</div>
+    <div class="results-grid" id="pt-t-res"></div>
+    <div class="divider" style="margin-top:1.25rem" id="pt-p-label">saturation temperature</div>
+    <div class="results-grid" id="pt-p-res"></div>
+    <details class="pt-wrap" id="pt-details">
+      <summary>Show full PT chart for <span id="pt-chart-name">—</span></summary>
+      <div class="tbl-scroll"><table class="data" id="pt-table"></table></div>
+    </details>
+    <div class="formula-bar"><span class="f-label">note</span><span id="pt-note">—</span></div>
+  </section>
+
+  <!-- 3. SUPERHEAT / SUBCOOLING -->
+  <section class="card tool" id="shsc">
+    <h2>Superheat &amp; Subcooling Calculator</h2>
+    <p class="lead">Enter gauge pressures and pipe temperatures. Superheat uses the dew point, subcooling uses the bubble point (this matters for blends like R-407C and R-448A).</p>
+    <div class="ctrls" data-ctrls></div>
+    <h3 class="sub-h">Superheat — suction side</h3>
+    <div class="pair">
+      <div><label class="field-label" for="sh-p" data-plabel>Suction pressure</label><input type="number" id="sh-p" value="8" step="any"></div>
+      <div><label class="field-label" for="sh-t" data-tlabel>Suction line temp</label><input type="number" id="sh-t" value="10" step="any"></div>
+    </div>
+    <div class="results-grid" id="sh-res"></div>
+    <div class="hint" id="sh-hint"></div>
+    <h3 class="sub-h" style="margin-top:1.5rem">Subcooling — liquid side</h3>
+    <div class="pair">
+      <div><label class="field-label" for="sc-p" data-plabel>Liquid line pressure</label><input type="number" id="sc-p" value="26" step="any"></div>
+      <div><label class="field-label" for="sc-t" data-tlabel>Liquid line temp</label><input type="number" id="sc-t" value="38" step="any"></div>
+    </div>
+    <div class="results-grid" id="sc-res"></div>
+    <div class="hint" id="sc-hint"></div>
+    <p class="note">Hints are general rules of thumb only. Always charge and diagnose to the equipment manufacturer's specification.</p>
+  </section>
+
+  <!-- 4. EFFICIENCY -->
+  <section class="card tool" id="efficiency">
+    <h2>COP · EER · kW/TR Converter</h2>
+    <p class="lead">Convert chiller and AC efficiency ratings. Higher COP and EER are better; lower kW/TR is better.</p>
+    <div class="input-row">
+      <div><label class="field-label" for="eff-val">Value</label><input type="number" id="eff-val" value="3.5" step="any"></div>
+      <div><label class="field-label" for="eff-unit">From</label><select id="eff-unit"></select></div>
+    </div>
+    <div class="divider">results</div>
+    <div class="results-grid" id="eff-results"></div>
+    <div class="formula-bar"><span class="f-label">formula</span><span id="eff-formula">—</span></div>
+  </section>
+
+  <!-- 5. HEAT LOAD -->
+  <section class="card tool" id="load">
+    <h2>Heat Load: Chilled Water &amp; Air</h2>
+    <p class="lead">Capacity from flow rate and temperature difference: <code style="font-family:'JetBrains Mono',monospace;font-size:0.8rem">Q = ṁ · cp · ΔT</code></p>
+    <h3 class="sub-h">Water / glycol side</h3>
+    <div class="pair">
+      <div><label class="field-label" for="w-flow">Flow rate</label><input type="number" id="w-flow" value="10" step="any"></div>
+      <div><label class="field-label" for="w-funit">Flow unit</label><select id="w-funit" class="sm">
+        <option value="ls">L/s</option><option value="m3h">m³/h</option><option value="lmin">L/min</option><option value="gpm">US gpm</option></select></div>
+    </div>
+    <div class="pair">
+      <div><label class="field-label" for="w-dt">ΔT (return − supply)</label><input type="number" id="w-dt" value="5" step="any"></div>
+      <div><label class="field-label" for="w-dtu">ΔT unit</label><select id="w-dtu" class="sm"><option value="k">K (°C)</option><option value="f">°F</option></select></div>
+    </div>
+    <div style="margin-bottom:1rem"><label class="field-label" for="w-fluid">Fluid</label><select id="w-fluid" class="sm">
+        <option value="water">Water</option><option value="eg30">Ethylene glycol 30%</option><option value="pg30">Propylene glycol 30%</option></select></div>
+    <div class="results-grid" id="w-res"></div>
+    <h3 class="sub-h" style="margin-top:1.5rem">Air side (sensible)</h3>
+    <div class="pair">
+      <div><label class="field-label" for="a-flow">Airflow</label><input type="number" id="a-flow" value="2000" step="any"></div>
+      <div><label class="field-label" for="a-funit">Airflow unit</label><select id="a-funit" class="sm">
+        <option value="m3h">m³/h</option><option value="m3s">m³/s</option><option value="ls">L/s</option><option value="cfm">CFM</option></select></div>
+    </div>
+    <div class="pair">
+      <div><label class="field-label" for="a-dt">ΔT across coil</label><input type="number" id="a-dt" value="10" step="any"></div>
+      <div><label class="field-label" for="a-dtu">ΔT unit</label><select id="a-dtu" class="sm"><option value="k">K (°C)</option><option value="f">°F</option></select></div>
+    </div>
+    <div class="results-grid" id="a-res"></div>
+    <div class="formula-bar"><span class="f-label">formula</span><span id="load-formula">—</span></div>
+  </section>
+
+  <!-- 6. REFRIGERANT TABLE -->
+  <section class="card tool" id="refrigerants">
+    <h2>Refrigerant Reference</h2>
+    <p class="lead">Safety class (ISO 817 / ASHRAE 34), GWP (IPCC AR4, as used by the EU F-gas Regulation), normal boiling point and temperature glide at atmospheric pressure.</p>
+    <div class="tbl-scroll" style="max-height:none">
+<table class="data"><thead><tr><th>Refrigerant</th><th>Type</th><th>Safety</th><th>GWP (AR4)</th><th>Boiling point °C</th><th>Glide K</th><th>Composition (% mass)</th></tr></thead><tbody>
+<tr><td>R-22</td><td class="txt">HCFC</td><td>A1</td><td>1,810</td><td>−40.8</td><td>0</td><td class="txt">—</td></tr>
+<tr><td>R-134a</td><td class="txt">HFC</td><td>A1</td><td>1,430</td><td>−26.1</td><td>0</td><td class="txt">—</td></tr>
+<tr><td>R-404A</td><td class="txt">HFC blend</td><td>A1</td><td>3,922</td><td>−46.2</td><td>0.7</td><td class="txt">R-125/143a/134a (44/52/4)</td></tr>
+<tr><td>R-407A</td><td class="txt">HFC blend</td><td>A1</td><td>2,107</td><td>−45.0</td><td>6.4</td><td class="txt">R-32/125/134a (20/40/40)</td></tr>
+<tr><td>R-407C</td><td class="txt">HFC blend</td><td>A1</td><td>1,774</td><td>−43.6</td><td>7.0</td><td class="txt">R-32/125/134a (23/25/52)</td></tr>
+<tr><td>R-407F</td><td class="txt">HFC blend</td><td>A1</td><td>1,825</td><td>−46.1</td><td>6.4</td><td class="txt">R-32/125/134a (30/30/40)</td></tr>
+<tr><td>R-410A</td><td class="txt">HFC blend</td><td>A1</td><td>2,088</td><td>−51.4</td><td>0</td><td class="txt">R-32/125 (50/50)</td></tr>
+<tr><td>R-448A</td><td class="txt">HFC/HFO blend</td><td>A1</td><td>1,387</td><td>−46.2</td><td>6.5</td><td class="txt">R-32/125/1234yf/134a/1234ze(E) (26/26/20/21/7)</td></tr>
+<tr><td>R-449A</td><td class="txt">HFC/HFO blend</td><td>A1</td><td>1,397</td><td>−45.9</td><td>6.0</td><td class="txt">R-32/125/1234yf/134a (24.3/24.7/25.3/25.7)</td></tr>
+<tr><td>R-454B</td><td class="txt">HFC/HFO blend</td><td>A2L</td><td>466</td><td>−50.7</td><td>1.2</td><td class="txt">R-32/1234yf (68.9/31.1)</td></tr>
+<tr><td>R-507A</td><td class="txt">HFC blend</td><td>A1</td><td>3,985</td><td>−46.7</td><td>0</td><td class="txt">R-125/143a (50/50)</td></tr>
+<tr><td>R-513A</td><td class="txt">HFC/HFO blend</td><td>A1</td><td>631</td><td>−29.4</td><td>0.1</td><td class="txt">R-1234yf/134a (56/44)</td></tr>
+<tr><td>R-32</td><td class="txt">HFC</td><td>A2L</td><td>675</td><td>−51.6</td><td>0</td><td class="txt">—</td></tr>
+<tr><td>R-290 (Propane)</td><td class="txt">HC</td><td>A3</td><td>3</td><td>−42.1</td><td>0</td><td class="txt">Propane</td></tr>
+<tr><td>R-600a (Isobutane)</td><td class="txt">HC</td><td>A3</td><td>3</td><td>−11.7</td><td>0</td><td class="txt">Isobutane</td></tr>
+<tr><td>R-717 (Ammonia)</td><td class="txt">Natural</td><td>B2L</td><td>0</td><td>−33.3</td><td>0</td><td class="txt">Ammonia (NH₃)</td></tr>
+<tr><td>R-744 (CO₂)</td><td class="txt">Natural</td><td>A1</td><td>1</td><td>−78.5 (sublimes)</td><td>0</td><td class="txt">Carbon dioxide (CO₂)</td></tr>
+<tr><td>R-1234yf</td><td class="txt">HFO</td><td>A2L</td><td>4</td><td>−29.5</td><td>0</td><td class="txt">—</td></tr>
+<tr><td>R-1234ze(E)</td><td class="txt">HFO</td><td>A2L</td><td>7</td><td>−19.0</td><td>0</td><td class="txt">—</td></tr>
+</tbody></table>
+    </div>
+    <p class="note">Saturation data calculated with CoolProp (open-source equations of state). R-407A, R-407F, R-448A, R-449A, R-454B and R-513A are modelled from their nominal compositions and may differ slightly from manufacturer PT charts. Verify critical work against the manufacturer's data.</p>
+  </section>
+
+  <!-- INFO / FAQ -->
+  <section class="info" id="faq">
+    <h2>Refrigeration FAQ</h2>
+    <h3>What is a ton of refrigeration (TR)?</h3>
+    <p>One ton of refrigeration is 12,000 BTU/h, or about 3.517 kW. It is the heat needed to melt one short ton (2,000 lb) of ice in 24 hours. So a 10 TR chiller removes roughly 35.2 kW of heat.</p>
+    <h3>How do I calculate superheat?</h3>
+    <p>Superheat = suction line temperature − evaporating (saturation) temperature. Read the suction pressure near the evaporator outlet, convert it to its saturation temperature with a PT chart, then subtract that from the pipe temperature measured at the same point. For blends with glide, use the dew point temperature.</p>
+    <h3>How do I calculate subcooling?</h3>
+    <p>Subcooling = condensing (saturation) temperature − liquid line temperature. Read the liquid line pressure, convert it to saturation temperature, and subtract the liquid line pipe temperature. For blends with glide, use the bubble point temperature.</p>
+    <h3>What is the difference between bubble point and dew point?</h3>
+    <p>Zeotropic blends such as R-407C, R-448A and R-449A do not boil at a single temperature. At a given pressure, liquid starts to boil at the bubble point and the last liquid evaporates at the dew point. The gap between them is the temperature glide. Single-component refrigerants and azeotropes such as R-134a, R-32 and R-507A have no glide.</p>
+    <h3>Gauge pressure vs absolute pressure — which do I use?</h3>
+    <p>Refrigeration gauges read gauge pressure, i.e. relative to the surrounding atmosphere. Absolute pressure = gauge pressure + atmospheric pressure (1.013 bar or 14.7 psi at sea level). PT tables on this page work in either; pick Gauge or Absolute in the Reading selector. At high altitude, atmospheric pressure is lower, so gauge readings read slightly high compared with sea-level tables.</p>
+    <h3>How do I convert COP to EER?</h3>
+    <p>EER = COP × 3.412. For example, a COP of 3.5 equals an EER of about 11.9 BTU/W·h. To get kW/TR, divide 3.517 by the COP: COP 3.5 ≈ 1.005 kW/TR.</p>
+    <h3>How do I calculate chilled water capacity?</h3>
+    <p>Capacity (kW) = flow (L/s) × 4.186 × ΔT (K) for water. In imperial units, BTU/h = 500 × gpm × ΔT (°F). Glycol mixtures have a lower specific heat, so the same flow and ΔT carries less heat.</p>
+  </section>
+</main>
+<footer class="site-footer">
+  <div style="display:flex;align-items:center;gap:0.85rem">
+    <img src="logo.png" alt="JV Logo" style="width:48px;height:48px;object-fit:contain;border-radius:50%;opacity:0.9;flex-shrink:0;">
+    <p>© 2026 1 Step Converter</p>
+  </div>
+  <a href="index.html">← All Converters</a>
+</footer>
+<script>
+// ── Saturation data: absolute pressure in kPa at 1 °C steps from t0. p = bubble (or saturation), pd = dew (zeotropic blends only)
+const REF = [{"id":"R22","name":"R-22","t0":-60,"p":[37.5,39.7,42.0,44.41,46.92,49.55,52.3,55.17,58.16,61.28,64.53,67.92,71.45,75.12,78.94,82.92,87.05,91.34,95.8,100.4,105.2,110.2,115.4,120.7,126.3,132.0,138.0,144.1,150.5,157.1,163.9,170.9,178.2,185.7,193.4,201.4,209.7,218.2,227.0,236.0,245.3,254.9,264.8,275.0,285.4,296.2,307.3,318.7,330.4,342.4,354.8,367.5,380.5,393.9,407.7,421.8,436.3,451.1,466.4,482.0,498.0,514.4,531.2,548.4,566.1,584.1,602.6,621.5,640.9,660.7,680.9,701.7,722.9,744.5,766.7,789.3,812.4,836.1,860.2,884.8,910.0,935.7,961.9,988.7,1016.0,1043.9,1072.4,1101.4,1130.9,1161.1,1191.9,1223.2,1255.2,1287.8,1321.0,1354.8,1389.2,1424.3,1460.1,1496.5,1533.6,1571.3,1609.8,1648.9,1688.7,1729.2,1770.4,1812.4,1855.1,1898.5,1942.7,1987.6,2033.3,2079.8,2127.0,2175.1,2223.9,2273.6,2324.0,2375.3,2427.5,2480.5,2534.3,2589.1,2644.7,2701.2]},{"id":"R134a","name":"R-134a","t0":-60,"p":[15.91,16.97,18.09,19.27,20.52,21.83,23.21,24.65,26.18,27.77,29.45,31.21,33.05,34.98,37.0,39.12,41.33,43.64,46.06,48.58,51.21,53.95,56.82,59.8,62.91,66.14,69.51,73.02,76.66,80.44,84.38,88.46,92.7,97.1,101.7,106.4,111.3,116.4,121.6,127.1,132.7,138.6,144.6,150.8,157.3,163.9,170.8,177.9,185.2,192.8,200.6,208.6,216.9,225.5,234.3,243.3,252.7,262.3,272.2,282.3,292.8,303.6,314.6,326.0,337.7,349.7,362.0,374.6,387.6,400.9,414.6,428.6,443.0,457.8,472.9,488.4,504.3,520.5,537.2,554.2,571.7,589.6,607.9,626.6,645.8,665.4,685.4,705.9,726.9,748.3,770.2,792.6,815.4,838.8,862.6,887.0,911.8,937.2,963.2,989.6,1016.6,1044.1,1072.2,1100.9,1130.1,1159.9,1190.3,1221.3,1252.9,1285.1,1317.9,1351.3,1385.4,1420.1,1455.5,1491.5,1528.2,1565.6,1603.6,1642.3,1681.8,1721.9,1762.8,1804.4,1846.7,1889.8]},{"id":"R404A","name":"R-404A","t0":-60,"p":[49.77,52.6,55.55,58.64,61.85,65.21,68.71,72.36,76.16,80.12,84.24,88.52,92.97,97.6,102.4,107.4,112.6,118.0,123.5,129.3,135.3,141.5,147.9,154.6,161.4,168.5,175.9,183.5,191.3,199.4,207.8,216.4,225.3,234.5,244.0,253.7,263.8,274.1,284.8,295.8,307.1,318.7,330.7,343.0,355.6,368.6,382.0,395.7,409.8,424.3,439.1,454.4,470.0,486.0,502.5,519.4,536.6,554.4,572.5,591.1,610.2,629.7,649.7,670.1,691.0,712.5,734.4,756.8,779.7,803.1,827.1,851.6,876.6,902.2,928.3,955.0,982.2,1010.1,1038.5,1067.5,1097.1,1127.4,1158.2,1189.7,1221.8,1254.6,1288.0,1322.1,1356.8,1392.2,1428.4,1465.2,1502.7,1540.9,1579.9,1619.6,1660.1,1701.3,1743.2,1786.0,1829.5,1873.9,1919.0,1965.0,2011.8,2059.5,2108.0,2157.4,2207.6,2258.8,2310.9,2363.9,2417.8,2472.7,2528.5,2585.4,2643.2,2702.1,2762.0,2823.0,2885.0,2948.2,3012.4,3077.9,3144.5,3212.4],"pd":[47.46,50.2,53.07,56.06,59.19,62.46,65.87,69.43,73.13,76.99,81.01,85.19,89.54,94.07,98.77,103.7,108.7,114.0,119.4,125.1,131.0,137.1,143.4,149.9,156.6,163.6,170.8,178.3,186.0,194.0,202.2,210.7,219.5,228.6,237.9,247.5,257.4,267.7,278.2,289.0,300.2,311.7,323.5,335.6,348.1,361.0,374.2,387.8,401.7,416.0,430.7,445.8,461.3,477.2,493.5,510.2,527.3,544.9,562.9,581.4,600.3,619.6,639.5,659.8,680.5,701.8,723.6,745.8,768.6,791.9,815.7,840.0,864.9,890.4,916.3,942.9,970.0,997.7,1026.0,1054.9,1084.4,1114.5,1145.2,1176.6,1208.6,1241.2,1274.5,1308.5,1343.1,1378.5,1414.5,1451.2,1488.6,1526.8,1565.7,1605.3,1645.7,1686.8,1728.8,1771.5,1814.9,1859.2,1904.4,1950.3,1997.1,2044.7,2093.2,2142.6,2192.9,2244.1,2296.1,2349.2,2403.2,2458.1,2514.0,2570.9,2628.9,2687.8,2747.9,2809.0,2871.2,2934.6,2999.1,3064.8,3131.8,3200.0]},{"id":"R407A","name":"R-407A","t0":-60,"p":[46.12,48.8,51.61,54.54,57.61,60.81,64.15,67.64,71.28,75.08,79.03,83.15,87.44,91.9,96.54,101.4,106.4,111.6,117.0,122.6,128.4,134.4,140.7,147.2,153.9,160.8,168.0,175.5,183.1,191.1,199.3,207.8,216.6,225.6,235.0,244.6,254.5,264.8,275.3,286.2,297.4,309.0,320.9,333.1,345.7,358.6,371.9,385.6,399.7,414.1,429.0,444.2,459.9,476.0,492.5,509.4,526.7,544.5,562.8,581.5,600.7,620.3,640.4,661.0,682.2,703.8,725.9,748.5,771.7,795.3,819.6,844.4,869.7,895.6,922.0,949.1,976.7,1004.9,1033.8,1063.2,1093.2,1123.9,1155.2,1187.2,1219.8,1253.1,1287.0,1321.6,1356.9,1392.9,1429.6,1467.0,1505.1,1543.9,1583.5,1623.8,1664.9,1706.8,1749.4,1792.8,1837.0,1881.9,1927.7,1974.4,2021.8,2070.1,2119.2,2169.2,2220.0,2271.8,2324.4,2377.9,2432.3,2487.7,2543.9,2601.1,2659.3,2718.4,2778.5,2839.6,2901.7,2964.8,3028.9,3094.0,3160.2,3227.4],"pd":[30.91,32.89,34.97,37.15,39.44,41.84,44.37,47.01,49.78,52.68,55.71,58.89,62.2,65.67,69.29,73.06,77.0,81.11,85.39,89.84,94.48,99.31,104.3,109.5,115.0,120.6,126.5,132.5,138.8,145.4,152.1,159.1,166.4,173.9,181.7,189.8,198.1,206.7,215.6,224.8,234.3,244.1,254.2,264.7,275.4,286.6,298.0,309.8,322.0,334.5,347.4,360.6,374.3,388.3,402.8,417.7,432.9,448.6,464.8,481.3,498.3,515.8,533.7,552.1,571.0,590.4,610.3,630.6,651.5,672.9,694.8,717.3,740.3,763.9,788.0,812.8,838.0,863.9,890.4,917.5,945.2,973.6,1002.5,1032.2,1062.5,1093.4,1125.0,1157.4,1190.4,1224.1,1258.6,1293.7,1329.7,1366.3,1403.8,1442.0,1481.0,1520.8,1561.4,1602.8,1645.1,1688.2,1732.1,1777.0,1822.7,1869.3,1916.9,1965.3,2014.7,2065.1,2116.5,2168.8,2222.1,2276.5,2331.9,2388.4,2445.9,2504.5,2564.3,2625.2,2687.3,2750.5,2815.0,2880.7,2947.7,3016.0]},{"id":"R407C","name":"R-407C","t0":-60,"p":[42.98,45.49,48.11,50.86,53.73,56.73,59.87,63.14,66.55,70.11,73.83,77.69,81.72,85.91,90.27,94.8,99.51,104.4,109.5,114.8,120.3,125.9,131.8,137.9,144.3,150.8,157.6,164.6,171.9,179.4,187.1,195.1,203.4,212.0,220.8,229.9,239.3,249.0,259.0,269.3,279.9,290.9,302.1,313.7,325.7,337.9,350.6,363.5,376.9,390.6,404.7,419.2,434.0,449.3,465.0,481.1,497.6,514.5,531.9,549.6,567.9,586.6,605.7,625.4,645.5,666.0,687.1,708.7,730.7,753.3,776.4,800.0,824.2,848.9,874.1,899.9,926.3,953.2,980.8,1008.9,1037.6,1066.9,1096.8,1127.3,1158.4,1190.2,1222.7,1255.8,1289.5,1323.9,1359.0,1394.8,1431.2,1468.4,1506.3,1544.8,1584.2,1624.2,1665.0,1706.6,1748.9,1791.9,1835.8,1880.5,1925.9,1972.2,2019.2,2067.1,2115.9,2165.4,2215.9,2267.2,2319.4,2372.4,2426.4,2481.2,2537.0,2593.7,2651.3,2709.9,2769.4,2830.0,2891.4,2953.9,3017.4,3081.8],"pd":[27.69,29.48,31.36,33.34,35.42,37.6,39.89,42.3,44.82,47.46,50.22,53.11,56.14,59.3,62.61,66.06,69.66,73.42,77.34,81.42,85.67,90.1,94.71,99.51,104.5,109.7,115.1,120.6,126.4,132.5,138.7,145.2,151.9,158.8,166.0,173.5,181.2,189.1,197.4,205.9,214.7,223.8,233.2,242.9,252.9,263.2,273.9,284.8,296.1,307.8,319.8,332.2,344.9,358.0,371.5,385.3,399.6,414.3,429.3,444.8,460.7,477.1,493.8,511.1,528.8,546.9,565.5,584.6,604.2,624.3,644.9,666.0,687.6,709.7,732.4,755.6,779.4,803.8,828.7,854.2,880.3,907.0,934.3,962.2,990.8,1019.9,1049.8,1080.3,1111.4,1143.3,1175.8,1209.0,1243.0,1277.6,1313.0,1349.1,1386.0,1423.6,1462.0,1501.2,1541.2,1582.0,1623.6,1666.0,1709.3,1753.5,1798.5,1844.4,1891.2,1939.0,1987.6,2037.2,2087.8,2139.3,2191.8,2245.3,2299.8,2355.4,2412.1,2469.8,2528.6,2588.5,2649.6,2711.8,2775.2,2839.8]},{"id":"R407F","name":"R-407F","t0":-60,"p":[48.7,51.51,54.46,57.54,60.76,64.13,67.64,71.3,75.12,79.11,83.26,87.58,92.07,96.75,101.6,106.7,111.9,117.4,123.1,128.9,135.0,141.3,147.9,154.7,161.7,169.0,176.5,184.3,192.4,200.7,209.3,218.2,227.3,236.8,246.6,256.7,267.1,277.8,288.9,300.2,312.0,324.0,336.5,349.3,362.4,376.0,389.9,404.2,418.9,434.0,449.6,465.5,481.9,498.7,515.9,533.6,551.8,570.4,589.5,609.0,629.1,649.6,670.6,692.2,714.2,736.8,759.9,783.6,807.8,832.6,857.9,883.8,910.3,937.3,965.0,993.3,1022.2,1051.7,1081.8,1112.5,1144.0,1176.0,1208.8,1242.2,1276.2,1311.0,1346.5,1382.7,1419.6,1457.2,1495.5,1534.6,1574.5,1615.1,1656.5,1698.6,1741.6,1785.3,1829.9,1875.2,1921.4,1968.4,2016.3,2065.0,2114.6,2165.1,2216.5,2268.7,2321.9,2376.0,2431.0,2486.9,2543.8,2601.7,2660.6,2720.4,2781.2,2843.0,2905.8,2969.7,3034.6,3100.5,3167.5,3235.6,3304.8,3375.1],"pd":[32.77,34.86,37.05,39.35,41.76,44.3,46.95,49.74,52.65,55.7,58.9,62.23,65.72,69.37,73.17,77.14,81.28,85.59,90.08,94.76,99.63,104.7,110.0,115.4,121.1,127.0,133.2,139.5,146.2,153.0,160.1,167.4,175.1,182.9,191.1,199.5,208.3,217.3,226.6,236.2,246.2,256.4,267.0,277.9,289.2,300.8,312.8,325.1,337.9,351.0,364.4,378.3,392.6,407.3,422.4,437.9,453.9,470.3,487.1,504.4,522.2,540.5,559.2,578.4,598.2,618.4,639.1,660.4,682.2,704.6,727.5,750.9,775.0,799.6,824.8,850.6,877.0,904.0,931.6,959.9,988.9,1018.4,1048.7,1079.6,1111.2,1143.5,1176.6,1210.3,1244.8,1280.0,1315.9,1352.6,1390.1,1428.4,1467.5,1507.3,1548.0,1589.6,1631.9,1675.2,1719.3,1764.3,1810.2,1856.9,1904.7,1953.3,2002.9,2053.5,2105.1,2157.6,2211.2,2265.8,2321.5,2378.2,2436.1,2495.0,2555.0,2616.2,2678.6,2742.2,2807.0,2873.0,2940.3,3008.9,3078.8,3150.1]},{"id":"R410A","name":"R-410A","t0":-60,"p":[64.24,67.9,71.73,75.73,79.9,84.26,88.8,93.54,98.48,103.6,109.0,114.5,120.3,126.4,132.6,139.1,145.9,152.9,160.2,167.7,175.5,183.6,192.0,200.7,209.6,218.9,228.5,238.5,248.7,259.4,270.3,281.6,293.3,305.3,317.8,330.6,343.8,357.4,371.4,385.8,400.7,416.0,431.7,447.9,464.6,481.7,499.3,517.4,535.9,555.0,574.6,594.7,615.4,636.5,658.3,680.6,703.4,726.9,750.9,775.5,800.7,826.5,853.0,880.1,907.8,936.2,965.3,995.0,1025.4,1056.5,1088.3,1120.8,1154.1,1188.1,1222.8,1258.3,1294.5,1331.6,1369.4,1408.0,1447.5,1487.7,1528.8,1570.8,1613.6,1657.2,1701.8,1747.3,1793.6,1840.9,1889.1,1938.3,1988.4,2039.5,2091.6,2144.7,2198.8,2253.9,2310.1,2367.3,2425.6,2485.0,2545.5,2607.1,2669.9,2733.8,2798.8,2865.1,2932.5,3001.2,3071.1,3142.2,3214.7,3288.4,3363.5,3439.8,3517.6,3596.7,3677.3,3759.2,3842.6,3927.6,4014.0,4101.9,4191.5,4282.6]},{"id":"R448A","name":"R-448A","t0":-60,"p":[49.27,52.1,55.05,58.14,61.37,64.74,68.26,71.93,75.75,79.73,83.88,88.2,92.69,97.37,102.2,107.3,112.5,118.0,123.6,129.5,135.5,141.8,148.3,155.1,162.1,169.3,176.8,184.5,192.5,200.8,209.3,218.1,227.2,236.6,246.3,256.3,266.6,277.2,288.1,299.4,311.0,322.9,335.2,347.9,360.9,374.2,388.0,402.1,416.6,431.5,446.8,462.5,478.6,495.2,512.1,529.5,547.4,565.7,584.4,603.7,623.3,643.5,664.2,685.3,706.9,729.1,751.8,774.9,798.7,822.9,847.7,873.0,899.0,925.4,952.5,980.1,1008.3,1037.1,1066.6,1096.6,1127.2,1158.5,1190.4,1223.0,1256.2,1290.1,1324.7,1359.9,1395.8,1432.4,1469.7,1507.7,1546.4,1585.9,1626.1,1667.0,1708.7,1751.1,1794.3,1838.3,1883.1,1928.6,1975.0,2022.2,2070.2,2119.0,2168.7,2219.2,2270.6,2322.8,2375.9,2429.9,2484.8,2540.6,2597.3,2654.9,2713.5,2773.0,2833.5,2894.9,2957.3,3020.6,3085.0,3150.4,3216.7,3284.1],"pd":[33.38,35.46,37.65,39.95,42.36,44.89,47.54,50.31,53.21,56.24,59.41,62.72,66.18,69.79,73.56,77.48,81.57,85.83,90.27,94.88,99.68,104.7,109.9,115.2,120.8,126.6,132.7,138.9,145.4,152.1,159.0,166.2,173.7,181.4,189.4,197.6,206.1,214.9,224.0,233.4,243.1,253.1,263.4,274.0,285.0,296.2,307.9,319.9,332.2,344.9,358.0,371.4,385.3,399.5,414.1,429.1,444.6,460.4,476.7,493.5,510.6,528.3,546.3,564.9,583.9,603.4,623.4,643.9,664.9,686.5,708.5,731.1,754.2,777.9,802.1,827.0,852.3,878.3,904.9,932.0,959.8,988.2,1017.3,1047.0,1077.3,1108.3,1140.0,1172.3,1205.4,1239.1,1273.6,1308.8,1344.7,1381.4,1418.8,1457.0,1496.0,1535.7,1576.3,1617.7,1659.9,1703.0,1746.9,1791.7,1837.3,1883.9,1931.4,1979.7,2029.1,2079.4,2130.6,2182.9,2236.1,2290.4,2345.7,2402.1,2459.5,2518.1,2577.8,2638.6,2700.6,2763.8,2828.2,2893.9,2960.8,3029.1]},{"id":"R449A","name":"R-449A","t0":-60,"p":[48.5,51.29,54.21,57.25,60.44,63.76,67.22,70.84,74.61,78.54,82.63,86.89,91.32,95.92,100.7,105.7,110.9,116.2,121.8,127.6,133.6,139.8,146.2,152.9,159.7,166.9,174.3,181.9,189.8,197.9,206.4,215.1,224.0,233.3,242.8,252.7,262.9,273.3,284.1,295.2,306.7,318.5,330.6,343.0,355.9,369.1,382.6,396.5,410.9,425.6,440.7,456.2,472.1,488.4,505.1,522.3,539.9,558.0,576.5,595.5,614.9,634.8,655.2,676.0,697.4,719.3,741.6,764.5,787.9,811.8,836.3,861.3,886.9,913.0,939.7,967.0,994.8,1023.3,1052.3,1082.0,1112.2,1143.1,1174.6,1206.8,1239.5,1273.0,1307.1,1341.9,1377.3,1413.4,1450.2,1487.8,1526.0,1564.9,1604.6,1645.0,1686.2,1728.1,1770.7,1814.1,1858.3,1903.3,1949.1,1995.7,2043.1,2091.3,2140.3,2190.2,2240.9,2292.5,2344.9,2398.2,2452.4,2507.5,2563.5,2620.4,2678.2,2737.0,2796.7,2857.3,2918.9,2981.5,3045.0,3109.6,3175.1,3241.7],"pd":[33.8,35.91,38.11,40.43,42.86,45.4,48.07,50.86,53.78,56.83,60.02,63.35,66.83,70.45,74.24,78.18,82.29,86.57,91.02,95.65,100.5,105.5,110.7,116.1,121.7,127.5,133.5,139.8,146.3,153.0,160.0,167.2,174.6,182.3,190.3,198.6,207.1,215.9,225.0,234.3,244.0,254.0,264.3,274.9,285.9,297.1,308.7,320.7,333.0,345.7,358.7,372.2,386.0,400.1,414.7,429.7,445.1,460.9,477.1,493.8,510.9,528.5,546.5,564.9,583.9,603.3,623.2,643.6,664.5,686.0,707.9,730.4,753.4,776.9,801.0,825.7,850.9,876.7,903.1,930.1,957.7,985.9,1014.8,1044.2,1074.4,1105.1,1136.6,1168.7,1201.5,1235.0,1269.2,1304.1,1339.7,1376.1,1413.2,1451.0,1489.7,1529.1,1569.3,1610.3,1652.2,1694.8,1738.3,1782.7,1827.9,1874.0,1921.0,1968.9,2017.8,2067.5,2118.3,2170.0,2222.6,2276.3,2331.0,2386.8,2443.6,2501.5,2560.5,2620.6,2681.8,2744.2,2807.9,2872.7,2938.8,3006.2]},{"id":"R454B","name":"R-454B","t0":-60,"p":[62.14,65.66,69.34,73.19,77.2,81.39,85.76,90.32,95.06,100.0,105.1,110.5,116.1,121.8,127.9,134.1,140.6,147.3,154.3,161.5,169.0,176.8,184.8,193.1,201.7,210.6,219.9,229.4,239.2,249.4,259.9,270.7,281.9,293.5,305.4,317.6,330.3,343.3,356.7,370.5,384.8,399.4,414.5,430.0,445.9,462.3,479.1,496.4,514.2,532.5,551.2,570.5,590.2,610.5,631.3,652.6,674.4,696.8,719.8,743.3,767.4,792.1,817.4,843.3,869.8,896.9,924.6,953.0,982.0,1011.7,1042.1,1073.1,1104.9,1137.3,1170.4,1204.3,1238.8,1274.1,1310.2,1347.0,1384.6,1422.9,1462.1,1502.0,1542.8,1584.3,1626.7,1670.0,1714.1,1759.0,1804.8,1851.6,1899.2,1947.7,1997.1,2047.5,2098.8,2151.0,2204.2,2258.4,2313.6,2369.8,2427.0,2485.2,2544.5,2604.8,2666.2,2728.7,2792.2,2856.9,2922.7,2989.6,3057.7,3127.0,3197.4,3269.0,3341.8,3415.9,3491.2,3567.7,3645.6,3724.7,3805.2,3887.0,3970.1,4054.6],"pd":[58.22,61.55,65.03,68.67,72.47,76.44,80.58,84.9,89.4,94.08,98.96,104.0,109.3,114.8,120.5,126.4,132.6,139.0,145.6,152.5,159.6,167.0,174.7,182.6,190.8,199.3,208.1,217.1,226.5,236.2,246.2,256.6,267.2,278.3,289.6,301.3,313.4,325.9,338.7,351.9,365.5,379.5,393.9,408.7,424.0,439.7,455.8,472.4,489.4,506.9,524.9,543.3,562.2,581.7,601.6,622.1,643.1,664.6,686.6,709.3,732.4,756.2,780.5,805.4,830.9,857.0,883.7,911.1,939.0,967.7,997.0,1026.9,1057.5,1088.8,1120.8,1153.5,1186.9,1221.1,1256.0,1291.6,1328.0,1365.1,1403.1,1441.8,1481.3,1521.7,1562.8,1604.8,1647.7,1691.4,1736.0,1781.4,1827.8,1875.1,1923.3,1972.4,2022.5,2073.6,2125.6,2178.6,2232.6,2287.7,2343.7,2400.9,2459.1,2518.4,2578.7,2640.2,2702.9,2766.6,2831.6,2897.7,2965.0,3033.6,3103.4,3174.5,3246.9,3320.6,3395.6,3472.0,3549.8,3629.1,3709.7,3791.9,3875.6,3960.9]},{"id":"R507A","name":"R-507A","t0":-60,"p":[51.05,53.95,56.98,60.14,63.44,66.88,70.47,74.21,78.1,82.16,86.38,90.77,95.33,100.1,105.0,110.1,115.4,120.9,126.6,132.5,138.7,145.0,151.6,158.4,165.4,172.7,180.2,188.0,196.0,204.3,212.9,221.7,230.8,240.2,249.9,259.9,270.2,280.8,291.7,303.0,314.5,326.4,338.6,351.2,364.2,377.5,391.1,405.1,419.6,434.4,449.5,465.1,481.1,497.5,514.3,531.6,549.2,567.4,585.9,604.9,624.4,644.3,664.7,685.6,707.0,728.9,751.3,774.2,797.6,821.5,846.0,871.0,896.6,922.7,949.4,976.6,1004.5,1032.9,1061.9,1091.6,1121.8,1152.7,1184.2,1216.3,1249.1,1282.6,1316.7,1351.5,1386.9,1423.1,1460.0,1497.5,1535.8,1574.9,1614.6,1655.2,1696.5,1738.5,1781.4,1825.0,1869.5,1914.8,1960.9,2007.8,2055.6,2104.3,2153.9,2204.3,2255.7,2308.0,2361.2,2415.4,2470.5,2526.6,2583.8,2642.0,2701.2,2761.4,2822.8,2885.3,2948.9,3013.7,3079.6,3146.8,3215.3,3285.1]},{"id":"R513A","name":"R-513A","t0":-60,"p":[20.33,21.61,22.96,24.37,25.86,27.42,29.05,30.77,32.56,34.44,36.41,38.46,40.61,42.85,45.2,47.64,50.19,52.85,55.62,58.5,61.51,64.63,67.88,71.26,74.77,78.42,82.2,86.13,90.21,94.44,98.83,103.4,108.1,112.9,118.0,123.2,128.6,134.2,140.0,145.9,152.1,158.4,165.0,171.8,178.8,186.0,193.4,201.0,208.9,217.1,225.4,234.0,242.9,252.0,261.4,271.0,281.0,291.2,301.6,312.4,323.4,334.8,346.4,358.4,370.6,383.2,396.1,409.4,422.9,436.8,451.1,465.7,480.6,495.9,511.6,527.7,544.1,560.9,578.1,595.7,613.7,632.1,650.9,670.1,689.8,709.8,730.3,751.3,772.7,794.6,816.9,839.7,862.9,886.6,910.9,935.6,960.8,986.5,1012.7,1039.5,1066.7,1094.5,1122.9,1151.8,1181.2,1211.2,1241.7,1272.9,1304.6,1336.9,1369.8,1403.3,1437.4,1472.1,1507.5,1543.5,1580.1,1617.4,1655.3,1693.9,1733.2,1773.2,1813.8,1855.2,1897.3,1940.1],"pd":[19.98,21.25,22.59,24.0,25.48,27.03,28.66,30.37,32.15,34.03,35.99,38.03,40.18,42.41,44.75,47.19,49.74,52.39,55.16,58.04,61.04,64.16,67.41,70.78,74.29,77.94,81.73,85.66,89.73,93.96,98.35,102.9,107.6,112.5,117.5,122.7,128.1,133.7,139.5,145.5,151.6,158.0,164.6,171.3,178.3,185.5,193.0,200.6,208.5,216.7,225.1,233.7,242.5,251.7,261.1,270.7,280.7,290.9,301.3,312.1,323.2,334.5,346.2,358.2,370.4,383.0,395.9,409.2,422.8,436.7,450.9,465.5,480.5,495.8,511.5,527.6,544.0,560.8,578.0,595.6,613.6,632.0,650.8,670.1,689.7,709.8,730.3,751.3,772.7,794.6,816.9,839.7,862.9,886.6,910.9,935.6,960.8,986.5,1012.7,1039.4,1066.7,1094.5,1122.8,1151.7,1181.1,1211.1,1241.7,1272.8,1304.5,1336.8,1369.6,1403.1,1437.2,1471.9,1507.3,1543.2,1579.8,1617.1,1655.0,1693.6,1732.9,1772.8,1813.4,1854.8,1896.8,1939.6]},{"id":"R32","name":"R-32","t0":-60,"p":[64.96,68.65,72.52,76.56,80.77,85.17,89.76,94.55,99.54,104.7,110.1,115.8,121.6,127.7,134.0,140.6,147.4,154.5,161.9,169.5,177.4,185.6,194.1,202.9,212.0,221.4,231.1,241.2,251.6,262.3,273.4,284.9,296.7,309.0,321.6,334.6,348.0,361.8,376.0,390.7,405.8,421.3,437.3,453.7,470.7,488.1,506.0,524.4,543.3,562.7,582.6,603.1,624.1,645.7,667.9,690.6,713.9,737.8,762.3,787.4,813.1,839.5,866.5,894.1,922.5,951.4,981.1,1011.5,1042.6,1074.4,1106.9,1140.2,1174.2,1208.9,1244.5,1280.8,1317.9,1355.9,1394.6,1434.2,1474.6,1515.8,1557.9,1600.9,1644.8,1689.6,1735.3,1781.9,1829.5,1878.0,1927.5,1978.0,2029.4,2081.9,2135.3,2189.8,2245.4,2302.0,2359.7,2418.4,2478.3,2539.3,2601.4,2664.7,2729.2,2794.8,2861.6,2929.6,2998.9,3069.4,3141.2,3214.3,3288.7,3364.4,3441.5,3519.9,3599.7,3680.9,3763.5,3847.6,3933.2,4020.3,4108.9,4199.1,4290.9,4384.3]},{"id":"R290","name":"R-290 (Propane)","t0":-60,"p":[42.69,45.0,47.41,49.92,52.53,55.25,58.08,61.02,64.08,67.26,70.57,74.0,77.56,81.25,85.08,89.05,93.16,97.42,101.8,106.4,111.1,116.0,121.1,126.3,131.7,137.2,143.0,148.9,155.0,161.3,167.8,174.5,181.4,188.6,195.9,203.4,211.2,219.2,227.4,235.8,244.5,253.4,262.6,272.0,281.7,291.6,301.8,312.3,323.0,334.0,345.3,356.8,368.7,380.8,393.3,406.0,419.1,432.5,446.1,460.1,474.5,489.1,504.1,519.4,535.1,551.1,567.5,584.2,601.3,618.8,636.6,654.8,673.4,692.4,711.7,731.5,751.7,772.3,793.2,814.6,836.5,858.7,881.4,904.5,928.1,952.1,976.5,1001.4,1026.8,1052.7,1079.0,1105.8,1133.1,1160.8,1189.1,1217.9,1247.2,1276.9,1307.2,1338.1,1369.4,1401.3,1433.7,1466.7,1500.2,1534.3,1569.0,1604.2,1640.0,1676.3,1713.3,1750.9,1789.0,1827.8,1867.2,1907.2,1947.8,1989.1,2031.0,2073.5,2116.8,2160.6,2205.2,2250.4,2296.3,2343.0]},{"id":"R600a","name":"R-600a (Isobutane)","t0":-60,"p":[9.27,9.86,10.49,11.15,11.85,12.58,13.34,14.15,14.99,15.87,16.8,17.77,18.78,19.84,20.95,22.11,23.32,24.58,25.9,27.27,28.7,30.19,31.75,33.36,35.05,36.8,38.62,40.51,42.47,44.51,46.62,48.82,51.09,53.45,55.9,58.43,61.05,63.76,66.57,69.47,72.48,75.58,78.79,82.1,85.52,89.05,92.7,96.46,100.3,104.3,108.5,112.7,117.1,121.6,126.2,131.0,135.9,140.9,146.1,151.5,157.0,162.6,168.4,174.3,180.4,186.7,193.2,199.8,206.5,213.5,220.6,227.9,235.4,243.1,250.9,259.0,267.2,275.7,284.3,293.2,302.2,311.5,321.0,330.6,340.5,350.7,361.0,371.6,382.4,393.4,404.7,416.2,428.0,440.0,452.3,464.8,477.5,490.6,503.8,517.4,531.2,545.3,559.7,574.3,589.2,604.4,619.9,635.7,651.8,668.2,684.9,701.9,719.2,736.8,754.7,773.0,791.6,810.5,829.7,849.3,869.2,889.4,910.0,930.9,952.2,973.9]},{"id":"R717","name":"R-717 (Ammonia)","t0":-60,"p":[21.84,23.32,24.88,26.52,28.26,30.09,32.01,34.04,36.18,38.42,40.78,43.25,45.85,48.58,51.43,54.43,57.57,60.85,64.29,67.88,71.63,75.56,79.65,83.93,88.39,93.04,97.89,102.9,108.2,113.7,119.4,125.3,131.5,137.9,144.5,151.4,158.6,166.0,173.7,181.7,190.0,198.6,207.5,216.7,226.2,236.1,246.3,256.8,267.7,279.0,290.6,302.6,315.0,327.8,341.0,354.7,368.7,383.2,398.1,413.4,429.2,445.5,462.3,479.6,497.3,515.6,534.3,553.6,573.5,593.9,614.8,636.3,658.4,681.0,704.3,728.2,752.7,777.8,803.6,830.0,857.0,884.8,913.2,942.3,972.2,1002.7,1034.0,1066.0,1098.7,1132.2,1166.5,1201.6,1237.5,1274.2,1311.7,1350.0,1389.2,1429.2,1470.1,1511.9,1554.5,1598.1,1642.6,1688.0,1734.4,1781.7,1830.0,1879.2,1929.5,1980.7,2033.0,2086.3,2140.6,2196.0,2252.5,2310.0,2368.7,2428.4,2489.3,2551.3,2614.5,2678.8,2744.3,2811.0,2878.9,2948.1]},{"id":"R744","name":"R-744 (CO₂)","t0":-56,"p":[530.6,554.0,578.0,602.9,628.6,655.0,682.3,710.5,739.5,769.4,800.2,831.8,864.4,898.0,932.5,968.0,1004.5,1042.0,1080.5,1120.1,1160.7,1202.4,1245.2,1289.1,1334.2,1380.4,1427.8,1476.3,1526.1,1577.0,1629.3,1682.7,1737.5,1793.5,1850.9,1909.6,1969.6,2031.0,2093.8,2158.1,2223.7,2290.8,2359.3,2429.4,2501.0,2574.0,2648.7,2724.9,2802.7,2882.1,2963.2,3045.9,3130.3,3216.4,3304.2,3393.8,3485.1,3578.3,3673.3,3770.1,3868.8,3969.5,4072.0,4176.5,4283.1,4391.6,4502.2,4614.9,4729.7,4846.6,4965.8,5087.1,5210.8,5336.8,5465.1,5595.8,5729.1,5864.8,6003.1,6144.0,6287.7,6434.2,6583.7,6736.1]},{"id":"R1234yf","name":"R-1234yf","t0":-60,"p":[21.05,22.35,23.71,25.14,26.64,28.21,29.86,31.58,33.38,35.26,37.23,39.29,41.43,43.67,46.01,48.44,50.98,53.62,56.36,59.22,62.2,65.29,68.5,71.83,75.3,78.89,82.62,86.48,90.49,94.64,98.93,103.4,108.0,112.7,117.7,122.8,128.0,133.5,139.1,144.9,150.9,157.0,163.4,170.0,176.7,183.7,190.9,198.3,205.9,213.7,221.8,230.1,238.6,247.4,256.4,265.7,275.2,285.0,295.0,305.3,315.9,326.7,337.9,349.3,361.0,373.0,385.3,397.9,410.8,424.1,437.6,451.5,465.7,480.3,495.1,510.4,525.9,541.9,558.2,574.8,591.8,609.2,627.0,645.2,663.7,682.7,702.1,721.8,742.0,762.6,783.6,805.1,827.0,849.3,872.1,895.3,919.0,943.2,967.8,992.9,1018.5,1044.6,1071.1,1098.2,1125.8,1153.9,1182.5,1211.7,1241.3,1271.6,1302.3,1333.7,1365.6,1398.0,1431.1,1464.7,1498.9,1533.7,1569.1,1605.2,1641.8,1679.1,1717.0,1755.6,1794.8,1834.7]},{"id":"R1234ze","name":"R-1234ze(E)","t0":-60,"p":[11.17,11.93,12.73,13.58,14.47,15.42,16.41,17.45,18.55,19.71,20.92,22.19,23.53,24.93,26.39,27.93,29.54,31.22,32.98,34.82,36.75,38.75,40.85,43.03,45.31,47.68,50.16,52.73,55.41,58.2,61.09,64.11,67.23,70.48,73.86,77.35,80.98,84.75,88.65,92.69,96.87,101.2,105.7,110.3,115.1,120.1,125.2,130.5,136.0,141.6,147.4,153.4,159.6,166.0,172.6,179.4,186.4,193.6,201.0,208.7,216.6,224.6,233.0,241.5,250.3,259.3,268.6,278.2,288.0,298.0,308.4,319.0,329.8,341.0,352.4,364.2,376.2,388.5,401.1,414.1,427.3,440.9,454.8,469.1,483.6,498.5,513.8,529.4,545.3,561.6,578.3,595.4,612.8,630.6,648.8,667.4,686.4,705.8,725.6,745.8,766.5,787.5,809.0,830.9,853.3,876.1,899.4,923.2,947.4,972.1,997.2,1022.9,1049.0,1075.6,1102.8,1130.4,1158.6,1187.3,1216.5,1246.3,1276.6,1307.4,1338.8,1370.8,1403.3,1436.5]}];
+const ATM = 101.325; // kPa, standard atmosphere
+
+function fmt(n){if(n===0)return'0';const a=Math.abs(n);if(a>=1e12||a<1e-9)return n.toExponential(4);if(a>=1000)return n.toLocaleString('en-US',{maximumFractionDigits:4});return parseFloat(n.toPrecision(7)).toString();}
+const fx=(n,d)=>n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+let ct;
+function card(sym,val,name,hl){const c=document.createElement('div');c.className='result-card'+(hl?' highlight':'');c.innerHTML=`<div class="r-unit">${sym}</div><div class="r-value">${val}</div><div class="r-name">${name}</div><div class="copy-pip">copied!</div>`;c.onclick=()=>{navigator.clipboard?.writeText(String(val).replace(/,/g,'')).catch(()=>{});c.classList.add('copied');clearTimeout(ct);ct=setTimeout(()=>c.classList.remove('copied'),1100);};return c;}
+const $=id=>document.getElementById(id);
+const num=id=>{const v=parseFloat($(id).value);return isNaN(v)?null:v;};
+
+// ── 1. CAPACITY (base: W)
+const CAP=[
+  {key:'w',   sym:'W',      name:'Watt',                         toW:1},
+  {key:'kw',  sym:'kW',     name:'Kilowatt',                     toW:1000},
+  {key:'mw',  sym:'MW',     name:'Megawatt',                     toW:1e6},
+  {key:'tr',  sym:'TR',     name:'Ton of Refrigeration (US)',    toW:3516.8528420667},
+  {key:'btuh',sym:'BTU/h',  name:'BTU per Hour',                 toW:0.29307107017222},
+  {key:'mbh', sym:'MBH',    name:'Thousand BTU per Hour',        toW:293.07107017222},
+  {key:'kcalh',sym:'kcal/h',name:'Kilocalorie per Hour',         toW:1.163},
+  {key:'kjh', sym:'kJ/h',   name:'Kilojoule per Hour',           toW:1/3.6},
+  {key:'jrt', sym:'JRT',    name:'Japanese Refrigeration Ton',   toW:3861.1},
+];
+CAP.forEach(u=>{const o=document.createElement('option');o.value=u.key;o.textContent=`${u.sym} — ${u.name}`;$('cap-unit').appendChild(o);});$('cap-unit').value='tr';
+function renderCap(){const v=parseFloat($('cap-val').value)||0;const from=CAP.find(u=>u.key===$('cap-unit').value);const w=v*from.toW;const g=$('cap-results');g.innerHTML='';CAP.forEach(u=>{if(u.key===from.key)return;g.appendChild(card(u.sym,fmt(w/u.toW),u.name));});$('cap-formula').textContent=`1 ${from.sym} = ${fmt(from.toW/1000)} kW`+(from.key==='tr'?' = 12,000 BTU/h':'');}
+$('cap-val').addEventListener('input',renderCap);$('cap-unit').addEventListener('change',renderCap);
+
+// ── 2 & 3. PT / SUPERHEAT / SUBCOOLING — shared state
+const PU={bar:{k:100,d:2,g:'bar(g)',a:'bar(a)',n:'Bar'},psi:{k:6.894757293168,d:1,g:'psig',a:'psia',n:'PSI'},kpa:{k:1,d:0,g:'kPa(g)',a:'kPa(a)',n:'Kilopascal'},mpa:{k:1000,d:3,g:'MPa(g)',a:'MPa(a)',n:'Megapascal'}};
+const S={ref:'R410A',pu:'bar',g:true,tu:'c'};
+const R=()=>REF.find(r=>r.id===S.ref);
+const tMax=r=>r.t0+r.p.length-1;
+function pAt(r,T,dew){const a=(dew&&r.pd)?r.pd:r.p;const x=T-r.t0;if(x<0||x>a.length-1)return null;const i=Math.min(Math.floor(x),a.length-2),f=x-i;return Math.exp(Math.log(a[i])*(1-f)+Math.log(a[i+1])*f);}
+function tAt(r,P,dew){const a=(dew&&r.pd)?r.pd:r.p;if(!(P>=a[0]&&P<=a[a.length-1]))return null;let lo=0,hi=a.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(a[m]<=P)lo=m;else hi=m;}return r.t0+lo+(Math.log(P)-Math.log(a[lo]))/(Math.log(a[hi])-Math.log(a[lo]));}
+const toAbs=v=>v*PU[S.pu].k+(S.g?ATM:0);
+const fromAbs=p=>(p-(S.g?ATM:0))/PU[S.pu].k;
+const pLbl=()=>S.g?PU[S.pu].g:PU[S.pu].a;
+const toC=v=>S.tu==='c'?v:(v-32)/1.8;
+const fromC=c=>S.tu==='c'?c:c*1.8+32;
+const tLbl=()=>S.tu==='c'?'°C':'°F';
+const dLbl=()=>S.tu==='c'?'K':'°F';
+const dFrom=k=>S.tu==='c'?k:k*1.8;
+const pStr=pa=>{const v=fromAbs(pa);return fx(v,PU[S.pu].d)+(S.g&&v<0?' (vac)':'');};
+const tStr=c=>fx(fromC(c),1);
+
+function buildCtrls(){
+  document.querySelectorAll('[data-ctrls]').forEach(box=>{
+    box.innerHTML=`<div class="ref-cell"><label class="field-label">Refrigerant</label><select data-k="ref">${REF.map(r=>`<option value="${r.id}">${r.name}</option>`).join('')}</select></div>
+    <div><label class="field-label">Pressure</label><select data-k="pu"><option value="bar">bar</option><option value="psi">psi</option><option value="kpa">kPa</option><option value="mpa">MPa</option></select></div>
+    <div><label class="field-label">Reading</label><select data-k="g"><option value="1">Gauge</option><option value="0">Absolute</option></select></div>
+    <div><label class="field-label">Temp</label><select data-k="tu"><option value="c">°C</option><option value="f">°F</option></select></div>`;
+  });
+  document.querySelectorAll('[data-ctrls] select').forEach(s=>s.addEventListener('change',e=>setState(e.target.dataset.k,e.target.value)));
+}
+const P_INPUTS=['pt-p','sh-p','sc-p'], T_INPUTS=['pt-t','sh-t','sc-t'];
+function setState(k,v){
+  // keep the physical meaning of the numbers already typed in when units change
+  const pAbs=P_INPUTS.map(id=>{const n=num(id);return n===null?null:toAbs(n);});
+  const tC=T_INPUTS.map(id=>{const n=num(id);return n===null?null:toC(n);});
+  if(k==='g')S.g=v==='1';else S[k]=v;
+  if(k==='pu'||k==='g')P_INPUTS.forEach((id,i)=>{if(pAbs[i]!==null)$(id).value=+fromAbs(pAbs[i]).toFixed(PU[S.pu].d+1);});
+  if(k==='tu')T_INPUTS.forEach((id,i)=>{if(tC[i]!==null)$(id).value=+fromC(tC[i]).toFixed(1);});
+  renderRef();
+}
+function rangeTxt(r){return `${tStr(r.t0)} to ${tStr(tMax(r))} ${tLbl()}`;}
+function renderPT(){
+  const r=R(),zeo=!!r.pd;
+  // T → P
+  const g1=$('pt-t-res');g1.innerHTML='';const t=num('pt-t');
+  if(t!==null){const c=toC(t);const pb=pAt(r,c,false),pd=pAt(r,c,true);
+    if(pb===null){g1.appendChild(card('—','out of range',rangeTxt(r)));}
+    else if(zeo){g1.appendChild(card(pLbl(),pStr(pb),'Bubble point (liquid)',true));g1.appendChild(card(pLbl(),pStr(pd),'Dew point (vapour)',true));}
+    else{g1.appendChild(card(pLbl(),pStr(pb),'Saturation pressure',true));Object.keys(PU).filter(k=>k!==S.pu).forEach(k=>{const v=(pb-(S.g?ATM:0))/PU[k].k;g1.appendChild(card(S.g?PU[k].g:PU[k].a,fx(v,PU[k].d),PU[k].n));});}
+  }
+  // P → T
+  const g2=$('pt-p-res');g2.innerHTML='';const p=num('pt-p');
+  if(p!==null){const pa=toAbs(p);const tb=tAt(r,pa,false),td=tAt(r,pa,true);
+    if(tb===null||td===null){g2.appendChild(card('—','out of range',`valid ${rangeTxt(r)}`));}
+    else if(zeo){g2.appendChild(card(tLbl(),tStr(tb),'Bubble temperature (liquid)',true));g2.appendChild(card(tLbl(),tStr(td),'Dew temperature (vapour)',true));g2.appendChild(card(dLbl(),fx(dFrom(td-tb),1),'Temperature glide'));}
+    else{g2.appendChild(card(tLbl(),tStr(tb),'Saturation temperature',true));const o=S.tu==='c'?{l:'°F',v:tb*1.8+32}:{l:'°C',v:tb};g2.appendChild(card(o.l,fx(o.v,1),o.l==='°F'?'Fahrenheit':'Celsius'));g2.appendChild(card('K',fx(tb+273.15,2),'Kelvin'));}
+  }
+  $('pt-t-label').textContent=`saturation pressure · ${pLbl()}`;
+  $('pt-p-label').textContent=`saturation temperature · ${tLbl()}`;
+  $('pt-note').textContent=`${r.name}: ${zeo?'zeotropic blend — use dew for superheat, bubble for subcooling':'single-component / near-azeotrope'} · range ${rangeTxt(r)}`+(S.g?` · gauge = absolute − ${fx(ATM/PU[S.pu].k,PU[S.pu].d+1)} ${PU[S.pu].a.replace('(a)','').replace('psia','psi')}`:'');
+  $('pt-chart-name').textContent=r.name;
+  if($('pt-details').open)renderTable();
+}
+function renderTable(){
+  const r=R(),zeo=!!r.pd,step=S.tu==='c'?1:2;
+  let lo=Math.ceil(fromC(r.t0)/step)*step,hi=Math.floor(fromC(tMax(r))/step)*step,rows='';
+  for(let x=lo;x<=hi+1e-9;x+=step){const c=toC(x);const pb=pAt(r,c,false);if(pb===null)continue;rows+=`<tr><td>${fx(x,0)}</td><td>${pStr(pb)}</td>${zeo?`<td>${pStr(pAt(r,c,true))}</td>`:''}</tr>`;}
+  $('pt-table').innerHTML=`<thead><tr><th>${tLbl()}</th>${zeo?`<th>Bubble ${pLbl()}</th><th>Dew ${pLbl()}</th>`:`<th>${pLbl()}</th>`}</tr></thead><tbody>${rows}</tbody>`;
+}
+$('pt-details').addEventListener('toggle',()=>{if($('pt-details').open)renderTable();});
+function hint(el,cls,txt){el.className='hint '+cls;el.textContent=txt;}
+function renderSH(){
+  const r=R(),zeo=!!r.pd;
+  // superheat
+  const g=$('sh-res'),h=$('sh-hint');g.innerHTML='';h.textContent='';
+  const p=num('sh-p'),t=num('sh-t');
+  if(p!==null&&t!==null){const ts=tAt(r,toAbs(p),true);
+    if(ts===null){g.appendChild(card('—','out of range',`pressure outside ${rangeTxt(r)}`));}
+    else{const sh=toC(t)-ts,shK=sh;
+      g.appendChild(card(tLbl(),tStr(ts),zeo?'Evaporating temp (dew)':'Evaporating temp (sat.)'));
+      g.appendChild(card(dLbl(),fx(dFrom(sh),1),'Superheat',true));
+      if(shK<0)hint(h,'warn','Line temperature is below saturation — reading error, or liquid refrigerant leaving the evaporator.');
+      else if(shK<3)hint(h,'warn','Low superheat — risk of liquid floodback to the compressor (overcharge, overfeeding TXV/EEV, low airflow on coil).');
+      else if(shK>15)hint(h,'warn','High superheat — evaporator starved (undercharge, restriction, TXV/EEV underfeeding, blocked filter-drier).');
+      else hint(h,'ok','Within the typical 3–15 K evaporator-outlet range. Check the manufacturer\'s target.');}
+  }
+  // subcooling
+  const g2=$('sc-res'),h2=$('sc-hint');g2.innerHTML='';h2.textContent='';
+  const p2=num('sc-p'),t2=num('sc-t');
+  if(p2!==null&&t2!==null){const ts=tAt(r,toAbs(p2),false);
+    if(ts===null){g2.appendChild(card('—','out of range',`pressure outside ${rangeTxt(r)}`));}
+    else{const sc=ts-toC(t2);
+      g2.appendChild(card(tLbl(),tStr(ts),zeo?'Condensing temp (bubble)':'Condensing temp (sat.)'));
+      g2.appendChild(card(dLbl(),fx(dFrom(sc),1),'Subcooling',true));
+      if(sc<0)hint(h2,'warn','Liquid line is above saturation — flash gas in the liquid line, or a reading error.');
+      else if(sc<2)hint(h2,'warn','Low subcooling — possible undercharge or flash gas; check the sight glass.');
+      else if(sc>12)hint(h2,'warn','High subcooling — possible overcharge, or a restriction in the liquid line / metering device.');
+      else hint(h2,'ok','Within the typical 2–12 K range. Check the manufacturer\'s target.');}
+  }
+  document.querySelectorAll('[data-plabel]').forEach(l=>{l.textContent=l.textContent.replace(/ \(.*\)$/,'')+` (${pLbl()})`;});
+  document.querySelectorAll('[data-tlabel]').forEach(l=>{l.textContent=l.textContent.replace(/ \(.*\)$/,'')+` (${tLbl()})`;});
+}
+function renderRef(){
+  document.querySelectorAll('[data-ctrls] select').forEach(s=>{const k=s.dataset.k;s.value=k==='g'?(S.g?'1':'0'):S[k];});
+  renderPT();renderSH();
+}
+buildCtrls();
+['pt-t','pt-p'].forEach(id=>$(id).addEventListener('input',renderPT));
+['sh-p','sh-t','sc-p','sc-t'].forEach(id=>$(id).addEventListener('input',renderSH));
+
+// ── 4. EFFICIENCY
+const EFF=[
+  {key:'cop', sym:'COP',   name:'Coefficient of Performance (W/W)', toCOP:v=>v,          fromCOP:c=>c},
+  {key:'eer', sym:'EER',   name:'Energy Efficiency Ratio (BTU/W·h)', toCOP:v=>v/3.412141633, fromCOP:c=>c*3.412141633},
+  {key:'kwtr',sym:'kW/TR', name:'Kilowatts per Ton of Refrigeration', toCOP:v=>3.5168528420667/v, fromCOP:c=>3.5168528420667/c},
+];
+EFF.forEach(u=>{const o=document.createElement('option');o.value=u.key;o.textContent=`${u.sym} — ${u.name}`;$('eff-unit').appendChild(o);});
+function renderEff(){const v=parseFloat($('eff-val').value);const from=EFF.find(u=>u.key===$('eff-unit').value);const g=$('eff-results');g.innerHTML='';
+  if(!(v>0)){g.appendChild(card('—','enter a value > 0',''));return;}
+  const cop=from.toCOP(v);EFF.forEach(u=>{if(u.key===from.key)return;g.appendChild(card(u.sym,fx(u.fromCOP(cop),u.key==='kwtr'?3:2),u.name));});
+  g.appendChild(card('kW','per kW cooling: '+fx(1/cop,3),'Electrical input'));
+  $('eff-formula').textContent='EER = COP × 3.412 · kW/TR = 3.517 ÷ COP';}
+$('eff-val').addEventListener('input',renderEff);$('eff-unit').addEventListener('change',renderEff);
+
+// ── 5. HEAT LOAD
+const FLUID={water:{rho:1000,cp:4.186,n:'water'},eg30:{rho:1045,cp:3.66,n:'30% ethylene glycol (approx. at 0 °C)'},pg30:{rho:1030,cp:3.87,n:'30% propylene glycol (approx. at 0 °C)'}};
+const WFLOW={ls:0.001,m3h:1/3600,lmin:1/60000,gpm:0.003785411784/60}; // → m³/s
+const AFLOW={m3h:1/3600,m3s:1,ls:0.001,cfm:0.0004719474432}; // → m³/s
+function loadCards(g,kw){g.innerHTML='';[['kW',kw,'Kilowatt',true],['TR',kw/3.5168528420667,'Ton of Refrigeration'],['BTU/h',kw/0.00029307107017222,'BTU per Hour'],['kcal/h',kw/0.001163,'Kilocalorie per Hour']].forEach(([s,v,n,h])=>g.appendChild(card(s,fmt(+v.toPrecision(5)),n,h)));}
+function renderLoad(){
+  const f=FLUID[$('w-fluid').value];const q=(num('w-flow')||0)*WFLOW[$('w-funit').value];const dt=(num('w-dt')||0)/($('w-dtu').value==='f'?1.8:1);
+  loadCards($('w-res'),q*f.rho*f.cp*dt);
+  const qa=(num('a-flow')||0)*AFLOW[$('a-funit').value];const dta=(num('a-dt')||0)/($('a-dtu').value==='f'?1.8:1);
+  loadCards($('a-res'),qa*1.2*1.006*dta);
+  $('load-formula').textContent=`Water: kW = flow(m³/s) × ${f.rho} kg/m³ × ${f.cp} kJ/kg·K × ΔT · Air: kW = flow(m³/s) × 1.2 × 1.006 × ΔT`;
+}
+['w-flow','w-dt','a-flow','a-dt'].forEach(id=>$(id).addEventListener('input',renderLoad));
+['w-funit','w-dtu','w-fluid','a-funit','a-dtu'].forEach(id=>$(id).addEventListener('change',renderLoad));
+
+renderCap();renderRef();renderEff();renderLoad();
+</script>
+</body>
+</html>

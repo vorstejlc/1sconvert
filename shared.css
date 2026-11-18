@@ -265,9 +265,9 @@ select {
 
 .r-unit {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: none; /* unit symbols are case-sensitive (mV vs MV, mm vs Mm) */
   color: var(--muted);
   margin-bottom: 0.3rem;
 }

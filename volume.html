@@ -14,6 +14,9 @@
 <title>Volume Converter — Litres to Gallons, ml to fl oz & More | 1 Step Converter</title>
 <meta name="description" content="Convert volume units instantly. Litres to gallons, ml to fl oz, cups to millilitres, US and UK pints and more. Free online volume converter supporting metric, US and imperial units.">
 <link rel="canonical" href="https://www.1sconvert.com/volume.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>
 (function() {
   const THEMES = [
@@ -77,6 +80,7 @@
     <a href="density.html">Density</a>
     <a href="data.html">Data</a>
     <a href="cooking.html">Cooking</a>
+    <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
 
@@ -119,7 +123,7 @@
 <footer class="site-footer">
   <div style="display:flex;align-items:center;gap:0.85rem">
     <img src="logo.png" alt="JV Logo" style="width:48px;height:48px;object-fit:contain;border-radius:50%;opacity:0.9;flex-shrink:0;">
-    <p>© 2025 1 Step Converter</p>
+    <p>© 2026 1 Step Converter</p>
   </div>
   <a href="index.html">← All Converters</a>
 </footer>
@@ -132,13 +136,13 @@ const UNITS = [
   { key:'l',     sym:'L',     name:'Litre',                toL:1,           cat:'metric' },
   { key:'m3',    sym:'m³',    name:'Cubic Meter',          toL:1000,        cat:'metric' },
   { key:'cm3',   sym:'cm³',   name:'Cubic Centimeter',     toL:0.001,       cat:'metric' },
-  { key:'usfloz',sym:'fl oz', name:'US Fluid Ounce',       toL:0.0295735,   cat:'us' },
-  { key:'uscup', sym:'cup',   name:'US Cup',               toL:0.236588,    cat:'us' },
-  { key:'uspt',  sym:'pt',    name:'US Pint',              toL:0.473176,    cat:'us' },
-  { key:'usqt',  sym:'qt',    name:'US Quart',             toL:0.946353,    cat:'us' },
+  { key:'usfloz',sym:'fl oz', name:'US Fluid Ounce',       toL:3.785411784/128,  cat:'us' },
+  { key:'uscup', sym:'cup',   name:'US Cup',               toL:3.785411784/16,  cat:'us' },
+  { key:'uspt',  sym:'pt',    name:'US Pint',              toL:3.785411784/8,   cat:'us' },
+  { key:'usqt',  sym:'qt',    name:'US Quart',             toL:3.785411784/4,   cat:'us' },
   { key:'usgal', sym:'gal',   name:'US Gallon',            toL:3.785411784, cat:'us' },
-  { key:'ukfloz',sym:'uk fl oz',name:'UK Fluid Ounce',     toL:0.0284131,   cat:'uk' },
-  { key:'ukpt',  sym:'uk pt', name:'UK Pint',              toL:0.568261,    cat:'uk' },
+  { key:'ukfloz',sym:'uk fl oz',name:'UK Fluid Ounce',     toL:4.54609/160,    cat:'uk' },
+  { key:'ukpt',  sym:'uk pt', name:'UK Pint',              toL:4.54609/8,      cat:'uk' },
   { key:'ukgal', sym:'uk gal',name:'UK Gallon',            toL:4.54609,     cat:'uk' },
 ];
 
