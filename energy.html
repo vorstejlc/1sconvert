@@ -14,6 +14,17 @@
 <title>Energy Converter — Joules to kWh, Calories, BTU & More | 1 Step Converter</title>
 <meta name="description" content="Convert energy units instantly. Joules to kilowatt-hours, calories to BTU, kilojoules to electronvolts and more. Free online energy and work converter with 11 units.">
 <link rel="canonical" href="https://www.1sconvert.com/energy.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Energy Converter — Joules to kWh, Calories, BTU &amp; More | 1 Step Converter">
+<meta property="og:description" content="Convert energy units instantly. Joules to kilowatt-hours, calories to BTU, kilojoules to electronvolts and more. Free online energy and work converter with 11 units.">
+<meta property="og:url" content="https://www.1sconvert.com/energy.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -58,6 +69,64 @@
 })();
 </script>
 <link rel="stylesheet" href="shared.css">
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many joules are in a kWh?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One kilowatt-hour is 3,600,000 joules (3.6 MJ): 1,000 W × 3,600 s."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between calories and kcal?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A food \"Calorie\" (capital C) is a kilocalorie: 1 kcal = 1,000 small calories = 4.184 kJ. A 2,000 kcal daily diet is about 8,368 kJ."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert kWh to BTU?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply kilowatt-hours by 3,412. For example, 10 kWh is about 34,121 BTU. To convert BTU to kWh, divide by 3,412."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between kW and kWh?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "kW measures power, the rate of energy use. kWh measures energy used over time. A 2 kW heater running for 3 hours uses 6 kWh."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many joules are in a calorie?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One calorie (thermochemical) is 4.184 joules, so 1 kcal = 4,184 J."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many kcal are in a kWh?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One kilowatt-hour is about 860 kcal (3,600,000 J ÷ 4,184)."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 <nav class="site-nav">
@@ -81,13 +150,40 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">⚡ Energy Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 <main class="page-wrap">
   <div class="page-header animate-in">
     <span class="eyebrow">⚡ Energy &amp; Work</span>
     <h1>Energy Converter</h1>
     <p class="sub">11 units · SI, imperial &amp; scientific</p>
   </div>
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <div class="tabs" id="tabs">
       <button class="tab active" data-cat="all">All</button>
       <button class="tab" data-cat="si">SI / Metric</button>
@@ -102,6 +198,71 @@
     <div class="results-grid" id="results"></div>
     <div class="formula-bar"><span class="f-label">formula</span><span id="formula">—</span></div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>How to convert energy units</h2>
+<p>Energy is the capacity to do work. The SI unit is the <strong>joule (J)</strong>, the energy of 1 watt for 1 second. Different fields use different units:</p>
+<ul>
+<li>Electricity bills use the <strong>kilowatt-hour (kWh)</strong>: 1 kWh = 3.6 MJ</li>
+<li>Food labels use the <strong>kilocalorie (kcal)</strong>, the "Calorie": 1 kcal = 4.184 kJ</li>
+<li>Gas and heating in the US and UK use the <strong>BTU</strong>: 1 kWh = 3,412 BTU</li>
+<li>Physics uses the <strong>electronvolt (eV)</strong>: 1 eV = 1.602 × 10<sup>−19</sup> J</li>
+</ul>
+<p><strong>Quick factors:</strong> kWh to MJ, multiply by 3.6. kcal to kJ, multiply by 4.184. BTU to kJ, multiply by 1.055. kWh to kcal, multiply by 860.4.</p>
+<p>Energy is not the same as power. Power (W, kW) is the rate at which energy is used, and energy = power × time. See the <a href="power.html">power converter</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Kilowatt-hours to MJ, BTU and kcal</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>kWh</th><th>MJ</th><th>BTU</th><th>kcal</th></tr></thead><tbody>
+<tr><td>0.1</td><td>0.36</td><td>341.213</td><td>86.0421</td></tr>
+<tr><td>0.5</td><td>1.8</td><td>1,706.06</td><td>430.21</td></tr>
+<tr><td>1</td><td>3.6</td><td>3,412.13</td><td>860.421</td></tr>
+<tr><td>2</td><td>7.2</td><td>6,824.26</td><td>1,720.84</td></tr>
+<tr><td>5</td><td>18</td><td>17,060.6</td><td>4,302.1</td></tr>
+<tr><td>10</td><td>36</td><td>34,121.3</td><td>8,604.21</td></tr>
+<tr><td>25</td><td>90</td><td>85,303.2</td><td>21,510.5</td></tr>
+<tr><td>50</td><td>180</td><td>170,606</td><td>43,021</td></tr>
+<tr><td>100</td><td>360</td><td>341,213</td><td>86,042.1</td></tr>
+<tr><td>250</td><td>900</td><td>853,032</td><td>215,105</td></tr>
+<tr><td>500</td><td>1,800</td><td>1,706,064</td><td>430,210</td></tr>
+<tr><td>1,000</td><td>3,600</td><td>3,412,128</td><td>860,421</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Food energy: kcal (Calories) to kilojoules</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>kcal</th><th>kJ</th><th>Wh</th></tr></thead><tbody>
+<tr><td>50</td><td>209.2</td><td>58.11</td></tr>
+<tr><td>100</td><td>418.4</td><td>116.2</td></tr>
+<tr><td>150</td><td>627.6</td><td>174.3</td></tr>
+<tr><td>200</td><td>836.8</td><td>232.4</td></tr>
+<tr><td>250</td><td>1,046</td><td>290.6</td></tr>
+<tr><td>300</td><td>1,255.2</td><td>348.7</td></tr>
+<tr><td>400</td><td>1,673.6</td><td>464.9</td></tr>
+<tr><td>500</td><td>2,092</td><td>581.1</td></tr>
+<tr><td>750</td><td>3,138</td><td>871.7</td></tr>
+<tr><td>1,000</td><td>4,184</td><td>1,162</td></tr>
+<tr><td>1,500</td><td>6,276</td><td>1,743</td></tr>
+<tr><td>2,000</td><td>8,368</td><td>2,324</td></tr>
+<tr><td>2,500</td><td>10,460</td><td>2,906</td></tr>
+<tr><td>3,000</td><td>12,552</td><td>3,487</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How many joules are in a kWh?</h3>
+<p>One kilowatt-hour is 3,600,000 joules (3.6 MJ): 1,000 W × 3,600 s.</p>
+<h3>What is the difference between calories and kcal?</h3>
+<p>A food &quot;Calorie&quot; (capital C) is a kilocalorie: 1 kcal = 1,000 small calories = 4.184 kJ. A 2,000 kcal daily diet is about 8,368 kJ.</p>
+<h3>How do I convert kWh to BTU?</h3>
+<p>Multiply kilowatt-hours by 3,412. For example, 10 kWh is about 34,121 BTU. To convert BTU to kWh, divide by 3,412.</p>
+<h3>What is the difference between kW and kWh?</h3>
+<p>kW measures power, the rate of energy use. kWh measures energy used over time. A 2 kW heater running for 3 hours uses 6 kWh.</p>
+<h3>How many joules are in a calorie?</h3>
+<p>One calorie (thermochemical) is 4.184 joules, so 1 kcal = 4,184 J.</p>
+<h3>How many kcal are in a kWh?</h3>
+<p>One kilowatt-hour is about 860 kcal (3,600,000 J ÷ 4,184).</p>
+</section>
+<!-- content:end -->
 </main>
 <footer class="site-footer">
   <div style="display:flex;align-items:center;gap:0.85rem">

@@ -14,6 +14,17 @@
 <title>Weight Converter — kg to lbs, grams to ounces, Stone & More | 1 Step Converter</title>
 <meta name="description" content="Convert weight and mass units instantly. kg to lbs, grams to ounces, stone to kg, pounds to grams, metric tonnes and more. Free online weight converter with 12 units.">
 <link rel="canonical" href="https://www.1sconvert.com/weight.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Weight Converter — kg to lbs, grams to ounces, Stone &amp; More | 1 Step Converter">
+<meta property="og:description" content="Convert weight and mass units instantly. kg to lbs, grams to ounces, stone to kg, pounds to grams, metric tonnes and more. Free online weight converter with 12 units.">
+<meta property="og:url" content="https://www.1sconvert.com/weight.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -59,6 +70,64 @@
 })();
 </script>
 <link rel="stylesheet" href="shared.css">
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many pounds are in a kilogram?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One kilogram is 2.20462 pounds. To convert kg to lbs, multiply by 2.20462: 70 kg = 154.3 lb."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert lbs to kg?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply pounds by 0.453592, or divide by 2.20462. For example, 150 lb = 68.04 kg."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many kg is a stone?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One stone is 14 pounds, which is 6.35 kg. To convert stone and pounds to kg, work out total pounds (stone × 14 + pounds) and multiply by 0.4536. 11 st 4 lb = 158 lb = 71.7 kg."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many grams are in an ounce?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One ounce (avoirdupois) is 28.35 grams. A troy ounce, used for gold and silver, is 31.10 grams."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between a metric ton, short ton and long ton?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A metric tonne is 1,000 kg (2,204.6 lb). A US short ton is 2,000 lb (907.2 kg). A UK long ton is 2,240 lb (1,016 kg)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is weight the same as mass?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Strictly, mass is measured in kilograms and weight is a force measured in newtons. In everyday use, \"weight\" means mass, and kg and lb are used for both. See the force converter for newtons."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -83,6 +152,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">⚖️ Weight Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -91,7 +187,7 @@
     <p class="sub">12 units · metric, imperial &amp; troy</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <div class="tabs" id="tabs">
       <button class="tab active" data-cat="all">All</button>
       <button class="tab" data-cat="metric">Metric</button>
@@ -118,6 +214,105 @@
       <span id="formula">—</span>
     </div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>How to convert weight and mass</h2>
+<p>The SI unit of mass is the <strong>kilogram (kg)</strong>. The pound is defined exactly as <strong>0.45359237 kg</strong>, so every pound and ounce conversion is exact. The UK and Ireland often give body weight in <strong>stone</strong>: 1 stone = 14 lb = 6.35 kg.</p>
+<ul>
+<li><strong>kg to lbs:</strong> multiply by 2.20462</li>
+<li><strong>lbs to kg:</strong> multiply by 0.453592 (or divide by 2.20462)</li>
+<li><strong>Grams to ounces:</strong> divide by 28.3495</li>
+<li><strong>Ounces to grams:</strong> multiply by 28.3495</li>
+<li><strong>Stone to kg:</strong> multiply by 6.35029</li>
+</ul>
+<p>Precious metals use the <strong>troy ounce</strong> (31.1035 g), which is about 10% heavier than the ordinary (avoirdupois) ounce of 28.35 g. Related: <a href="cooking.html">cooking converter</a> and <a href="density.html">density converter</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Kilograms to pounds</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>kg</th><th>lb</th><th>lb + oz</th><th>stone + lb</th></tr></thead><tbody>
+<tr><td>1</td><td>2.2046</td><td>2 lb 3.3 oz</td><td>0 st 2.2 lb</td></tr>
+<tr><td>2</td><td>4.4092</td><td>4 lb 6.5 oz</td><td>0 st 4.4 lb</td></tr>
+<tr><td>5</td><td>11.023</td><td>11 lb 0.4 oz</td><td>0 st 11.0 lb</td></tr>
+<tr><td>10</td><td>22.046</td><td>22 lb 0.7 oz</td><td>1 st 8.0 lb</td></tr>
+<tr><td>20</td><td>44.092</td><td>44 lb 1.5 oz</td><td>3 st 2.1 lb</td></tr>
+<tr><td>25</td><td>55.116</td><td>55 lb 1.8 oz</td><td>3 st 13.1 lb</td></tr>
+<tr><td>30</td><td>66.139</td><td>66 lb 2.2 oz</td><td>4 st 10.1 lb</td></tr>
+<tr><td>40</td><td>88.185</td><td>88 lb 3.0 oz</td><td>6 st 4.2 lb</td></tr>
+<tr><td>50</td><td>110.23</td><td>110 lb 3.7 oz</td><td>7 st 12.2 lb</td></tr>
+<tr><td>55</td><td>121.25</td><td>121 lb 4.1 oz</td><td>8 st 9.3 lb</td></tr>
+<tr><td>60</td><td>132.28</td><td>132 lb 4.4 oz</td><td>9 st 6.3 lb</td></tr>
+<tr><td>65</td><td>143.3</td><td>143 lb 4.8 oz</td><td>10 st 3.3 lb</td></tr>
+<tr><td>70</td><td>154.32</td><td>154 lb 5.2 oz</td><td>11 st 0.3 lb</td></tr>
+<tr><td>75</td><td>165.35</td><td>165 lb 5.5 oz</td><td>11 st 11.3 lb</td></tr>
+<tr><td>80</td><td>176.37</td><td>176 lb 5.9 oz</td><td>12 st 8.4 lb</td></tr>
+<tr><td>85</td><td>187.39</td><td>187 lb 6.3 oz</td><td>13 st 5.4 lb</td></tr>
+<tr><td>90</td><td>198.42</td><td>198 lb 6.7 oz</td><td>14 st 2.4 lb</td></tr>
+<tr><td>95</td><td>209.44</td><td>209 lb 7.0 oz</td><td>14 st 13.4 lb</td></tr>
+<tr><td>100</td><td>220.46</td><td>220 lb 7.4 oz</td><td>15 st 10.5 lb</td></tr>
+<tr><td>110</td><td>242.51</td><td>242 lb 8.1 oz</td><td>17 st 4.5 lb</td></tr>
+<tr><td>120</td><td>264.55</td><td>264 lb 8.9 oz</td><td>18 st 12.6 lb</td></tr>
+<tr><td>150</td><td>330.69</td><td>330 lb 11.1 oz</td><td>23 st 8.7 lb</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Pounds to kilograms</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>lb</th><th>kg</th><th>g</th></tr></thead><tbody>
+<tr><td>0.25</td><td>0.1134</td><td>113.398</td></tr>
+<tr><td>0.5</td><td>0.2268</td><td>226.796</td></tr>
+<tr><td>1</td><td>0.45359</td><td>453.592</td></tr>
+<tr><td>2</td><td>0.90718</td><td>907.185</td></tr>
+<tr><td>5</td><td>2.268</td><td>2,267.96</td></tr>
+<tr><td>10</td><td>4.5359</td><td>4,535.92</td></tr>
+<tr><td>20</td><td>9.0718</td><td>9,071.85</td></tr>
+<tr><td>25</td><td>11.34</td><td>11,339.8</td></tr>
+<tr><td>50</td><td>22.68</td><td>22,679.6</td></tr>
+<tr><td>100</td><td>45.359</td><td>45,359.2</td></tr>
+<tr><td>120</td><td>54.431</td><td>54,431.1</td></tr>
+<tr><td>140</td><td>63.503</td><td>63,502.9</td></tr>
+<tr><td>150</td><td>68.039</td><td>68,038.9</td></tr>
+<tr><td>160</td><td>72.575</td><td>72,574.8</td></tr>
+<tr><td>180</td><td>81.647</td><td>81,646.6</td></tr>
+<tr><td>200</td><td>90.718</td><td>90,718.5</td></tr>
+<tr><td>220</td><td>99.79</td><td>99,790.3</td></tr>
+<tr><td>250</td><td>113.4</td><td>113,398</td></tr>
+<tr><td>300</td><td>136.08</td><td>136,078</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Grams to ounces</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>g</th><th>oz</th><th>lb</th></tr></thead><tbody>
+<tr><td>5</td><td>0.1764</td><td>0.01102</td></tr>
+<tr><td>10</td><td>0.3527</td><td>0.02205</td></tr>
+<tr><td>25</td><td>0.8818</td><td>0.05512</td></tr>
+<tr><td>50</td><td>1.764</td><td>0.1102</td></tr>
+<tr><td>100</td><td>3.527</td><td>0.2205</td></tr>
+<tr><td>125</td><td>4.409</td><td>0.2756</td></tr>
+<tr><td>200</td><td>7.055</td><td>0.4409</td></tr>
+<tr><td>250</td><td>8.818</td><td>0.5512</td></tr>
+<tr><td>300</td><td>10.58</td><td>0.6614</td></tr>
+<tr><td>400</td><td>14.11</td><td>0.8818</td></tr>
+<tr><td>454</td><td>16.01</td><td>1.001</td></tr>
+<tr><td>500</td><td>17.64</td><td>1.102</td></tr>
+<tr><td>750</td><td>26.46</td><td>1.653</td></tr>
+<tr><td>1,000</td><td>35.27</td><td>2.205</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How many pounds are in a kilogram?</h3>
+<p>One kilogram is 2.20462 pounds. To convert kg to lbs, multiply by 2.20462: 70 kg = 154.3 lb.</p>
+<h3>How do I convert lbs to kg?</h3>
+<p>Multiply pounds by 0.453592, or divide by 2.20462. For example, 150 lb = 68.04 kg.</p>
+<h3>How many kg is a stone?</h3>
+<p>One stone is 14 pounds, which is 6.35 kg. To convert stone and pounds to kg, work out total pounds (stone × 14 + pounds) and multiply by 0.4536. 11 st 4 lb = 158 lb = 71.7 kg.</p>
+<h3>How many grams are in an ounce?</h3>
+<p>One ounce (avoirdupois) is 28.35 grams. A troy ounce, used for gold and silver, is 31.10 grams.</p>
+<h3>What is the difference between a metric ton, short ton and long ton?</h3>
+<p>A metric tonne is 1,000 kg (2,204.6 lb). A US short ton is 2,000 lb (907.2 kg). A UK long ton is 2,240 lb (1,016 kg).</p>
+<h3>Is weight the same as mass?</h3>
+<p>Strictly, mass is measured in kilograms and weight is a force measured in newtons. In everyday use, &quot;weight&quot; means mass, and kg and lb are used for both. See the force converter for newtons.</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">

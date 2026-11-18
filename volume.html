@@ -14,6 +14,17 @@
 <title>Volume Converter — Litres to Gallons, ml to fl oz & More | 1 Step Converter</title>
 <meta name="description" content="Convert volume units instantly. Litres to gallons, ml to fl oz, cups to millilitres, US and UK pints and more. Free online volume converter supporting metric, US and imperial units.">
 <link rel="canonical" href="https://www.1sconvert.com/volume.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Volume Converter — Litres to Gallons, ml to fl oz &amp; More | 1 Step Converter">
+<meta property="og:description" content="Convert volume units instantly. Litres to gallons, ml to fl oz, cups to millilitres, US and UK pints and more. Free online volume converter supporting metric, US and imperial units.">
+<meta property="og:url" content="https://www.1sconvert.com/volume.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -59,6 +70,64 @@
 })();
 </script>
 <link rel="stylesheet" href="shared.css">
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many litres are in a gallon?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A US gallon is 3.785 litres and a UK (imperial) gallon is 4.546 litres. Check which gallon is meant: fuel economy figures in the UK and US use different gallons."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many mL are in a fluid ounce?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A US fluid ounce is 29.57 mL and a UK fluid ounce is 28.41 mL. A 12 fl oz US can holds 355 mL."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many cups are in a litre?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One litre is 4.227 US cups (236.6 mL each), or 4 metric cups (250 mL each)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many litres are in a cubic metre?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One cubic metre is exactly 1,000 litres. One litre is 1,000 cm³."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a cc the same as a mL?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. One cubic centimetre (cc or cm³) is exactly one millilitre. Engine sizes in cc are the same as millilitres: 1,600 cc = 1.6 L."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between a US and UK pint?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A US pint is 16 US fl oz (473 mL). A UK pint is 20 UK fl oz (568 mL), about 20% more."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -83,6 +152,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">🫙 Volume Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -91,7 +187,7 @@
     <p class="sub">13 units · metric, US &amp; imperial</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <div class="tabs" id="tabs">
       <button class="tab active" data-cat="all">All</button>
       <button class="tab" data-cat="metric">Metric</button>
@@ -118,6 +214,95 @@
       <span id="formula">—</span>
     </div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>How to convert volume units</h2>
+<p>The SI unit of volume is the <strong>cubic metre (m³)</strong>. Everyday metric volume uses the <strong>litre</strong> (1 L = 1,000 cm³ = 0.001 m³) and the <strong>millilitre</strong> (1 mL = 1 cm³ = 1 cc).</p>
+<p><strong>US and UK units are different.</strong> A US gallon is 3.785 L and a UK (imperial) gallon is 4.546 L, about 20% larger. A US pint is 473 mL and a UK pint is 568 mL. Even the fluid ounce differs: 29.57 mL (US) against 28.41 mL (UK).</p>
+<ul>
+<li><strong>Litres to US gallons:</strong> divide by 3.78541</li>
+<li><strong>US gallons to litres:</strong> multiply by 3.78541</li>
+<li><strong>Litres to UK gallons:</strong> divide by 4.54609</li>
+<li><strong>mL to US fl oz:</strong> divide by 29.5735</li>
+<li><strong>m³ to litres:</strong> multiply by 1,000</li>
+</ul>
+<p>Related: <a href="cooking.html">cooking converter</a> (cups and spoons) and <a href="density.html">density converter</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Litres to gallons</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Litres</th><th>US gal</th><th>UK gal</th><th>US fl oz</th></tr></thead><tbody>
+<tr><td>0.5</td><td>0.13209</td><td>0.10998</td><td>16.907</td></tr>
+<tr><td>1</td><td>0.26417</td><td>0.21997</td><td>33.814</td></tr>
+<tr><td>2</td><td>0.52834</td><td>0.43994</td><td>67.628</td></tr>
+<tr><td>4</td><td>1.0567</td><td>0.87988</td><td>135.26</td></tr>
+<tr><td>5</td><td>1.3209</td><td>1.0998</td><td>169.07</td></tr>
+<tr><td>10</td><td>2.6417</td><td>2.1997</td><td>338.14</td></tr>
+<tr><td>20</td><td>5.2834</td><td>4.3994</td><td>676.28</td></tr>
+<tr><td>25</td><td>6.6043</td><td>5.4992</td><td>845.35</td></tr>
+<tr><td>40</td><td>10.567</td><td>8.7988</td><td>1,352.6</td></tr>
+<tr><td>50</td><td>13.209</td><td>10.998</td><td>1,690.7</td></tr>
+<tr><td>60</td><td>15.85</td><td>13.198</td><td>2,028.8</td></tr>
+<tr><td>75</td><td>19.813</td><td>16.498</td><td>2,536.1</td></tr>
+<tr><td>100</td><td>26.417</td><td>21.997</td><td>3,381.4</td></tr>
+<tr><td>200</td><td>52.834</td><td>43.994</td><td>6,762.8</td></tr>
+<tr><td>500</td><td>132.09</td><td>109.98</td><td>16,907</td></tr>
+<tr><td>1,000</td><td>264.17</td><td>219.97</td><td>33,814</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Gallons to litres</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Gallons</th><th>US gal → L</th><th>UK gal → L</th></tr></thead><tbody>
+<tr><td>0.5</td><td>1.8927</td><td>2.273</td></tr>
+<tr><td>1</td><td>3.7854</td><td>4.5461</td></tr>
+<tr><td>2</td><td>7.5708</td><td>9.0922</td></tr>
+<tr><td>3</td><td>11.356</td><td>13.638</td></tr>
+<tr><td>5</td><td>18.927</td><td>22.73</td></tr>
+<tr><td>10</td><td>37.854</td><td>45.461</td></tr>
+<tr><td>12</td><td>45.425</td><td>54.553</td></tr>
+<tr><td>15</td><td>56.781</td><td>68.191</td></tr>
+<tr><td>20</td><td>75.708</td><td>90.922</td></tr>
+<tr><td>25</td><td>94.635</td><td>113.65</td></tr>
+<tr><td>50</td><td>189.27</td><td>227.3</td></tr>
+<tr><td>55</td><td>208.2</td><td>250.03</td></tr>
+<tr><td>100</td><td>378.54</td><td>454.61</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Millilitres to fluid ounces</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>mL</th><th>US fl oz</th><th>UK fl oz</th></tr></thead><tbody>
+<tr><td>5</td><td>0.1691</td><td>0.176</td></tr>
+<tr><td>15</td><td>0.5072</td><td>0.5279</td></tr>
+<tr><td>30</td><td>1.014</td><td>1.056</td></tr>
+<tr><td>50</td><td>1.691</td><td>1.76</td></tr>
+<tr><td>100</td><td>3.381</td><td>3.52</td></tr>
+<tr><td>125</td><td>4.227</td><td>4.399</td></tr>
+<tr><td>150</td><td>5.072</td><td>5.279</td></tr>
+<tr><td>200</td><td>6.763</td><td>7.039</td></tr>
+<tr><td>250</td><td>8.454</td><td>8.799</td></tr>
+<tr><td>330</td><td>11.16</td><td>11.61</td></tr>
+<tr><td>355</td><td>12</td><td>12.49</td></tr>
+<tr><td>500</td><td>16.91</td><td>17.6</td></tr>
+<tr><td>700</td><td>23.67</td><td>24.64</td></tr>
+<tr><td>750</td><td>25.36</td><td>26.4</td></tr>
+<tr><td>1,000</td><td>33.81</td><td>35.2</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How many litres are in a gallon?</h3>
+<p>A US gallon is 3.785 litres and a UK (imperial) gallon is 4.546 litres. Check which gallon is meant: fuel economy figures in the UK and US use different gallons.</p>
+<h3>How many mL are in a fluid ounce?</h3>
+<p>A US fluid ounce is 29.57 mL and a UK fluid ounce is 28.41 mL. A 12 fl oz US can holds 355 mL.</p>
+<h3>How many cups are in a litre?</h3>
+<p>One litre is 4.227 US cups (236.6 mL each), or 4 metric cups (250 mL each).</p>
+<h3>How many litres are in a cubic metre?</h3>
+<p>One cubic metre is exactly 1,000 litres. One litre is 1,000 cm³.</p>
+<h3>Is a cc the same as a mL?</h3>
+<p>Yes. One cubic centimetre (cc or cm³) is exactly one millilitre. Engine sizes in cc are the same as millilitres: 1,600 cc = 1.6 L.</p>
+<h3>What is the difference between a US and UK pint?</h3>
+<p>A US pint is 16 US fl oz (473 mL). A UK pint is 20 UK fl oz (568 mL), about 20% more.</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">

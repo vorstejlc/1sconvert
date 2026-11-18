@@ -14,6 +14,17 @@
 <title>Pressure Converter — PSI to Bar, Pa, atm, mmHg & More | 1 Step Converter</title>
 <meta name="description" content="Convert pressure units instantly. PSI to bar, pascals to atmospheres, kPa to mmHg, torr and more. Free online pressure converter for engineering, science and everyday use.">
 <link rel="canonical" href="https://www.1sconvert.com/pressure.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Pressure Converter — PSI to Bar, Pa, atm, mmHg &amp; More | 1 Step Converter">
+<meta property="og:description" content="Convert pressure units instantly. PSI to bar, pascals to atmospheres, kPa to mmHg, torr and more. Free online pressure converter for engineering, science and everyday use.">
+<meta property="og:url" content="https://www.1sconvert.com/pressure.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -59,6 +70,64 @@
 })();
 </script>
 <link rel="stylesheet" href="shared.css">
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How do I convert bar to psi?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply bar by 14.504. For example, 2.4 bar = 34.8 psi and 10 bar = 145 psi."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert psi to bar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply psi by 0.06895, or divide by 14.504. For example, 32 psi = 2.21 bar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is 1 atmosphere in other units?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One standard atmosphere is exactly 101,325 Pa: 101.325 kPa, 1.01325 bar, 14.696 psi or 760 mmHg."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between psig and psia?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "psig is gauge pressure, measured relative to the surrounding air. psia is absolute pressure, measured from a perfect vacuum. At sea level, psia = psig + 14.7."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are hPa and mbar the same?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. One hectopascal (hPa) equals one millibar (mbar) = 100 Pa. Standard sea-level air pressure is 1,013.25 hPa."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are mmHg and Torr the same?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "They are almost identical. 1 Torr is 1/760 of an atmosphere (133.322 Pa), and 1 mmHg is 133.322 Pa. The difference is negligible for everyday use."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -83,6 +152,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">🔵 Pressure Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -91,7 +187,7 @@
     <p class="sub">12 units · scientific, engineering &amp; everyday</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <div class="tabs" id="tabs">
       <button class="tab active" data-cat="all">All</button>
       <button class="tab" data-cat="metric">Metric / SI</button>
@@ -118,6 +214,106 @@
       <span id="formula">—</span>
     </div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>How to convert pressure units</h2>
+<p>Pressure is force per unit area. The SI unit is the <strong>pascal (Pa)</strong>, 1 N/m². It is very small, so engineering uses <strong>kPa</strong>, <strong>MPa</strong> and <strong>bar</strong> (1 bar = 100 kPa, close to atmospheric pressure). The US uses <strong>psi</strong>, pounds-force per square inch. Medicine uses <strong>mmHg</strong> for blood pressure, and weather maps use <strong>hPa</strong> or millibars, which are the same thing.</p>
+<ul>
+<li><strong>bar to psi:</strong> multiply by 14.5038</li>
+<li><strong>psi to bar:</strong> multiply by 0.0689476</li>
+<li><strong>psi to kPa:</strong> multiply by 6.89476</li>
+<li><strong>kPa to psi:</strong> multiply by 0.145038</li>
+<li><strong>atm to bar:</strong> multiply by 1.01325</li>
+<li><strong>mmHg to kPa:</strong> multiply by 0.133322</li>
+</ul>
+<p><strong>Gauge vs absolute:</strong> tyre and refrigeration gauges read pressure <em>above</em> atmospheric (psig, bar g). Absolute pressure adds about 1.013 bar (14.7 psi) at sea level. Related: <a href="refrigeration.html">refrigerant PT chart</a> and <a href="force.html">force converter</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>bar to psi and kPa</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>bar</th><th>psi</th><th>kPa</th><th>MPa</th></tr></thead><tbody>
+<tr><td>0.1</td><td>1.4504</td><td>10</td><td>0.01</td></tr>
+<tr><td>0.5</td><td>7.2519</td><td>50</td><td>0.05</td></tr>
+<tr><td>1</td><td>14.504</td><td>100</td><td>0.1</td></tr>
+<tr><td>1.5</td><td>21.756</td><td>150</td><td>0.15</td></tr>
+<tr><td>2</td><td>29.008</td><td>200</td><td>0.2</td></tr>
+<tr><td>2.2</td><td>31.908</td><td>220</td><td>0.22</td></tr>
+<tr><td>2.5</td><td>36.259</td><td>250</td><td>0.25</td></tr>
+<tr><td>3</td><td>43.511</td><td>300</td><td>0.3</td></tr>
+<tr><td>4</td><td>58.015</td><td>400</td><td>0.4</td></tr>
+<tr><td>5</td><td>72.519</td><td>500</td><td>0.5</td></tr>
+<tr><td>6</td><td>87.023</td><td>600</td><td>0.6</td></tr>
+<tr><td>7</td><td>101.53</td><td>700</td><td>0.7</td></tr>
+<tr><td>8</td><td>116.03</td><td>800</td><td>0.8</td></tr>
+<tr><td>10</td><td>145.04</td><td>1,000</td><td>1</td></tr>
+<tr><td>12</td><td>174.05</td><td>1,200</td><td>1.2</td></tr>
+<tr><td>16</td><td>232.06</td><td>1,600</td><td>1.6</td></tr>
+<tr><td>20</td><td>290.08</td><td>2,000</td><td>2</td></tr>
+<tr><td>25</td><td>362.59</td><td>2,500</td><td>2.5</td></tr>
+<tr><td>50</td><td>725.19</td><td>5,000</td><td>5</td></tr>
+<tr><td>100</td><td>1,450.4</td><td>10,000</td><td>10</td></tr>
+<tr><td>200</td><td>2,900.8</td><td>20,000</td><td>20</td></tr>
+<tr><td>232</td><td>3,364.9</td><td>23,200</td><td>23.2</td></tr>
+<tr><td>300</td><td>4,351.1</td><td>30,000</td><td>30</td></tr>
+</tbody></table></div><p class="note">2.2–2.5 bar is a typical car tyre pressure; 200–232 bar is a full scuba cylinder.</p>
+</section>
+<section class="card info">
+<h2>psi to bar and kPa</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>psi</th><th>bar</th><th>kPa</th></tr></thead><tbody>
+<tr><td>1</td><td>0.06895</td><td>6.8948</td></tr>
+<tr><td>5</td><td>0.3447</td><td>34.474</td></tr>
+<tr><td>10</td><td>0.6895</td><td>68.948</td></tr>
+<tr><td>14.696</td><td>1.013</td><td>101.33</td></tr>
+<tr><td>20</td><td>1.379</td><td>137.9</td></tr>
+<tr><td>25</td><td>1.724</td><td>172.37</td></tr>
+<tr><td>30</td><td>2.068</td><td>206.84</td></tr>
+<tr><td>32</td><td>2.206</td><td>220.63</td></tr>
+<tr><td>35</td><td>2.413</td><td>241.32</td></tr>
+<tr><td>40</td><td>2.758</td><td>275.79</td></tr>
+<tr><td>50</td><td>3.447</td><td>344.74</td></tr>
+<tr><td>60</td><td>4.137</td><td>413.69</td></tr>
+<tr><td>80</td><td>5.516</td><td>551.58</td></tr>
+<tr><td>100</td><td>6.895</td><td>689.48</td></tr>
+<tr><td>120</td><td>8.274</td><td>827.37</td></tr>
+<tr><td>150</td><td>10.34</td><td>1,034.2</td></tr>
+<tr><td>200</td><td>13.79</td><td>1,379</td></tr>
+<tr><td>300</td><td>20.68</td><td>2,068.4</td></tr>
+<tr><td>500</td><td>34.47</td><td>3,447.4</td></tr>
+<tr><td>1,000</td><td>68.95</td><td>6,894.8</td></tr>
+<tr><td>3,000</td><td>206.8</td><td>20,684</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Blood pressure: mmHg to kPa</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>mmHg</th><th>kPa</th></tr></thead><tbody>
+<tr><td>60</td><td>8</td></tr>
+<tr><td>70</td><td>9.33</td></tr>
+<tr><td>80</td><td>10.7</td></tr>
+<tr><td>90</td><td>12</td></tr>
+<tr><td>100</td><td>13.3</td></tr>
+<tr><td>110</td><td>14.7</td></tr>
+<tr><td>120</td><td>16</td></tr>
+<tr><td>130</td><td>17.3</td></tr>
+<tr><td>140</td><td>18.7</td></tr>
+<tr><td>160</td><td>21.3</td></tr>
+<tr><td>180</td><td>24</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How do I convert bar to psi?</h3>
+<p>Multiply bar by 14.504. For example, 2.4 bar = 34.8 psi and 10 bar = 145 psi.</p>
+<h3>How do I convert psi to bar?</h3>
+<p>Multiply psi by 0.06895, or divide by 14.504. For example, 32 psi = 2.21 bar.</p>
+<h3>What is 1 atmosphere in other units?</h3>
+<p>One standard atmosphere is exactly 101,325 Pa: 101.325 kPa, 1.01325 bar, 14.696 psi or 760 mmHg.</p>
+<h3>What is the difference between psig and psia?</h3>
+<p>psig is gauge pressure, measured relative to the surrounding air. psia is absolute pressure, measured from a perfect vacuum. At sea level, psia = psig + 14.7.</p>
+<h3>Are hPa and mbar the same?</h3>
+<p>Yes. One hectopascal (hPa) equals one millibar (mbar) = 100 Pa. Standard sea-level air pressure is 1,013.25 hPa.</p>
+<h3>Are mmHg and Torr the same?</h3>
+<p>They are almost identical. 1 Torr is 1/760 of an atmosphere (133.322 Pa), and 1 mmHg is 133.322 Pa. The difference is negligible for everyday use.</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">

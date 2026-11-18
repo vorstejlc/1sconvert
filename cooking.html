@@ -14,6 +14,17 @@
 <title>Cooking Measurement Converter — Cups to ml, Tbsp, Tsp & Oven Temps | 1 Step Converter</title>
 <meta name="description" content="Convert cooking measurements instantly. Cups to millilitres, tablespoons to teaspoons, fluid ounces to ml, plus an oven temperature guide. Supports US and UK measurements.">
 <link rel="canonical" href="https://www.1sconvert.com/cooking.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Cooking Measurement Converter — Cups to ml, Tbsp, Tsp &amp; Oven Temps | 1 Step Converter">
+<meta property="og:description" content="Convert cooking measurements instantly. Cups to millilitres, tablespoons to teaspoons, fluid ounces to ml, plus an oven temperature guide. Supports US and UK measurements.">
+<meta property="og:url" content="https://www.1sconvert.com/cooking.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -115,6 +126,64 @@
 
   .oven-desc { color: var(--muted2) !important; font-family: 'Outfit', sans-serif !important; font-size: 0.75rem !important; }
 </style>
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many grams is a cup of flour?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One US cup of all-purpose flour is about 120 g, spooned and levelled. Scooping straight from the bag packs it down and can give 140 g or more."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many grams is a cup of sugar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One US cup of granulated sugar is about 200 g. Packed brown sugar is about 213 g, and powdered (icing) sugar about 113 g."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many tablespoons are in a cup?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "There are 16 tablespoons in a US cup, and 48 teaspoons. A metric 250 mL cup is about 16.7 metric tablespoons."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is a UK cup the same as a US cup?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Recipes from the UK, Australia and New Zealand use a 250 mL metric cup. A US cup is 236.6 mL, about 5% smaller."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many grams of butter are in a stick?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One US stick of butter is 4 oz, 113 g or 8 tablespoons. One cup of butter is 2 sticks, or 227 g."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is 180 °C in Fahrenheit for baking?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "180 °C is 356 °F, usually written as 350 °F (gas mark 4) in recipes. 200 °C is about 400 °F (gas mark 6)."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -139,6 +208,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">🍳 Cooking Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -147,7 +243,7 @@
     <p class="sub">Volume measures · weight · oven temperatures</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
 
     <!-- Volume tab -->
     <div class="section-title">Liquid &amp; Volume Measurements</div>
@@ -222,6 +318,64 @@
     </div>
 
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>Cooking measurements explained</h2>
+<p>US recipes measure by volume (cups and spoons), while most other countries weigh ingredients in grams. Cup sizes also differ between countries:</p>
+<ul>
+<li><strong>US cup:</strong> 236.6 mL (often rounded to 240 mL on nutrition labels)</li>
+<li><strong>Metric cup</strong> (UK, Australia, New Zealand, Canada): 250 mL</li>
+<li><strong>Tablespoon:</strong> 14.8 mL (US) or 15 mL (metric). <strong>Australian tablespoon:</strong> 20 mL</li>
+<li><strong>Teaspoon:</strong> 4.93 mL (US) or 5 mL (metric)</li>
+</ul>
+<p>Converting cups to grams depends on the ingredient: a cup of flour weighs about half as much as a cup of sugar. Use the table below for common ingredients. Related: <a href="weight.html">weight converter</a>, <a href="volume.html">volume converter</a> and <a href="temperature.html">temperature converter</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Cups to grams for common ingredients</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Ingredient</th><th>1 cup</th><th>½ cup</th><th>¼ cup</th><th>1 tbsp</th></tr></thead><tbody>
+<tr><td class="txt">Water</td><td>237 g</td><td>118 g</td><td>59.2 g</td><td>15 g</td></tr>
+<tr><td class="txt">Milk</td><td>244 g</td><td>122 g</td><td>61 g</td><td>15 g</td></tr>
+<tr><td class="txt">All-purpose flour</td><td>120 g</td><td>60 g</td><td>30 g</td><td>7.5 g</td></tr>
+<tr><td class="txt">Bread flour</td><td>127 g</td><td>63.5 g</td><td>31.8 g</td><td>7.9 g</td></tr>
+<tr><td class="txt">Granulated sugar</td><td>200 g</td><td>100 g</td><td>50 g</td><td>12 g</td></tr>
+<tr><td class="txt">Brown sugar (packed)</td><td>213 g</td><td>106 g</td><td>53.2 g</td><td>13 g</td></tr>
+<tr><td class="txt">Powdered / icing sugar</td><td>113 g</td><td>56.5 g</td><td>28.2 g</td><td>7.1 g</td></tr>
+<tr><td class="txt">Butter</td><td>227 g</td><td>114 g</td><td>56.8 g</td><td>14 g</td></tr>
+<tr><td class="txt">Honey</td><td>340 g</td><td>170 g</td><td>85 g</td><td>21 g</td></tr>
+<tr><td class="txt">Vegetable oil</td><td>218 g</td><td>109 g</td><td>54.5 g</td><td>14 g</td></tr>
+<tr><td class="txt">Rolled oats</td><td>90 g</td><td>45 g</td><td>22.5 g</td><td>5.6 g</td></tr>
+<tr><td class="txt">Cocoa powder</td><td>85 g</td><td>42.5 g</td><td>21.2 g</td><td>5.3 g</td></tr>
+<tr><td class="txt">Uncooked white rice</td><td>185 g</td><td>92.5 g</td><td>46.2 g</td><td>12 g</td></tr>
+<tr><td class="txt">Chopped nuts</td><td>120 g</td><td>60 g</td><td>30 g</td><td>7.5 g</td></tr>
+<tr><td class="txt">Chocolate chips</td><td>170 g</td><td>85 g</td><td>42.5 g</td><td>11 g</td></tr>
+</tbody></table></div><p class="note">US cup, spooned and levelled. Typical values: weights vary with how the cup is filled, humidity and brand.</p>
+</section>
+<section class="card info">
+<h2>Butter: sticks, cups and grams</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>US butter</th><th>Cups</th><th>Tbsp</th><th>Grams</th></tr></thead><tbody>
+<tr><td class="txt">½ stick</td><td>¼</td><td>4</td><td>57 g</td></tr>
+<tr><td>1 stick</td><td>½</td><td>8</td><td>113 g</td></tr>
+<tr><td>1½ sticks</td><td>¾</td><td>12</td><td>170 g</td></tr>
+<tr><td>2 sticks</td><td>1</td><td>16</td><td>227 g</td></tr>
+<tr><td>4 sticks (1 lb)</td><td>2</td><td>32</td><td>454 g</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How many grams is a cup of flour?</h3>
+<p>One US cup of all-purpose flour is about 120 g, spooned and levelled. Scooping straight from the bag packs it down and can give 140 g or more.</p>
+<h3>How many grams is a cup of sugar?</h3>
+<p>One US cup of granulated sugar is about 200 g. Packed brown sugar is about 213 g, and powdered (icing) sugar about 113 g.</p>
+<h3>How many tablespoons are in a cup?</h3>
+<p>There are 16 tablespoons in a US cup, and 48 teaspoons. A metric 250 mL cup is about 16.7 metric tablespoons.</p>
+<h3>Is a UK cup the same as a US cup?</h3>
+<p>No. Recipes from the UK, Australia and New Zealand use a 250 mL metric cup. A US cup is 236.6 mL, about 5% smaller.</p>
+<h3>How many grams of butter are in a stick?</h3>
+<p>One US stick of butter is 4 oz, 113 g or 8 tablespoons. One cup of butter is 2 sticks, or 227 g.</p>
+<h3>What is 180 °C in Fahrenheit for baking?</h3>
+<p>180 °C is 356 °F, usually written as 350 °F (gas mark 4) in recipes. 200 °C is about 400 °F (gas mark 6).</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">

@@ -14,6 +14,17 @@
 <title>Temperature Converter — Celsius to Fahrenheit, Kelvin & Rankine | 1 Step Converter</title>
 <meta name="description" content="Convert Celsius to Fahrenheit, Kelvin and Rankine instantly. See the exact formula for every conversion. Fast, free temperature converter with live results.">
 <link rel="canonical" href="https://www.1sconvert.com/temperature.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Temperature Converter — Celsius to Fahrenheit, Kelvin &amp; Rankine | 1 Step Converter">
+<meta property="og:description" content="Convert Celsius to Fahrenheit, Kelvin and Rankine instantly. See the exact formula for every conversion. Fast, free temperature converter with live results.">
+<meta property="og:url" content="https://www.1sconvert.com/temperature.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -126,6 +137,64 @@
   .t-gauge .sym { font-size: 1.1rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
   .t-gauge .lbl { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-family: 'JetBrains Mono', monospace; margin-top: 0.1rem; }
 </style>
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How do I convert Celsius to Fahrenheit?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply by 9/5 (or 1.8) and add 32. For example, 25 °C × 1.8 + 32 = 77 °F."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert Fahrenheit to Celsius?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Subtract 32, then multiply by 5/9. For example, (350 °F − 32) × 5/9 = 176.7 °C."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "At what temperature are Celsius and Fahrenheit equal?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "−40 °C is exactly −40 °F, the only point where the two scales meet."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is normal body temperature in Fahrenheit?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "37 °C is 98.6 °F. A fever is usually taken to start around 38 °C (100.4 °F)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is absolute zero?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Absolute zero is 0 K, which is −273.15 °C or −459.67 °F. It is the lowest possible temperature."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why is Kelvin written without a degree sign?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Kelvin is an absolute scale and an SI base unit, so it is written as K, not °K. A difference of 1 K equals a difference of 1 °C."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -150,6 +219,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">🌡️ Temperature Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -158,7 +254,7 @@
     <p class="sub">Celsius · Fahrenheit · Kelvin · Rankine</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <!-- Unit selector pills -->
     <div class="thermometer-vis" id="unit-pills">
       <div class="t-gauge sel" data-unit="c"><div class="sym" style="color:#38bdf8">°C</div><div class="lbl">Celsius</div></div>
@@ -176,6 +272,95 @@
 
     <div class="temp-grid" id="results"></div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>Temperature conversion formulas</h2>
+<p>Unlike most units, temperature scales have different zero points, so you cannot convert with a single multiplication.</p>
+<ul>
+<li><strong>Celsius to Fahrenheit:</strong> <code>°F = °C × 9/5 + 32</code></li>
+<li><strong>Fahrenheit to Celsius:</strong> <code>°C = (°F − 32) × 5/9</code></li>
+<li><strong>Celsius to Kelvin:</strong> <code>K = °C + 273.15</code></li>
+<li><strong>Fahrenheit to Rankine:</strong> <code>°R = °F + 459.67</code></li>
+</ul>
+<p><strong>Quick mental estimate:</strong> to get °F, double the Celsius value and add 30. For 20 °C that gives 70 °F; the exact value is 68 °F. The shortcut is close between about 0 and 30 °C.</p>
+<p>A temperature <em>difference</em> converts without the offset: a change of 1 °C (or 1 K) equals a change of 1.8 °F. Related: <a href="cooking.html">oven temperatures</a> and the <a href="refrigeration.html">refrigerant PT chart</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Celsius to Fahrenheit</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>°C</th><th>°F</th><th>K</th><th>Reference</th></tr></thead><tbody>
+<tr><td>-273.15</td><td>-459.67</td><td>0</td><td>Absolute zero</td></tr>
+<tr><td>-40</td><td>-40</td><td>233.15</td><td>°C and °F are equal</td></tr>
+<tr><td>-18</td><td>-0.4</td><td>255.15</td><td>Home freezer</td></tr>
+<tr><td>-10</td><td>14</td><td>263.15</td><td></td></tr>
+<tr><td>0</td><td>32</td><td>273.15</td><td>Water freezes</td></tr>
+<tr><td>4</td><td>39.2</td><td>277.15</td><td>Fridge</td></tr>
+<tr><td>10</td><td>50</td><td>283.15</td><td></td></tr>
+<tr><td>15</td><td>59</td><td>288.15</td><td></td></tr>
+<tr><td>20</td><td>68</td><td>293.15</td><td>Room temperature</td></tr>
+<tr><td>25</td><td>77</td><td>298.15</td><td></td></tr>
+<tr><td>30</td><td>86</td><td>303.15</td><td>Hot day</td></tr>
+<tr><td>35</td><td>95</td><td>308.15</td><td></td></tr>
+<tr><td>37</td><td>98.6</td><td>310.15</td><td>Body temperature</td></tr>
+<tr><td>40</td><td>104</td><td>313.15</td><td>Fever / heatwave</td></tr>
+<tr><td>50</td><td>122</td><td>323.15</td><td></td></tr>
+<tr><td>60</td><td>140</td><td>333.15</td><td></td></tr>
+<tr><td>70</td><td>158</td><td>343.15</td><td></td></tr>
+<tr><td>80</td><td>176</td><td>353.15</td><td></td></tr>
+<tr><td>90</td><td>194</td><td>363.15</td><td></td></tr>
+<tr><td>100</td><td>212</td><td>373.15</td><td>Water boils (sea level)</td></tr>
+<tr><td>150</td><td>302</td><td>423.15</td><td></td></tr>
+<tr><td>180</td><td>356</td><td>453.15</td><td>Moderate oven</td></tr>
+<tr><td>200</td><td>392</td><td>473.15</td><td>Hot oven</td></tr>
+<tr><td>250</td><td>482</td><td>523.15</td><td></td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Fahrenheit to Celsius</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>°F</th><th>°C</th></tr></thead><tbody>
+<tr><td>-40</td><td>-40</td></tr>
+<tr><td>-4</td><td>-20</td></tr>
+<tr><td>0</td><td>-17.78</td></tr>
+<tr><td>10</td><td>-12.22</td></tr>
+<tr><td>20</td><td>-6.667</td></tr>
+<tr><td>32</td><td>0</td></tr>
+<tr><td>40</td><td>4.444</td></tr>
+<tr><td>50</td><td>10</td></tr>
+<tr><td>60</td><td>15.56</td></tr>
+<tr><td>68</td><td>20</td></tr>
+<tr><td>70</td><td>21.11</td></tr>
+<tr><td>72</td><td>22.22</td></tr>
+<tr><td>75</td><td>23.89</td></tr>
+<tr><td>80</td><td>26.67</td></tr>
+<tr><td>90</td><td>32.22</td></tr>
+<tr><td>98.6</td><td>37</td></tr>
+<tr><td>100</td><td>37.78</td></tr>
+<tr><td>110</td><td>43.33</td></tr>
+<tr><td>212</td><td>100</td></tr>
+<tr><td>300</td><td>148.9</td></tr>
+<tr><td>325</td><td>162.8</td></tr>
+<tr><td>350</td><td>176.7</td></tr>
+<tr><td>375</td><td>190.6</td></tr>
+<tr><td>400</td><td>204.4</td></tr>
+<tr><td>425</td><td>218.3</td></tr>
+<tr><td>450</td><td>232.2</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How do I convert Celsius to Fahrenheit?</h3>
+<p>Multiply by 9/5 (or 1.8) and add 32. For example, 25 °C × 1.8 + 32 = 77 °F.</p>
+<h3>How do I convert Fahrenheit to Celsius?</h3>
+<p>Subtract 32, then multiply by 5/9. For example, (350 °F − 32) × 5/9 = 176.7 °C.</p>
+<h3>At what temperature are Celsius and Fahrenheit equal?</h3>
+<p>−40 °C is exactly −40 °F, the only point where the two scales meet.</p>
+<h3>What is normal body temperature in Fahrenheit?</h3>
+<p>37 °C is 98.6 °F. A fever is usually taken to start around 38 °C (100.4 °F).</p>
+<h3>What is absolute zero?</h3>
+<p>Absolute zero is 0 K, which is −273.15 °C or −459.67 °F. It is the lowest possible temperature.</p>
+<h3>Why is Kelvin written without a degree sign?</h3>
+<p>Kelvin is an absolute scale and an SI base unit, so it is written as K, not °K. A difference of 1 K equals a difference of 1 °C.</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">

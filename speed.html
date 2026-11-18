@@ -14,6 +14,17 @@
 <title>Speed Converter — km/h to mph, m/s, Knots, Mach & More | 1 Step Converter</title>
 <meta name="description" content="Convert speed units instantly. km/h to mph, m/s to km/h, knots, Mach number and speed of light. Free online speed converter covering 8 units from everyday to relativistic speeds.">
 <link rel="canonical" href="https://www.1sconvert.com/speed.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Speed Converter — km/h to mph, m/s, Knots, Mach &amp; More | 1 Step Converter">
+<meta property="og:description" content="Convert speed units instantly. km/h to mph, m/s to km/h, knots, Mach number and speed of light. Free online speed converter covering 8 units from everyday to relativistic speeds.">
+<meta property="og:url" content="https://www.1sconvert.com/speed.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -59,6 +70,64 @@
 })();
 </script>
 <link rel="stylesheet" href="shared.css">
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How do I convert km/h to mph?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply km/h by 0.6214. For example, 100 km/h = 62.1 mph and 50 km/h = 31.1 mph."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert mph to km/h?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply mph by 1.609. For example, 70 mph = 112.7 km/h and 30 mph = 48.3 km/h."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert m/s to km/h?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply metres per second by 3.6. For example, 10 m/s = 36 km/h. To go from km/h to m/s, divide by 3.6."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a knot?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A knot is one nautical mile per hour: exactly 1.852 km/h, or about 1.151 mph. It is used for ships, aircraft and wind speed."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How fast is Mach 1?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Mach 1 is the speed of sound: about 343 m/s, 1,235 km/h or 767 mph in air at 20 °C at sea level. It is lower in colder air, so it varies with altitude."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How fast is the speed of light?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The speed of light in a vacuum is exactly 299,792,458 m/s, about 1.08 billion km/h or 671 million mph."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -83,6 +152,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">🚀 Speed Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -91,7 +187,7 @@
     <p class="sub">8 units · everyday to relativistic</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <div class="input-row">
       <div>
         <label class="field-label" for="val-input">Value</label>
@@ -111,6 +207,102 @@
       <span id="formula">—</span>
     </div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>How to convert speed units</h2>
+<p>Speed is distance per unit time. Science uses <strong>metres per second (m/s)</strong>. Road signs use <strong>km/h</strong> or <strong>mph</strong>. Ships and aircraft use <strong>knots</strong>, one nautical mile per hour.</p>
+<ul>
+<li><strong>km/h to mph:</strong> multiply by 0.62137</li>
+<li><strong>mph to km/h:</strong> multiply by 1.60934</li>
+<li><strong>m/s to km/h:</strong> multiply by 3.6</li>
+<li><strong>km/h to m/s:</strong> divide by 3.6</li>
+<li><strong>Knots to km/h:</strong> multiply by 1.852</li>
+<li><strong>Knots to mph:</strong> multiply by 1.15078</li>
+</ul>
+<p><strong>Mach 1</strong> is the speed of sound: about 343 m/s (1,235 km/h) in air at 20 °C. It falls in colder air, so at airliner cruising altitude it is closer to 295 m/s. Related: <a href="length.html">length converter</a> and <a href="time.html">time converter</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Speed limits: km/h to mph</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>km/h</th><th>mph</th><th>m/s</th><th>knots</th></tr></thead><tbody>
+<tr><td>10</td><td>6.214</td><td>2.778</td><td>5.4</td></tr>
+<tr><td>20</td><td>12.43</td><td>5.556</td><td>10.8</td></tr>
+<tr><td>30</td><td>18.64</td><td>8.333</td><td>16.2</td></tr>
+<tr><td>40</td><td>24.85</td><td>11.11</td><td>21.6</td></tr>
+<tr><td>50</td><td>31.07</td><td>13.89</td><td>27</td></tr>
+<tr><td>60</td><td>37.28</td><td>16.67</td><td>32.4</td></tr>
+<tr><td>70</td><td>43.5</td><td>19.44</td><td>37.8</td></tr>
+<tr><td>80</td><td>49.71</td><td>22.22</td><td>43.2</td></tr>
+<tr><td>90</td><td>55.92</td><td>25</td><td>48.6</td></tr>
+<tr><td>100</td><td>62.14</td><td>27.78</td><td>54</td></tr>
+<tr><td>110</td><td>68.35</td><td>30.56</td><td>59.4</td></tr>
+<tr><td>120</td><td>74.56</td><td>33.33</td><td>64.79</td></tr>
+<tr><td>130</td><td>80.78</td><td>36.11</td><td>70.19</td></tr>
+<tr><td>140</td><td>86.99</td><td>38.89</td><td>75.59</td></tr>
+<tr><td>160</td><td>99.42</td><td>44.44</td><td>86.39</td></tr>
+<tr><td>200</td><td>124.3</td><td>55.56</td><td>108</td></tr>
+<tr><td>250</td><td>155.3</td><td>69.44</td><td>135</td></tr>
+<tr><td>300</td><td>186.4</td><td>83.33</td><td>162</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>mph to km/h</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>mph</th><th>km/h</th><th>m/s</th></tr></thead><tbody>
+<tr><td>5</td><td>8.047</td><td>2.235</td></tr>
+<tr><td>10</td><td>16.09</td><td>4.47</td></tr>
+<tr><td>15</td><td>24.14</td><td>6.706</td></tr>
+<tr><td>20</td><td>32.19</td><td>8.941</td></tr>
+<tr><td>25</td><td>40.23</td><td>11.18</td></tr>
+<tr><td>30</td><td>48.28</td><td>13.41</td></tr>
+<tr><td>35</td><td>56.33</td><td>15.65</td></tr>
+<tr><td>40</td><td>64.37</td><td>17.88</td></tr>
+<tr><td>45</td><td>72.42</td><td>20.12</td></tr>
+<tr><td>50</td><td>80.47</td><td>22.35</td></tr>
+<tr><td>55</td><td>88.51</td><td>24.59</td></tr>
+<tr><td>60</td><td>96.56</td><td>26.82</td></tr>
+<tr><td>65</td><td>104.6</td><td>29.06</td></tr>
+<tr><td>70</td><td>112.7</td><td>31.29</td></tr>
+<tr><td>75</td><td>120.7</td><td>33.53</td></tr>
+<tr><td>80</td><td>128.7</td><td>35.76</td></tr>
+<tr><td>100</td><td>160.9</td><td>44.7</td></tr>
+<tr><td>150</td><td>241.4</td><td>67.06</td></tr>
+<tr><td>200</td><td>321.9</td><td>89.41</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Running pace and speed</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Pace per km</th><th>Pace per mile</th><th>km/h</th><th>mph</th></tr></thead><tbody>
+<tr><td>3:00</td><td>4:50</td><td>20</td><td>12.43</td></tr>
+<tr><td>3:30</td><td>5:38</td><td>17.14</td><td>10.65</td></tr>
+<tr><td>4:00</td><td>6:26</td><td>15</td><td>9.321</td></tr>
+<tr><td>4:30</td><td>7:15</td><td>13.33</td><td>8.285</td></tr>
+<tr><td>5:00</td><td>8:03</td><td>12</td><td>7.456</td></tr>
+<tr><td>5:30</td><td>8:51</td><td>10.91</td><td>6.779</td></tr>
+<tr><td>6:00</td><td>9:39</td><td>10</td><td>6.214</td></tr>
+<tr><td>6:30</td><td>10:28</td><td>9.231</td><td>5.736</td></tr>
+<tr><td>7:00</td><td>11:16</td><td>8.571</td><td>5.326</td></tr>
+<tr><td>7:30</td><td>12:04</td><td>8</td><td>4.971</td></tr>
+<tr><td>8:00</td><td>12:52</td><td>7.5</td><td>4.66</td></tr>
+<tr><td>9:00</td><td>14:29</td><td>6.667</td><td>4.142</td></tr>
+<tr><td>10:00</td><td>16:06</td><td>6</td><td>3.728</td></tr>
+<tr><td>12:00</td><td>19:19</td><td>5</td><td>3.107</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How do I convert km/h to mph?</h3>
+<p>Multiply km/h by 0.6214. For example, 100 km/h = 62.1 mph and 50 km/h = 31.1 mph.</p>
+<h3>How do I convert mph to km/h?</h3>
+<p>Multiply mph by 1.609. For example, 70 mph = 112.7 km/h and 30 mph = 48.3 km/h.</p>
+<h3>How do I convert m/s to km/h?</h3>
+<p>Multiply metres per second by 3.6. For example, 10 m/s = 36 km/h. To go from km/h to m/s, divide by 3.6.</p>
+<h3>What is a knot?</h3>
+<p>A knot is one nautical mile per hour: exactly 1.852 km/h, or about 1.151 mph. It is used for ships, aircraft and wind speed.</p>
+<h3>How fast is Mach 1?</h3>
+<p>Mach 1 is the speed of sound: about 343 m/s, 1,235 km/h or 767 mph in air at 20 °C at sea level. It is lower in colder air, so it varies with altitude.</p>
+<h3>How fast is the speed of light?</h3>
+<p>The speed of light in a vacuum is exactly 299,792,458 m/s, about 1.08 billion km/h or 671 million mph.</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">
