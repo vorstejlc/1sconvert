@@ -14,6 +14,17 @@
 <title>Data Storage Converter — MB to GB, KB to MB, Bits & Bytes | 1 Step Converter</title>
 <meta name="description" content="Convert data storage units instantly. MB to GB, KB to MB, gigabytes to terabytes, bits to bytes and more. Supports both SI decimal and IEC binary prefixes.">
 <link rel="canonical" href="https://www.1sconvert.com/data.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Data Storage Converter — MB to GB, KB to MB, Bits &amp; Bytes | 1 Step Converter">
+<meta property="og:description" content="Convert data storage units instantly. MB to GB, KB to MB, gigabytes to terabytes, bits to bytes and more. Supports both SI decimal and IEC binary prefixes.">
+<meta property="og:url" content="https://www.1sconvert.com/data.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -74,6 +85,56 @@
 
   .notice strong { color: var(--accent); }
 </style>
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many MB are in a GB?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In decimal units, 1 GB = 1,000 MB. In binary units, 1 GiB = 1,024 MiB. Storage makers use the decimal definition; Windows uses the binary one but labels it GB."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why does my 1 TB drive show 931 GB?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The drive holds 1,000,000,000,000 bytes. Windows divides by 1,024³ and shows 931 \"GB\" (really 931 GiB). No space is missing; it is a different unit."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert Mbps to MB/s?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Divide megabits per second by 8. A 100 Mbps connection transfers at most 12.5 MB/s, so a 1 GB file takes about 80 seconds."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between a bit and a byte?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A bit is a single 0 or 1. A byte is 8 bits. Speeds use lowercase b (Mbps, bits); file sizes use uppercase B (MB, bytes)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between KB and KiB?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "1 KB (kilobyte) is 1,000 bytes. 1 KiB (kibibyte) is 1,024 bytes. The gap grows with size: 1 TiB is about 10% larger than 1 TB."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -98,6 +159,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">💾 Data Storage Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -106,7 +194,7 @@
     <p class="sub">14 units · SI decimal &amp; IEC binary</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
 
     <div class="notice">
       <strong>SI vs Binary:</strong> SI (decimal) uses powers of 10 — 1 KB = 1,000 bytes.
@@ -139,6 +227,61 @@
     </div>
 
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>Decimal vs binary data units</h2>
+<p>Data units come in two families, and mixing them up is the most common source of confusion.</p>
+<ul>
+<li><strong>Decimal (SI) units</strong> use powers of 1,000: 1 KB = 1,000 bytes, 1 MB = 1,000,000 bytes, 1 GB = 10<sup>9</sup> bytes. Storage makers, network speeds and macOS use these.</li>
+<li><strong>Binary (IEC) units</strong> use powers of 1,024: 1 KiB = 1,024 bytes, 1 MiB = 1,048,576 bytes, 1 GiB = 1,073,741,824 bytes. Windows uses these but labels them "KB, MB, GB", which is why a new drive looks smaller than advertised.</li>
+</ul>
+<p><strong>Bits and bytes:</strong> 1 byte = 8 bits. Internet speeds are quoted in bits per second (Mbps, lowercase b). File sizes are in bytes (MB, uppercase B), so divide Mbps by 8 to get MB/s.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Why your drive shows less space than advertised</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Advertised</th><th>Bytes</th><th>Shown in Windows</th></tr></thead><tbody>
+<tr><td>32 GB</td><td>32,000,000,000</td><td>29.8 GB</td></tr>
+<tr><td>64 GB</td><td>64,000,000,000</td><td>59.6 GB</td></tr>
+<tr><td>128 GB</td><td>128,000,000,000</td><td>119.2 GB</td></tr>
+<tr><td>256 GB</td><td>256,000,000,000</td><td>238.4 GB</td></tr>
+<tr><td>500 GB</td><td>500,000,000,000</td><td>465.7 GB</td></tr>
+<tr><td>512 GB</td><td>512,000,000,000</td><td>476.8 GB</td></tr>
+<tr><td>1 TB</td><td>1,000,000,000,000</td><td>931.3 GB</td></tr>
+<tr><td>2 TB</td><td>2,000,000,000,000</td><td>1.819 TB</td></tr>
+<tr><td>4 TB</td><td>4,000,000,000,000</td><td>3.638 TB</td></tr>
+<tr><td>8 TB</td><td>8,000,000,000,000</td><td>7.276 TB</td></tr>
+<tr><td>16 TB</td><td>16,000,000,000,000</td><td>14.55 TB</td></tr>
+</tbody></table></div><p class="note">Windows divides by 1,024³ (GiB) or 1,024⁴ (TiB) but shows the result as "GB" or "TB". No space is missing.</p>
+</section>
+<section class="card info">
+<h2>Internet speed: Mbps to MB/s and download time</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Speed</th><th>MB/s</th><th>1 GB file</th><th>50 GB game</th></tr></thead><tbody>
+<tr><td>10 Mbps</td><td>1.25</td><td>13m 20s</td><td>11h 06m</td></tr>
+<tr><td>25 Mbps</td><td>3.125</td><td>5m 20s</td><td>4h 26m</td></tr>
+<tr><td>50 Mbps</td><td>6.25</td><td>2m 40s</td><td>2h 13m</td></tr>
+<tr><td>100 Mbps</td><td>12.5</td><td>1m 20s</td><td>1h 06m</td></tr>
+<tr><td>200 Mbps</td><td>25</td><td>0m 40s</td><td>33m 20s</td></tr>
+<tr><td>300 Mbps</td><td>37.5</td><td>0m 27s</td><td>22m 13s</td></tr>
+<tr><td>500 Mbps</td><td>62.5</td><td>0m 16s</td><td>13m 20s</td></tr>
+<tr><td>1,000 Mbps</td><td>125</td><td>0m 08s</td><td>6m 40s</td></tr>
+<tr><td>2,500 Mbps</td><td>312.5</td><td>0m 03s</td><td>2m 40s</td></tr>
+<tr><td>10,000 Mbps</td><td>1,250</td><td>0m 01s</td><td>0m 40s</td></tr>
+</tbody></table></div><p class="note">Ideal times at full line speed. Real downloads are usually slower because of protocol overhead and server limits.</p>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How many MB are in a GB?</h3>
+<p>In decimal units, 1 GB = 1,000 MB. In binary units, 1 GiB = 1,024 MiB. Storage makers use the decimal definition; Windows uses the binary one but labels it GB.</p>
+<h3>Why does my 1 TB drive show 931 GB?</h3>
+<p>The drive holds 1,000,000,000,000 bytes. Windows divides by 1,024³ and shows 931 &quot;GB&quot; (really 931 GiB). No space is missing; it is a different unit.</p>
+<h3>How do I convert Mbps to MB/s?</h3>
+<p>Divide megabits per second by 8. A 100 Mbps connection transfers at most 12.5 MB/s, so a 1 GB file takes about 80 seconds.</p>
+<h3>What is the difference between a bit and a byte?</h3>
+<p>A bit is a single 0 or 1. A byte is 8 bits. Speeds use lowercase b (Mbps, bits); file sizes use uppercase B (MB, bytes).</p>
+<h3>What is the difference between KB and KiB?</h3>
+<p>1 KB (kilobyte) is 1,000 bytes. 1 KiB (kibibyte) is 1,024 bytes. The gap grows with size: 1 TiB is about 10% larger than 1 TB.</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">

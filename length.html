@@ -14,6 +14,17 @@
 <title>Length Converter — Convert mm, cm, m, km, ft, in, mi Instantly | 1 Step Converter</title>
 <meta name="description" content="Convert length units instantly. Enter any value in millimeters, centimeters, meters, kilometers, inches, feet, yards, miles, nautical miles or light years and get all results at once.">
 <link rel="canonical" href="https://www.1sconvert.com/length.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Length Converter — Convert mm, cm, m, km, ft, in, mi Instantly | 1 Step Converter">
+<meta property="og:description" content="Convert length units instantly. Enter any value in millimeters, centimeters, meters, kilometers, inches, feet, yards, miles, nautical miles or light years and get all results at once.">
+<meta property="og:url" content="https://www.1sconvert.com/length.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -59,6 +70,64 @@
 })();
 </script>
 <link rel="stylesheet" href="shared.css">
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many centimetres are in an inch?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One inch is exactly 2.54 centimetres. To convert inches to cm, multiply by 2.54: 12 inches = 30.48 cm."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert my height to centimetres?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Convert to total inches first (feet × 12 + inches), then multiply by 2.54. For example, 5′ 10″ is 70 inches = 177.8 cm."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many feet are in a metre?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One metre is 3.2808 feet, or 3 feet 3.37 inches. To convert metres to feet, multiply by 3.2808."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert km to miles?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply kilometres by 0.62137. A 10 km run is 6.21 miles. To go from miles to km, multiply by 1.609."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert mm to inches?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Divide millimetres by 25.4. For example, 100 mm = 3.937 in, and 6 mm = 0.236 in."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between a mile and a nautical mile?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A statute mile is 1,609.344 m. A nautical mile is 1,852 m, based on one minute of latitude, and is used at sea and in aviation. One nautical mile is about 1.151 statute miles."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 
@@ -83,6 +152,33 @@
     <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">📏 Length Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 
 <main class="page-wrap">
   <div class="page-header animate-in">
@@ -91,7 +187,7 @@
     <p class="sub">15 units · metric, imperial &amp; astronomical</p>
   </div>
 
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <div class="tabs" id="tabs">
       <button class="tab active" data-cat="all">All</button>
       <button class="tab" data-cat="metric">Metric</button>
@@ -118,6 +214,110 @@
       <span id="formula">—</span>
     </div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>How to convert length units</h2>
+<p>The SI unit of length is the <strong>metre (m)</strong>. Imperial and US units are defined exactly in metric terms: since 1959, one inch is exactly <strong>2.54 cm</strong>. That makes a foot 30.48 cm, a yard 0.9144 m and a mile 1,609.344 m.</p>
+<ul>
+<li><strong>Inches to cm:</strong> multiply by 2.54</li>
+<li><strong>cm to inches:</strong> divide by 2.54 (or multiply by 0.3937)</li>
+<li><strong>Feet to metres:</strong> multiply by 0.3048</li>
+<li><strong>Metres to feet:</strong> multiply by 3.2808</li>
+<li><strong>mm to inches:</strong> divide by 25.4</li>
+<li><strong>km to miles:</strong> multiply by 0.62137</li>
+<li><strong>Miles to km:</strong> multiply by 1.60934</li>
+</ul>
+<p>A <strong>nautical mile</strong> (1,852 m) is used at sea and in aviation; it is about 1.15 statute miles. Related: <a href="area.html">area converter</a> and <a href="speed.html">speed converter</a>.</p>
+</section>
+<section class="card info" id="tables">
+<h2>Height: feet and inches to centimetres</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Height</th><th>Inches</th><th>cm</th><th>m</th></tr></thead><tbody>
+<tr><td>4′ 6″</td><td>54</td><td>137.16</td><td>1.372</td></tr>
+<tr><td>4′ 7″</td><td>55</td><td>139.7</td><td>1.397</td></tr>
+<tr><td>4′ 8″</td><td>56</td><td>142.24</td><td>1.422</td></tr>
+<tr><td>4′ 9″</td><td>57</td><td>144.78</td><td>1.448</td></tr>
+<tr><td>4′ 10″</td><td>58</td><td>147.32</td><td>1.473</td></tr>
+<tr><td>4′ 11″</td><td>59</td><td>149.86</td><td>1.499</td></tr>
+<tr><td>5′ 0″</td><td>60</td><td>152.4</td><td>1.524</td></tr>
+<tr><td>5′ 1″</td><td>61</td><td>154.94</td><td>1.549</td></tr>
+<tr><td>5′ 2″</td><td>62</td><td>157.48</td><td>1.575</td></tr>
+<tr><td>5′ 3″</td><td>63</td><td>160.02</td><td>1.6</td></tr>
+<tr><td>5′ 4″</td><td>64</td><td>162.56</td><td>1.626</td></tr>
+<tr><td>5′ 5″</td><td>65</td><td>165.1</td><td>1.651</td></tr>
+<tr><td>5′ 6″</td><td>66</td><td>167.64</td><td>1.676</td></tr>
+<tr><td>5′ 7″</td><td>67</td><td>170.18</td><td>1.702</td></tr>
+<tr><td>5′ 8″</td><td>68</td><td>172.72</td><td>1.727</td></tr>
+<tr><td>5′ 9″</td><td>69</td><td>175.26</td><td>1.753</td></tr>
+<tr><td>5′ 10″</td><td>70</td><td>177.8</td><td>1.778</td></tr>
+<tr><td>5′ 11″</td><td>71</td><td>180.34</td><td>1.803</td></tr>
+<tr><td>6′ 0″</td><td>72</td><td>182.88</td><td>1.829</td></tr>
+<tr><td>6′ 1″</td><td>73</td><td>185.42</td><td>1.854</td></tr>
+<tr><td>6′ 2″</td><td>74</td><td>187.96</td><td>1.88</td></tr>
+<tr><td>6′ 3″</td><td>75</td><td>190.5</td><td>1.905</td></tr>
+<tr><td>6′ 4″</td><td>76</td><td>193.04</td><td>1.93</td></tr>
+<tr><td>6′ 5″</td><td>77</td><td>195.58</td><td>1.956</td></tr>
+<tr><td>6′ 6″</td><td>78</td><td>198.12</td><td>1.981</td></tr>
+<tr><td>6′ 7″</td><td>79</td><td>200.66</td><td>2.007</td></tr>
+<tr><td>6′ 8″</td><td>80</td><td>203.2</td><td>2.032</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Inches to centimetres</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>Inches</th><th>cm</th><th>mm</th></tr></thead><tbody>
+<tr><td>0.25</td><td>0.635</td><td>6.35</td></tr>
+<tr><td>0.5</td><td>1.27</td><td>12.7</td></tr>
+<tr><td>0.75</td><td>1.905</td><td>19.05</td></tr>
+<tr><td>1</td><td>2.54</td><td>25.4</td></tr>
+<tr><td>2</td><td>5.08</td><td>50.8</td></tr>
+<tr><td>3</td><td>7.62</td><td>76.2</td></tr>
+<tr><td>4</td><td>10.16</td><td>101.6</td></tr>
+<tr><td>5</td><td>12.7</td><td>127</td></tr>
+<tr><td>6</td><td>15.24</td><td>152.4</td></tr>
+<tr><td>8</td><td>20.32</td><td>203.2</td></tr>
+<tr><td>10</td><td>25.4</td><td>254</td></tr>
+<tr><td>12</td><td>30.48</td><td>304.8</td></tr>
+<tr><td>18</td><td>45.72</td><td>457.2</td></tr>
+<tr><td>24</td><td>60.96</td><td>609.6</td></tr>
+<tr><td>36</td><td>91.44</td><td>914.4</td></tr>
+<tr><td>48</td><td>121.92</td><td>1,219.2</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Kilometres to miles</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>km</th><th>miles</th><th>m</th><th>ft</th></tr></thead><tbody>
+<tr><td>1</td><td>0.62137</td><td>1,000</td><td>3,280.84</td></tr>
+<tr><td>2</td><td>1.2427</td><td>2,000</td><td>6,561.68</td></tr>
+<tr><td>3</td><td>1.8641</td><td>3,000</td><td>9,842.52</td></tr>
+<tr><td>5</td><td>3.1069</td><td>5,000</td><td>16,404.2</td></tr>
+<tr><td>10</td><td>6.2137</td><td>10,000</td><td>32,808.4</td></tr>
+<tr><td>15</td><td>9.3206</td><td>15,000</td><td>49,212.6</td></tr>
+<tr><td>20</td><td>12.427</td><td>20,000</td><td>65,616.8</td></tr>
+<tr><td>21.0975</td><td>13.109</td><td>21,097.5</td><td>69,217.5</td></tr>
+<tr><td>25</td><td>15.534</td><td>25,000</td><td>82,021</td></tr>
+<tr><td>42.195</td><td>26.219</td><td>42,195</td><td>138,435</td></tr>
+<tr><td>50</td><td>31.069</td><td>50,000</td><td>164,042</td></tr>
+<tr><td>100</td><td>62.137</td><td>100,000</td><td>328,084</td></tr>
+<tr><td>200</td><td>124.27</td><td>200,000</td><td>656,168</td></tr>
+<tr><td>500</td><td>310.69</td><td>500,000</td><td>1,640,420</td></tr>
+<tr><td>1,000</td><td>621.37</td><td>1,000,000</td><td>3,280,840</td></tr>
+</tbody></table></div><p class="note">21.0975 km is a half marathon (13.1 mi) and 42.195 km a marathon (26.2 mi).</p>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How many centimetres are in an inch?</h3>
+<p>One inch is exactly 2.54 centimetres. To convert inches to cm, multiply by 2.54: 12 inches = 30.48 cm.</p>
+<h3>How do I convert my height to centimetres?</h3>
+<p>Convert to total inches first (feet × 12 + inches), then multiply by 2.54. For example, 5′ 10″ is 70 inches = 177.8 cm.</p>
+<h3>How many feet are in a metre?</h3>
+<p>One metre is 3.2808 feet, or 3 feet 3.37 inches. To convert metres to feet, multiply by 3.2808.</p>
+<h3>How do I convert km to miles?</h3>
+<p>Multiply kilometres by 0.62137. A 10 km run is 6.21 miles. To go from miles to km, multiply by 1.609.</p>
+<h3>How do I convert mm to inches?</h3>
+<p>Divide millimetres by 25.4. For example, 100 mm = 3.937 in, and 6 mm = 0.236 in.</p>
+<h3>What is the difference between a mile and a nautical mile?</h3>
+<p>A statute mile is 1,609.344 m. A nautical mile is 1,852 m, based on one minute of latitude, and is used at sea and in aviation. One nautical mile is about 1.151 statute miles.</p>
+</section>
+<!-- content:end -->
 </main>
 
 <footer class="site-footer">

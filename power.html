@@ -14,6 +14,17 @@
 <title>Power Converter — Watts to Horsepower, kW, BTU/hr & More | 1 Step Converter</title>
 <meta name="description" content="Convert power units instantly. Watts to horsepower, kilowatts to BTU per hour, MW to hp and more. Free online power converter for mechanical, metric and electrical units.">
 <link rel="canonical" href="https://www.1sconvert.com/power.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Power Converter — Watts to Horsepower, kW, BTU/hr &amp; More | 1 Step Converter">
+<meta property="og:description" content="Convert power units instantly. Watts to horsepower, kilowatts to BTU per hour, MW to hp and more. Free online power converter for mechanical, metric and electrical units.">
+<meta property="og:url" content="https://www.1sconvert.com/power.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -29,6 +40,56 @@
 })();
 </script>
 <link rel="stylesheet" href="shared.css">
+<!-- jsonld:start -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How many watts are in a horsepower?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One mechanical horsepower is 745.7 W. One metric horsepower (PS) is 735.5 W."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert kW to hp?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply kilowatts by 1.341 to get mechanical horsepower. For example, 100 kW = 134.1 hp, and a 7.5 kW motor is about 10 hp."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between hp and PS?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "PS (Pferdestärke) is metric horsepower, defined as 75 kgf·m/s = 735.5 W. Mechanical horsepower is 745.7 W, so 1 hp = 1.014 PS. European cars are usually rated in PS; US and UK figures usually use hp."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I convert BTU/h to watts?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Multiply BTU per hour by 0.2931. For example, a 12,000 BTU/h air conditioner is 3.517 kW of cooling, and 9,000 BTU/h is 2.64 kW."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between kW and kWh?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A kilowatt (kW) is a rate of power. A kilowatt-hour (kWh) is an amount of energy: power multiplied by time. A 2 kW heater running for 3 hours uses 6 kWh."
+   }
+  }
+ ]
+}
+</script>
+<!-- jsonld:end -->
 </head>
 <body>
 <nav class="site-nav">
@@ -38,13 +99,40 @@
 <a href="refrigeration.html">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">⚡ Power Converter</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#converter">Converter</a><a class="pb-link" href="#guide">Guide</a><a class="pb-link" href="#tables">Tables</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 <main class="page-wrap">
   <div class="page-header animate-in">
     <span class="eyebrow">⚡ Power</span>
     <h1>Power Converter</h1>
     <p class="sub">9 units · watts, horsepower &amp; more</p>
   </div>
-  <div class="card animate-in delay-1">
+  <div id="converter" class="card animate-in delay-1">
     <div class="input-row">
       <div><label class="field-label" for="val-input">Value</label><input type="number" id="val-input" value="1" step="any" placeholder="0"></div>
       <div><label class="field-label" for="unit-sel">From</label><select id="unit-sel"></select></div>
@@ -53,6 +141,83 @@
     <div class="results-grid" id="results"></div>
     <div class="formula-bar"><span class="f-label">formula</span><span id="formula">—</span></div>
   </div>
+<!-- content:start -->
+<section class="card info" id="guide">
+<h2>How to convert power units</h2>
+<p>Power is the rate at which energy is used or work is done. One <strong>watt (W)</strong> is one joule per second. Electric motors and appliances are rated in watts or kilowatts, engines in <strong>horsepower</strong>, and heating and air-conditioning equipment often in <strong>BTU per hour</strong>.</p>
+<p>There are two common horsepowers. <strong>Mechanical (imperial) horsepower</strong> is 550 ft·lbf/s, or 745.7 W. <strong>Metric horsepower</strong> (PS, CV or pk) is 75 kgf·m/s, or 735.5 W, about 1.4% smaller. European car brochures usually quote PS.</p>
+<ul>
+<li><strong>kW to hp:</strong> multiply by 1.341</li>
+<li><strong>hp to kW:</strong> multiply by 0.7457</li>
+<li><strong>kW to PS:</strong> multiply by 1.360</li>
+<li><strong>BTU/h to watts:</strong> multiply by 0.2931 (12,000 BTU/h ≈ 3.517 kW, one ton of cooling)</li>
+<li><strong>Watts to BTU/h:</strong> multiply by 3.412</li>
+</ul>
+<p>Related: <a href="energy.html">energy converter</a> (kWh, joules, BTU) and <a href="refrigeration.html">refrigeration calculator</a> (tons of refrigeration, COP and EER).</p>
+</section>
+<section class="card info" id="tables">
+<h2>Standard motor sizes: kW to horsepower</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>kW</th><th>hp (mechanical)</th><th>PS (metric hp)</th><th>BTU/h</th></tr></thead><tbody>
+<tr><td>0.37</td><td>0.4962</td><td>0.5031</td><td>1,262.5</td></tr>
+<tr><td>0.75</td><td>1.006</td><td>1.02</td><td>2,559.1</td></tr>
+<tr><td>1.1</td><td>1.475</td><td>1.496</td><td>3,753.4</td></tr>
+<tr><td>1.5</td><td>2.012</td><td>2.039</td><td>5,118.2</td></tr>
+<tr><td>2.2</td><td>2.95</td><td>2.991</td><td>7,506.7</td></tr>
+<tr><td>3</td><td>4.023</td><td>4.079</td><td>10,236</td></tr>
+<tr><td>4</td><td>5.364</td><td>5.438</td><td>13,649</td></tr>
+<tr><td>5.5</td><td>7.376</td><td>7.478</td><td>18,767</td></tr>
+<tr><td>7.5</td><td>10.06</td><td>10.2</td><td>25,591</td></tr>
+<tr><td>11</td><td>14.75</td><td>14.96</td><td>37,534</td></tr>
+<tr><td>15</td><td>20.12</td><td>20.39</td><td>51,182</td></tr>
+<tr><td>18.5</td><td>24.81</td><td>25.15</td><td>63,125</td></tr>
+<tr><td>22</td><td>29.5</td><td>29.91</td><td>75,067</td></tr>
+<tr><td>30</td><td>40.23</td><td>40.79</td><td>102,364</td></tr>
+<tr><td>37</td><td>49.62</td><td>50.31</td><td>126,249</td></tr>
+<tr><td>45</td><td>60.35</td><td>61.18</td><td>153,546</td></tr>
+<tr><td>55</td><td>73.76</td><td>74.78</td><td>187,668</td></tr>
+<tr><td>75</td><td>100.6</td><td>102</td><td>255,911</td></tr>
+<tr><td>90</td><td>120.7</td><td>122.4</td><td>307,093</td></tr>
+<tr><td>110</td><td>147.5</td><td>149.6</td><td>375,336</td></tr>
+<tr><td>132</td><td>177</td><td>179.5</td><td>450,403</td></tr>
+<tr><td>160</td><td>214.6</td><td>217.5</td><td>545,943</td></tr>
+<tr><td>200</td><td>268.2</td><td>271.9</td><td>682,428</td></tr>
+<tr><td>250</td><td>335.3</td><td>339.9</td><td>853,035</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info">
+<h2>Horsepower to kilowatts</h2>
+<div class="tbl-scroll"><table class="data"><thead><tr><th>hp</th><th>kW</th><th>PS</th><th>W</th></tr></thead><tbody>
+<tr><td>1</td><td>0.7457</td><td>1.0139</td><td>745.7</td></tr>
+<tr><td>2</td><td>1.4914</td><td>2.0277</td><td>1,491.4</td></tr>
+<tr><td>5</td><td>3.7285</td><td>5.0693</td><td>3,728.5</td></tr>
+<tr><td>10</td><td>7.457</td><td>10.139</td><td>7,457</td></tr>
+<tr><td>25</td><td>18.642</td><td>25.347</td><td>18,642.5</td></tr>
+<tr><td>50</td><td>37.285</td><td>50.693</td><td>37,285</td></tr>
+<tr><td>75</td><td>55.927</td><td>76.04</td><td>55,927.5</td></tr>
+<tr><td>100</td><td>74.57</td><td>101.39</td><td>74,570</td></tr>
+<tr><td>150</td><td>111.85</td><td>152.08</td><td>111,855</td></tr>
+<tr><td>200</td><td>149.14</td><td>202.77</td><td>149,140</td></tr>
+<tr><td>250</td><td>186.42</td><td>253.47</td><td>186,425</td></tr>
+<tr><td>300</td><td>223.71</td><td>304.16</td><td>223,710</td></tr>
+<tr><td>400</td><td>298.28</td><td>405.55</td><td>298,280</td></tr>
+<tr><td>500</td><td>372.85</td><td>506.93</td><td>372,850</td></tr>
+<tr><td>1,000</td><td>745.7</td><td>1,013.9</td><td>745,700</td></tr>
+</tbody></table></div>
+</section>
+<section class="card info" id="faq">
+<h2>Frequently asked questions</h2>
+<h3>How many watts are in a horsepower?</h3>
+<p>One mechanical horsepower is 745.7 W. One metric horsepower (PS) is 735.5 W.</p>
+<h3>How do I convert kW to hp?</h3>
+<p>Multiply kilowatts by 1.341 to get mechanical horsepower. For example, 100 kW = 134.1 hp, and a 7.5 kW motor is about 10 hp.</p>
+<h3>What is the difference between hp and PS?</h3>
+<p>PS (Pferdestärke) is metric horsepower, defined as 75 kgf·m/s = 735.5 W. Mechanical horsepower is 745.7 W, so 1 hp = 1.014 PS. European cars are usually rated in PS; US and UK figures usually use hp.</p>
+<h3>How do I convert BTU/h to watts?</h3>
+<p>Multiply BTU per hour by 0.2931. For example, a 12,000 BTU/h air conditioner is 3.517 kW of cooling, and 9,000 BTU/h is 2.64 kW.</p>
+<h3>What is the difference between kW and kWh?</h3>
+<p>A kilowatt (kW) is a rate of power. A kilowatt-hour (kWh) is an amount of energy: power multiplied by time. A 2 kW heater running for 3 hours uses 6 kWh.</p>
+</section>
+<!-- content:end -->
 </main>
 <footer class="site-footer">
   <div style="display:flex;align-items:center;gap:0.85rem">

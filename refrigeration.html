@@ -14,6 +14,17 @@
 <title>Refrigeration Calculator — Refrigerant PT Chart, Superheat, Subcooling & TR to kW | 1 Step Converter</title>
 <meta name="description" content="Free refrigerant PT chart and calculator for R-410A, R-134a, R-404A, R-32, R-448A, R-454B, R-290, ammonia and CO2. Superheat and subcooling, tons of refrigeration to kW and BTU/h, COP to EER, chilled water and air heat load.">
 <link rel="canonical" href="https://www.1sconvert.com/refrigeration.html">
+<!-- og:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1 Step Converter">
+<meta property="og:title" content="Refrigeration Calculator — Refrigerant PT Chart, Superheat, Subcooling &amp; TR to kW | 1 Step Converter">
+<meta property="og:description" content="Free refrigerant PT chart and calculator for R-410A, R-134a, R-404A, R-32, R-448A, R-454B, R-290, ammonia and CO2. Superheat and subcooling, tons of refrigeration to kW and BTU/h, COP to EER, chilled water and air heat load.">
+<meta property="og:url" content="https://www.1sconvert.com/refrigeration.html">
+<meta property="og:image" content="https://www.1sconvert.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:end -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -62,7 +73,7 @@
 <style>
   .jump { margin-bottom: 1.25rem; }
   .jump .tab { text-decoration: none; }
-  .tool { margin-top: 1.25rem; scroll-margin-top: 76px; }
+  .tool { margin-top: 1.25rem; }
   .tool h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.35rem; }
   .tool .lead { font-size: 0.85rem; color: var(--muted2); margin-bottom: 1.25rem; line-height: 1.5; }
   .ctrls { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0.6rem; margin-bottom: 1.25rem; }
@@ -78,19 +89,6 @@
   .pt-wrap { margin-top: 1rem; }
   .pt-wrap summary { cursor: pointer; font-size: 0.85rem; color: var(--muted2); padding: 0.4rem 0; }
   .pt-wrap summary:hover { color: var(--text); }
-  .tbl-scroll { overflow-x: auto; max-height: 420px; overflow-y: auto; margin-top: 0.5rem; border: 1px solid var(--border); border-radius: 10px; }
-  table.data { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-  table.data th { position: sticky; top: 0; background: var(--surface2); font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; color: var(--muted); text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border2); white-space: nowrap; }
-  table.data td { padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; color: var(--text); white-space: nowrap; }
-  table.data td.txt { font-family: 'Outfit', sans-serif; white-space: normal; color: var(--muted2); }
-  table.data tr:hover td { background: var(--surface2); }
-  .info { margin-top: 2rem; }
-  .info h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-  .info h3 { font-size: 0.95rem; font-weight: 600; margin: 1.1rem 0 0.35rem; }
-  .info p, .info li { font-size: 0.88rem; color: var(--muted2); line-height: 1.6; }
-  .info ul { padding-left: 1.2rem; margin: 0.4rem 0; }
-  .info code { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); background: var(--surface2); padding: 0.1rem 0.35rem; border-radius: 4px; }
-  .note { font-size: 0.75rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; }
   @media (max-width: 640px) {
     .ctrls { grid-template-columns: 1fr 1fr; }
     .ctrls .ref-cell { grid-column: 1 / -1; }
@@ -185,21 +183,39 @@
     <a href="length.html">Length</a><a href="weight.html">Weight</a><a href="temperature.html">Temp</a><a href="speed.html">Speed</a><a href="area.html">Area</a><a href="volume.html">Volume</a><a href="pressure.html">Pressure</a><a href="energy.html">Energy</a><a href="power.html">Power</a><a href="force.html">Force</a><a href="electricity.html">Electricity</a><a href="time.html">Time</a><a href="density.html">Density</a><a href="data.html">Data</a><a href="cooking.html">Cooking</a><a href="refrigeration.html" class="active">Refrigeration</a>
   </div>
 </nav>
+<!-- pagebar:start -->
+<div class="page-bar" id="page-bar"><div class="pb-inner"><span class="pb-title">❄️ Refrigeration Calculator</span><nav class="pb-links" aria-label="On this page"><a class="pb-link" href="#capacity">Capacity</a><a class="pb-link" href="#pt">PT Chart</a><a class="pb-link" href="#shsc">Superheat / Subcooling</a><a class="pb-link" href="#efficiency">COP · EER</a><a class="pb-link" href="#load">Heat Load</a><a class="pb-link" href="#refrigerants">Refrigerants</a><a class="pb-link" href="#faq">FAQ</a></nav></div></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.getElementById('page-bar'); if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('.pb-link'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var head = document.querySelector('.page-header'), box = bar.querySelector('.pb-links');
+  function update() {
+
+    var edge = bar.getBoundingClientRect().bottom;
+    if (head) bar.classList.toggle('show-title', head.getBoundingClientRect().bottom < edge);
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= edge + 40) cur = i; });
+    if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (cur < 0) { box.scrollLeft = 0; return; }
+    var a = links[cur];  // keep the active shortcut in view on narrow screens
+    if (a.offsetLeft < box.scrollLeft || a.offsetLeft + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollLeft = a.offsetLeft - 12;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+});
+</script>
+<!-- pagebar:end -->
 <main class="page-wrap">
   <div class="page-header animate-in">
     <span class="eyebrow">❄️ Refrigeration</span>
     <h1>Refrigeration Calculator</h1>
     <p class="sub">PT chart · superheat &amp; subcooling · capacity · COP/EER · heat load · 19 refrigerants</p>
   </div>
-
-  <nav class="tabs jump animate-in delay-1" aria-label="Jump to tool">
-    <a class="tab" href="#capacity">Capacity</a>
-    <a class="tab" href="#pt">PT Chart</a>
-    <a class="tab" href="#shsc">Superheat / Subcooling</a>
-    <a class="tab" href="#efficiency">COP · EER</a>
-    <a class="tab" href="#load">Heat Load</a>
-    <a class="tab" href="#refrigerants">Refrigerants</a>
-  </nav>
 
   <!-- 1. CAPACITY -->
   <section class="card tool animate-in delay-1" id="capacity">

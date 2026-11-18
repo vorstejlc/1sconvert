@@ -31,6 +31,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── PAGE BACKGROUND ──
+   The inline theme script paints three coloured ellipses on body::before. Their 60% cut-off showed as a
+   visible oval on wide screens, so this replaces them with one soft wash of the theme colour from the top
+   that fades out with no edge. (Selector is more specific than the theme script's, so it wins on every page.) */
+html body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(ellipse 150% 85% at 50% -15%,
+      color-mix(in srgb, var(--accent) 10%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 4%, transparent) 40%,
+      color-mix(in srgb, var(--accent) 1%, transparent) 70%,
+      transparent 100%);
+}
+
 /* ── NAV ── */
 .site-nav {
   position: sticky;
@@ -378,6 +392,63 @@ select {
 }
 
 .site-footer a:hover { color: var(--accent); }
+
+/* ── CONTENT SECTIONS (explanations, tables, FAQ) ── */
+.info { margin-top: 2rem; }
+.info + .info { margin-top: 1.25rem; }
+.info h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+.info h3 { font-size: 0.95rem; font-weight: 600; margin: 1.1rem 0 0.35rem; }
+.info p, .info li { font-size: 0.88rem; color: var(--muted2); line-height: 1.6; }
+.info p + p { margin-top: 0.6rem; }
+.info ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+.info strong { color: var(--text); font-weight: 600; }
+.info a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); text-underline-offset: 3px; }
+.info a:hover { text-decoration-color: currentColor; }
+.info code { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); background: var(--surface2); padding: 0.1rem 0.35rem; border-radius: 4px; }
+.info .tbl-scroll { margin-top: 0.75rem; }
+.tbl-scroll { overflow-x: auto; max-height: 420px; overflow-y: auto; margin-top: 0.5rem; border: 1px solid var(--border); border-radius: 10px; }
+table.data { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+table.data th { position: sticky; top: 0; background: var(--surface2); font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; color: var(--muted); text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border2); white-space: nowrap; }
+table.data td { padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; color: var(--text); white-space: nowrap; }
+table.data td.txt { font-family: 'Outfit', sans-serif; white-space: normal; color: var(--muted2); }
+table.data tr:hover td { background: var(--surface2); }
+.note { font-size: 0.75rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; }
+
+/* ── STICKY PAGE BAR (page title + section shortcuts, sits under the site nav) ── */
+.page-bar {
+  position: sticky; top: 60px; z-index: 90;
+  background: rgba(8,8,16,0.88);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.pb-inner {
+  max-width: 760px; margin: 0 auto;
+  padding: 0.5rem clamp(1rem, 4vw, 2rem);
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.pb-title {
+  font-size: 0.85rem; font-weight: 700; letter-spacing: -0.01em; color: var(--text);
+  white-space: nowrap; overflow: hidden; flex-shrink: 0;
+  max-width: 0; opacity: 0; transition: max-width 0.25s ease, opacity 0.2s ease;
+}
+.page-bar.show-title .pb-title { max-width: 280px; opacity: 1; }
+.pb-links {
+  display: flex; gap: 0.3rem; flex: 1; min-width: 0; position: relative;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.pb-links::-webkit-scrollbar { display: none; }
+.pb-link {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.35rem 0.8rem; border-radius: 6px; border: 1px solid var(--border2);
+  color: var(--muted); text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.pb-link:hover { color: var(--text); border-color: var(--accent); }
+.pb-link.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+main [id] { scroll-margin-top: 125px; }
+@media (max-width: 520px) {
+  .pb-title { display: none; }  /* phones: keep every shortcut visible; the site name stays in the nav */
+}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
